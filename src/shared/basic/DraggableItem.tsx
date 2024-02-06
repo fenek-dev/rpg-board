@@ -1,8 +1,9 @@
 import { useDraggable } from "@dnd-kit/core";
+import React from "react";
 import { useMemo } from "react";
 import { Button } from "~/components/ui/button";
 
-interface DraggableProps {
+export interface DraggableItemProps {
   top?: number;
   left?: number;
   gridSize: number;
@@ -10,18 +11,13 @@ interface DraggableProps {
   width: number;
 }
 
-export function DraggableItem({
-  top,
-  left,
-  gridSize,
-  height,
-  width,
-  children,
-}: React.PropsWithChildren<DraggableProps>) {
-  const { attributes, isDragging, listeners, setNodeRef, transform } =
-    useDraggable({
-      id: "draggable",
-    });
+export const DraggableItem = React.forwardRef<
+  HTMLButtonElement,
+  React.PropsWithChildren<DraggableItemProps>
+>(({ top, left, gridSize, height, width, children, ...props }, ref) => {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: "draggable",
+  });
 
   const [w, h] = useMemo(
     () => [gridSize * width - 2, gridSize * height - 2],
@@ -37,7 +33,6 @@ export function DraggableItem({
   return (
     <Button
       variant="outline"
-      ref={setNodeRef}
       {...listeners}
       {...attributes}
       style={{
@@ -48,8 +43,21 @@ export function DraggableItem({
         width: w,
         height: h,
       }}
+      {...props}
+      ref={(el) => {
+        setNodeRef(el);
+        if (ref) {
+          if (typeof ref === "function") {
+            ref(el);
+          } else {
+            ref.current = el;
+          }
+        }
+      }}
     >
       {children}
     </Button>
   );
-}
+});
+
+DraggableItem.displayName = "DraggableItem";

@@ -12,7 +12,7 @@ export interface PlayerState {
 }
 
 const initialState: PlayerState = {
-  hp: 100,
+  hp: 33,
   max_hp: 100,
   stamina: 100,
   max_stamina: 100,

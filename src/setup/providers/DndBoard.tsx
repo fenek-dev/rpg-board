@@ -14,6 +14,7 @@ import React from "react";
 import { Grid } from "../layout";
 import { Coordinates } from "@dnd-kit/core/dist/types";
 import { Draggable, DraggableItem } from "~/shared/basic";
+import { HpBar } from "~/widgets/player/HpBar";
 
 export const DndBoard = ({ children }: React.PropsWithChildren) => {
   const [{ x, y }, setCoordinates] =
@@ -38,15 +39,13 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
         }}
         modifiers={[snapToGrid, restrictToWindowEdges]}
       >
-        <DraggableItem
+        <HpBar
           top={y}
           left={x}
           gridSize={gridSize}
-          height={3}
-          width={5}
-        >
-          🪓 Axe
-        </DraggableItem>
+          height={1}
+          width={4}
+        ></HpBar>
         {children}
       </DndContext>
       <Grid size={gridSize} />
