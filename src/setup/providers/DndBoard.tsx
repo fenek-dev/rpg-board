@@ -24,7 +24,7 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
     <>
       <DndContext
         autoScroll={false}
-        onDragEnd={({ delta, activatorEvent, active, collisions }) => {
+        onDragEnd={({ delta, active }) => {
           dispatch(
             changeBlockPosition({ id: active.id, x: delta.x, y: delta.y })
           );

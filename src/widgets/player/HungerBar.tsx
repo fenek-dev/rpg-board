@@ -12,8 +12,6 @@ import { RootState, START_HUNGER } from "~/setup/store";
 import { DraggableItem, DraggableItemProps } from "~/shared/basic";
 
 export const HungerBar = React.memo((props: DraggableItemProps) => {
-  console.log(props);
-
   const hunger = useSelector((state: RootState) => state.player.hunger);
 
   return (
