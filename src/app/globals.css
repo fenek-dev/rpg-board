@@ -31,3 +31,54 @@ body {
     text-wrap: balance;
   }
 }
+
+.Grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  --dot-bg: black;
+  --dot-color: #444;
+  --dot-size: 2px;
+  --dot-space: 30px;
+  background: linear-gradient(
+        90deg,
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    linear-gradient(
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    var(--dot-color);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.Grid-lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent calc(var(--grid-size) - 1px),
+      #222 calc(var(--grid-size) - 1px),
+      #222 var(--grid-size)
+    ),
+    repeating-linear-gradient(
+      -90deg,
+      transparent,
+      transparent calc(var(--grid-size) - 1px),
+      #222 calc(var(--grid-size) - 1px),
+      #222 var(--grid-size)
+    );
+  background-size: var(--grid-size) var(--grid-size);
+  z-index: -1;
+  pointer-events: none;
+}
