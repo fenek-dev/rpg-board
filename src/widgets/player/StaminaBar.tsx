@@ -10,7 +10,7 @@ import { Progress } from "~/components/ui/progress";
 import { RootState } from "~/setup/store";
 import { DraggableItem, DraggableItemProps } from "~/shared/basic";
 
-export const StaminaBar = (props: DraggableItemProps) => {
+export const StaminaBar = React.memo((props: DraggableItemProps) => {
   const stamina = useSelector((state: RootState) => state.player.stamina);
   const max_stamina = useSelector(
     (state: RootState) => state.player.max_stamina
@@ -32,4 +32,6 @@ export const StaminaBar = (props: DraggableItemProps) => {
       </HoverCardContent>
     </HoverCard>
   );
-};
+});
+
+StaminaBar.displayName = "StaminaBar";

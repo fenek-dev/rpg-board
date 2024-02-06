@@ -10,7 +10,7 @@ import { Progress } from "~/components/ui/progress";
 import { RootState } from "~/setup/store";
 import { DraggableItem, DraggableItemProps } from "~/shared/basic";
 
-export const HpBar = (props: DraggableItemProps) => {
+export const HpBar = React.memo((props: DraggableItemProps) => {
   const hp = useSelector((state: RootState) => state.player.hp);
   const max_hp = useSelector((state: RootState) => state.player.max_hp);
   return (
@@ -26,4 +26,6 @@ export const HpBar = (props: DraggableItemProps) => {
       </HoverCardContent>
     </HoverCard>
   );
-};
+});
+
+HpBar.displayName = "HpBar";

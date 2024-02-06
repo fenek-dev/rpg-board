@@ -1,3 +1,4 @@
+import { createSelector } from "@reduxjs/toolkit";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Badge } from "~/components/ui/badge";
@@ -10,7 +11,9 @@ import { Progress } from "~/components/ui/progress";
 import { RootState, START_HUNGER } from "~/setup/store";
 import { DraggableItem, DraggableItemProps } from "~/shared/basic";
 
-export const HungerBar = (props: DraggableItemProps) => {
+export const HungerBar = React.memo((props: DraggableItemProps) => {
+  console.log(props);
+
   const hunger = useSelector((state: RootState) => state.player.hunger);
 
   return (
@@ -30,4 +33,6 @@ export const HungerBar = (props: DraggableItemProps) => {
       </HoverCardContent>
     </HoverCard>
   );
-};
+});
+
+HungerBar.displayName = "HungerBar";
