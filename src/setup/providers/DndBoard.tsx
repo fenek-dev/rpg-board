@@ -13,7 +13,7 @@ import { createSnapModifier, restrictToWindowEdges } from "@dnd-kit/modifiers";
 import React from "react";
 import { Grid } from "../layout";
 import { Coordinates } from "@dnd-kit/core/dist/types";
-import { Draggable } from "~/shared/basic";
+import { Draggable, DraggableItem } from "~/shared/basic";
 
 export const DndBoard = ({ children }: React.PropsWithChildren) => {
   const [{ x, y }, setCoordinates] =
@@ -38,7 +38,15 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
         }}
         modifiers={[snapToGrid, restrictToWindowEdges]}
       >
-        <Draggable top={y} left={x} gridSize={gridSize} height={4} width={8} />
+        <DraggableItem
+          top={y}
+          left={x}
+          gridSize={gridSize}
+          height={3}
+          width={5}
+        >
+          🪓 Axe
+        </DraggableItem>
         {children}
       </DndContext>
       <Grid size={gridSize} />
