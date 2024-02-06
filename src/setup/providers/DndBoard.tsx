@@ -1,20 +1,9 @@
-import {
-  DndContext,
-  Modifiers,
-  MouseSensor,
-  PointerActivationConstraint,
-  TouchSensor,
-  defaultCoordinates,
-  useDraggable,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
+import { DndContext, defaultCoordinates } from "@dnd-kit/core";
 import { createSnapModifier, restrictToWindowEdges } from "@dnd-kit/modifiers";
 import React from "react";
 import { Grid } from "../layout";
 import { Coordinates } from "@dnd-kit/core/dist/types";
-import { Draggable, DraggableItem } from "~/shared/basic";
-import { HpBar } from "~/widgets/player/HpBar";
+import { ThirstyBar } from "~/widgets/player/ThirstryBar";
 
 export const DndBoard = ({ children }: React.PropsWithChildren) => {
   const [{ x, y }, setCoordinates] =
@@ -39,13 +28,13 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
         }}
         modifiers={[snapToGrid, restrictToWindowEdges]}
       >
-        <HpBar
+        <ThirstyBar
           top={y}
           left={x}
           gridSize={gridSize}
           height={1}
-          width={4}
-        ></HpBar>
+          width={5}
+        ></ThirstyBar>
         {children}
       </DndContext>
       <Grid size={gridSize} />

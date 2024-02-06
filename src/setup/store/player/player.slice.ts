@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { ChangePlayerStat } from "./player.types";
+import {
+  START_HP,
+  START_HUNGER,
+  START_MAX_HP,
+  START_STAMINA,
+} from "./player.enum";
 
 export interface PlayerState {
   hp: number;
@@ -12,12 +18,12 @@ export interface PlayerState {
 }
 
 const initialState: PlayerState = {
-  hp: 33,
-  max_hp: 100,
-  stamina: 100,
-  max_stamina: 100,
-  hunger: 100,
-  thirsty: 100,
+  hp: START_HP,
+  max_hp: START_MAX_HP,
+  stamina: START_STAMINA,
+  max_stamina: START_MAX_HP,
+  hunger: START_STAMINA,
+  thirsty: START_HUNGER,
 };
 
 export const playerSlice = createSlice({
