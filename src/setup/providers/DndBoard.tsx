@@ -39,7 +39,10 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
           );
         }}
         cancelDrop={({ active, over }) => {
-          return active.data.current?.type === over?.data.current?.type;
+          return (
+            active.data.current?.type === over?.data.current?.type &&
+            active.id !== over?.id
+          );
         }}
         modifiers={[snapToGrid, restrictToWindowEdges]}
       >
