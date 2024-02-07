@@ -1,4 +1,4 @@
-import { useDraggable } from "@dnd-kit/core";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
 import React from "react";
 import { useMemo } from "react";
 import { Button } from "~/components/ui/button";
@@ -18,6 +18,16 @@ export const DraggableItem = React.forwardRef<
 >(({ x, y, gridSize, height, width, children, ...props }, ref) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: props.id || crypto.randomUUID(),
+    data: {
+      type: "item",
+    },
+  });
+
+  const { setNodeRef: nodeRef } = useDroppable({
+    id: props.id || crypto.randomUUID(),
+    data: {
+      type: "item",
+    },
   });
 
   const [w, h] = useMemo(
@@ -47,6 +57,7 @@ export const DraggableItem = React.forwardRef<
       {...props}
       ref={(el) => {
         setNodeRef(el);
+        nodeRef(el);
         if (ref) {
           if (typeof ref === "function") {
             ref(el);
