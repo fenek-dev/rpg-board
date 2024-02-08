@@ -11,7 +11,7 @@ export const useDraggableStyles = (
   y: number,
   transform?: Transform | null
 ) => {
-  const [w, h] = [gridSize * width - 2, gridSize * height - 2];
+  const [w, h] = [gridSize * width - gridSize / 10, gridSize * height - gridSize / 10];
 
   const style = useMemo<React.CSSProperties>(
     () => ({

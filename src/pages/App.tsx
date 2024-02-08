@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <main
-        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden"
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         style={boardPositionStyle(gridSize, width, height)}
       >
         <DndBoard>

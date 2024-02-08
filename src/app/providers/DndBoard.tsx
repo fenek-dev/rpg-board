@@ -9,7 +9,11 @@ import { changeBlockPosition } from '~/widgets/blocks/store';
 import { Grid } from '../layout';
 import { RootState } from '../store';
 
-export const DndBoard = ({ children }: React.PropsWithChildren) => {
+interface DndBoardProps {
+  allowOutsideParent?: boolean;
+}
+
+export const DndBoard = ({ allowOutsideParent, children }: React.PropsWithChildren<DndBoardProps>) => {
   const dispatch = useDispatch();
 
   const gridSize = useSelector((state: RootState) => state.settings.gridSize);
@@ -45,7 +49,7 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
       cancelDrop={({ active, over }) => {
         return active.data.current?.type === over?.data.current?.type && active.id !== over?.id;
       }}
-      modifiers={[snapToGrid, restrictToParentElement]}
+      modifiers={allowOutsideParent ? undefined : [snapToGrid, restrictToParentElement]}
       onDragEnd={({ active, delta }) => {
         dispatch(
           changeBlockPosition({

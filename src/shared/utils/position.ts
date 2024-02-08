@@ -1,17 +1,14 @@
 import React from 'react';
 
 export const boardPositionStyle = (gridSize: number, width: number, height: number): React.CSSProperties => ({
-  height: height * gridSize + 2,
-  padding: gridSize,
-  paddingBottom: gridSize + 4,
-  paddingRight: gridSize + 4,
-  width: width * gridSize + 2,
+  height: height * gridSize - gridSize / 10,
+  width: width * gridSize - gridSize / 10,
 });
 
 export const popupContainerPositionStyle = (gridSize: number, width: number, height: number): React.CSSProperties => ({
-  height: height * gridSize + 2,
+  height: height * gridSize + gridSize / 10,
   padding: gridSize,
-  paddingBottom: gridSize + 4,
+  paddingBottom: gridSize + gridSize / 10,
   paddingRight: gridSize + 4,
   paddingTop: 0,
   width: width * gridSize + 2,
