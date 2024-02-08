@@ -7,8 +7,8 @@ export const useDraggableStyles = (
   gridSize: number,
   width: number,
   height: number,
-  x?: number,
-  y?: number,
+  x: number,
+  y: number,
   transform?: Transform | null
 ) => {
   const [w, h] = [gridSize * width - 2, gridSize * height - 2];
@@ -16,9 +16,9 @@ export const useDraggableStyles = (
   const style = useMemo<React.CSSProperties>(
     () => ({
       height: h,
-      left: x,
+      left: x * gridSize,
       position: 'absolute',
-      top: y,
+      top: y * gridSize,
       transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
       width: w,
     }),

@@ -1,4 +1,4 @@
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { Coordinates } from '@dnd-kit/core/dist/types';
 import { createSnapModifier, restrictToParentElement } from '@dnd-kit/modifiers';
 import React, { useCallback } from 'react';
@@ -26,6 +26,19 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
     [gridSize]
   );
 
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: gridSize / 2,
+    },
+  });
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      distance: gridSize / 2,
+    },
+  });
+
+  const sensors = useSensors(mouseSensor, touchSensor);
+
   return (
     <DndContext
       autoScroll={false}
@@ -36,11 +49,12 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
       onDragEnd={({ active, delta }) => {
         dispatch(
           changeBlockPosition({
-            id: active.id,
+            id: active.id as string,
             ...applyToGrid(delta),
           })
         );
       }}
+      sensors={sensors}
     >
       {children}
 

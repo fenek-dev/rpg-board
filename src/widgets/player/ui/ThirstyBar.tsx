@@ -25,3 +25,5 @@ export const ThirstyBar = React.memo((props: DraggableItemProps) => {
     </HoverCard>
   );
 });
+
+ThirstyBar.displayName = 'ThirstyBar';

@@ -2,10 +2,11 @@ export enum BlockTypes {
   UI,
   Item,
   Container,
+  Popup,
 }
 
 export interface Block<Name extends string = string> {
-  children?: string[];
+  contain?: SerializedBlocks;
   height: number;
   name: Name;
   parent?: string;

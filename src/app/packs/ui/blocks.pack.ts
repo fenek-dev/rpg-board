@@ -4,10 +4,10 @@ import { StaminaBar } from '~/widgets/player/ui/StaminaBar';
 import { ThirstyBar } from '~/widgets/player/ui/ThirstyBar';
 
 const UI_BLOCKS = {
-  HpBar: HpBar,
-  HungerBar: HungerBar,
-  StaminaBar: StaminaBar,
-  ThirstyBar: ThirstyBar,
+  HpBar,
+  HungerBar,
+  StaminaBar,
+  ThirstyBar,
 } as const;
 
 export type UiBlockType = typeof UI_BLOCKS;

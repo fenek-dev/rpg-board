@@ -11,9 +11,9 @@ export interface SettingsState {
 
 const initialState: SettingsState = {
   gridSize: 32,
-  height: 26,
+  height: 20,
   theme: 'dark',
-  width: 48,
+  width: 32,
 };
 
 export const settingsSlice = createSlice({
