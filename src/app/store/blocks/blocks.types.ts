@@ -1,12 +1,12 @@
-import { UI_BLOCKS } from "~/app/enum/blocks";
+import { UI_BLOCKS } from '~/app/enum/blocks';
 
 export interface Block {
+  children?: Block[];
+  height: number;
   name: keyof typeof UI_BLOCKS;
+  width: number;
   x: number;
   y: number;
-  width: number;
-  height: number;
-  children?: Block[];
 }
 
 export type SerializedBlocks = Record<string, Block>;

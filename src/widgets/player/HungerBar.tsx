@@ -1,13 +1,14 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { RootState, START_HUNGER } from '~/app/store';
+import { DraggableItem, DraggableItemProps } from '~/shared/basic';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "~/shared/components/ui/hover-card";
-import { Progress } from "~/shared/components/ui/progress";
-import { RootState, START_HUNGER } from "~/app/store";
-import { DraggableItem, DraggableItemProps } from "~/shared/basic";
+} from '~/shared/components/ui/hover-card';
+import { Progress } from '~/shared/components/ui/progress';
 
 export const HungerBar = React.memo((props: DraggableItemProps) => {
   const hunger = useSelector((state: RootState) => state.player.hunger);
@@ -19,8 +20,8 @@ export const HungerBar = React.memo((props: DraggableItemProps) => {
           <p className="text-sm text-muted-foreground mr-2">HNG</p>
           <Progress
             indicatorClassName="bg-lime-700"
-            value={hunger}
             max={START_HUNGER}
+            value={hunger}
           />
         </DraggableItem>
       </HoverCardTrigger>
@@ -31,4 +32,4 @@ export const HungerBar = React.memo((props: DraggableItemProps) => {
   );
 });
 
-HungerBar.displayName = "HungerBar";
+HungerBar.displayName = 'HungerBar';

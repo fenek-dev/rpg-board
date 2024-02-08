@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { Block, SerializedBlocks } from "./blocks.types";
-import { BASIC_UI_BLOCKS } from "./blocks.const";
+import { createSlice } from '@reduxjs/toolkit';
+
+import { BASIC_UI_BLOCKS } from './blocks.const';
+import { Block, SerializedBlocks } from './blocks.types';
 
 export interface BlocksState {
   blocks: SerializedBlocks;
@@ -13,8 +14,8 @@ const initialState: BlocksState = {
 };
 
 export const blocksSlice = createSlice({
-  name: "blocks",
   initialState,
+  name: 'blocks',
   reducers: {
     addBlock: (state, action: PayloadAction<Block>) => {
       const id = crypto.randomUUID();
@@ -22,7 +23,7 @@ export const blocksSlice = createSlice({
     },
     changeBlockPosition: (
       state,
-      action: PayloadAction<{ id: string | number; x: number; y: number }>
+      action: PayloadAction<{ id: number | string; x: number; y: number }>,
     ) => {
       state.blocks[action.payload.id].x += action.payload.x;
       state.blocks[action.payload.id].y += action.payload.y;

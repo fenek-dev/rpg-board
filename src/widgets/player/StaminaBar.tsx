@@ -1,18 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { RootState } from '~/app/store';
+import { DraggableItem, DraggableItemProps } from '~/shared/basic';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "~/shared/components/ui/hover-card";
-import { Progress } from "~/shared/components/ui/progress";
-import { RootState } from "~/app/store";
-import { DraggableItem, DraggableItemProps } from "~/shared/basic";
+} from '~/shared/components/ui/hover-card';
+import { Progress } from '~/shared/components/ui/progress';
 
 export const StaminaBar = React.memo((props: DraggableItemProps) => {
   const stamina = useSelector((state: RootState) => state.player.stamina);
   const max_stamina = useSelector(
-    (state: RootState) => state.player.max_stamina
+    (state: RootState) => state.player.max_stamina,
   );
   return (
     <HoverCard>
@@ -21,8 +22,8 @@ export const StaminaBar = React.memo((props: DraggableItemProps) => {
           <p className="text-sm text-muted-foreground mr-2">STM</p>
           <Progress
             indicatorClassName="bg-orange-400"
-            value={stamina}
             max={max_stamina}
+            value={stamina}
           />
         </DraggableItem>
       </HoverCardTrigger>
@@ -33,4 +34,4 @@ export const StaminaBar = React.memo((props: DraggableItemProps) => {
   );
 });
 
-StaminaBar.displayName = "StaminaBar";
+StaminaBar.displayName = 'StaminaBar';

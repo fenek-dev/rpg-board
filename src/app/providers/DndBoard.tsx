@@ -1,10 +1,11 @@
-import { DndContext } from "@dnd-kit/core";
-import { createSnapModifier, restrictToWindowEdges } from "@dnd-kit/modifiers";
-import React, { useCallback } from "react";
-import { Grid } from "../layout";
-import { Coordinates } from "@dnd-kit/core/dist/types";
-import { useDispatch } from "react-redux";
-import { changeBlockPosition } from "../store";
+import { DndContext } from '@dnd-kit/core';
+import { Coordinates } from '@dnd-kit/core/dist/types';
+import { createSnapModifier, restrictToWindowEdges } from '@dnd-kit/modifiers';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { Grid } from '../layout';
+import { changeBlockPosition } from '../store';
 
 export const DndBoard = ({ children }: React.PropsWithChildren) => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
 
   const snapToGrid = React.useMemo(
     () => createSnapModifier(gridSize),
-    [gridSize]
+    [gridSize],
   );
 
   const applyToGrid = useCallback(
@@ -23,21 +24,13 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
         y: Math.ceil(delta.y / gridSize) * gridSize,
       };
     },
-    [gridSize]
+    [gridSize],
   );
 
   return (
     <>
       <DndContext
         autoScroll={false}
-        onDragEnd={({ delta, active }) => {
-          dispatch(
-            changeBlockPosition({
-              id: active.id,
-              ...applyToGrid(delta),
-            })
-          );
-        }}
         cancelDrop={({ active, over }) => {
           return (
             active.data.current?.type === over?.data.current?.type &&
@@ -45,6 +38,14 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
           );
         }}
         modifiers={[snapToGrid, restrictToWindowEdges]}
+        onDragEnd={({ active, delta }) => {
+          dispatch(
+            changeBlockPosition({
+              id: active.id,
+              ...applyToGrid(delta),
+            }),
+          );
+        }}
       >
         {children}
       </DndContext>

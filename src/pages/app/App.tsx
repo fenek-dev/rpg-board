@@ -1,5 +1,5 @@
-import { DndBoard } from "../../app/providers/DndBoard";
-import { Elements } from "./elements";
+import { DndBoard } from '../../app/providers/DndBoard';
+import { Elements } from './elements';
 
 function App() {
   return (

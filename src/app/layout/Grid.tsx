@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 export interface Props {
+  onSizeChange?: (size: number) => void;
   size: number;
   step?: number;
-  onSizeChange?: (size: number) => void;
 }
 
 export const Grid = ({ size }: Props) => {
@@ -13,7 +13,7 @@ export const Grid = ({ size }: Props) => {
         className="Grid"
         style={
           {
-            "--dot-space": `${size}px`,
+            '--dot-space': `${size}px`,
           } as React.CSSProperties
         }
       />
