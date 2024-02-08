@@ -1,9 +1,15 @@
-import UI_BLOCKS from '~/app/packs/ui/blocks.pack';
+export enum BlockTypes {
+  UI,
+  Item,
+  Container,
+}
 
-export interface Block {
-  children?: Block[];
+export interface Block<Name extends string = string> {
+  children?: string[];
   height: number;
-  name: keyof typeof UI_BLOCKS;
+  name: Name;
+  parent?: string;
+  type: BlockTypes;
   width: number;
   x: number;
   y: number;

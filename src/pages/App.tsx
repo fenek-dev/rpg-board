@@ -1,7 +1,6 @@
+import { DndBoard } from '~/app/providers/DndBoard';
 import { boardPositionStyle } from '~/shared/utils';
-
-import { DndBoard } from '../../app/providers/DndBoard';
-import { Elements } from './elements';
+import { Render } from '~/widgets/blocks/ui/Render';
 
 const gridSize = 30;
 const width = 48;
@@ -14,7 +13,7 @@ function App() {
       style={boardPositionStyle(gridSize, width, height)}
     >
       <DndBoard>
-        <Elements />
+        <Render />
       </DndBoard>
     </main>
   );

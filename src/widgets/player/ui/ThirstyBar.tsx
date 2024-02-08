@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { RootState, START_THIRSTY } from '~/app/store';
+import { RootState } from '~/app/store';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/shared/components/ui/hover-card';
 import { Progress } from '~/shared/components/ui/progress';
 import { DraggableItem, DraggableItemProps } from '~/shared/draggable';
+
+import { START_THIRSTY } from '../store';
 
 export const ThirstyBar = React.memo((props: DraggableItemProps) => {
   const thirsty = useSelector((state: RootState) => state.player.thirsty);

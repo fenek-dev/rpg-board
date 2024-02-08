@@ -4,8 +4,9 @@ import { createSnapModifier, restrictToParentElement } from '@dnd-kit/modifiers'
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { changeBlockPosition } from '~/widgets/blocks/store';
+
 import { Grid } from '../layout';
-import { changeBlockPosition } from '../store';
 
 export const DndBoard = ({ children }: React.PropsWithChildren) => {
   const dispatch = useDispatch();
