@@ -23,7 +23,7 @@ export const useDraggableStyles = (
       width: w,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [h, w, x, y, transformAppliedToGrid(gridSize, transform?.x, transform?.y)]
+    [h, w, x, y, transformAppliedToGrid(gridSize, transform?.x), transformAppliedToGrid(gridSize, transform?.y)]
   );
 
   return style;

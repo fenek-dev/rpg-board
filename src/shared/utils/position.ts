@@ -8,7 +8,7 @@ export const boardPositionStyle = (gridSize: number, width: number, height: numb
   width: width * gridSize,
 });
 
-export const transformAppliedToGrid = (gridSize: number, x?: number, y?: number) => {
-  if (x && y) return x / gridSize + y / gridSize;
+export const transformAppliedToGrid = (gridSize: number, value?: number) => {
+  if (value) return value / gridSize;
   return 0;
 };

@@ -2,24 +2,25 @@ import { DndContext } from '@dnd-kit/core';
 import { Coordinates } from '@dnd-kit/core/dist/types';
 import { createSnapModifier, restrictToParentElement } from '@dnd-kit/modifiers';
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { changeBlockPosition } from '~/widgets/blocks/store';
 
 import { Grid } from '../layout';
+import { RootState } from '../store';
 
 export const DndBoard = ({ children }: React.PropsWithChildren) => {
   const dispatch = useDispatch();
 
-  const [gridSize, setGridSize] = React.useState(30);
+  const gridSize = useSelector((state: RootState) => state.settings.gridSize);
 
   const snapToGrid = React.useMemo(() => createSnapModifier(gridSize), [gridSize]);
 
   const applyToGrid = useCallback(
     (delta: Coordinates) => {
       return {
-        x: Math.ceil(delta.x / gridSize) * gridSize,
-        y: Math.ceil(delta.y / gridSize) * gridSize,
+        x: Math.ceil(delta.x / gridSize),
+        y: Math.ceil(delta.y / gridSize),
       };
     },
     [gridSize]
