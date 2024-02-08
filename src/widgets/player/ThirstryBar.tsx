@@ -1,16 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Badge } from "~/components/ui/badge";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "~/components/ui/hover-card";
-import { Progress } from "~/components/ui/progress";
-import { RootState, START_HUNGER, START_THIRSTY } from "~/setup/store";
+} from "~/shared/components/ui/hover-card";
+import { Progress } from "~/shared/components/ui/progress";
+import { RootState, START_THIRSTY } from "~/app/store";
 import { DraggableItem, DraggableItemProps } from "~/shared/basic";
 
-export const ThirstyBar = (props: DraggableItemProps) => {
+export const ThirstyBar = React.memo((props: DraggableItemProps) => {
   const thirsty = useSelector((state: RootState) => state.player.thirsty);
 
   return (
@@ -30,4 +29,4 @@ export const ThirstyBar = (props: DraggableItemProps) => {
       </HoverCardContent>
     </HoverCard>
   );
-};
+});

@@ -1,13 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Badge } from "~/components/ui/badge";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "~/components/ui/hover-card";
-import { Progress } from "~/components/ui/progress";
-import { RootState } from "~/setup/store";
+} from "~/shared/components/ui/hover-card";
+import { Progress } from "~/shared/components/ui/progress";
+import { RootState } from "~/app/store";
 import { DraggableItem, DraggableItemProps } from "~/shared/basic";
 
 export const StaminaBar = React.memo((props: DraggableItemProps) => {

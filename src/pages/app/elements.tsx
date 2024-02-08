@@ -1,8 +1,8 @@
 import _ from "lodash";
 import React from "react";
 import { useSelector } from "react-redux";
-import { UI_BLOCKS } from "~/setup/enum/blocks";
-import { RootState } from "~/setup/store";
+import { UI_BLOCKS } from "~/app/enum/blocks";
+import { RootState } from "~/app/store";
 
 export const Elements = React.memo(() => {
   const blocks = useSelector((state: RootState) => state.blocks.blocks);

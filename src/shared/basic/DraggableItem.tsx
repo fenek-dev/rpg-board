@@ -1,7 +1,7 @@
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 import React from "react";
 import { useMemo } from "react";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/shared/components/ui/button";
 
 export interface DraggableItemProps
   extends Omit<React.ComponentProps<"button">, "ref"> {

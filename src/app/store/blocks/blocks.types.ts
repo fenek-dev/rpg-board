@@ -1,4 +1,4 @@
-import { UI_BLOCKS } from "~/setup/enum/blocks";
+import { UI_BLOCKS } from "~/app/enum/blocks";
 
 export interface Block {
   name: keyof typeof UI_BLOCKS;

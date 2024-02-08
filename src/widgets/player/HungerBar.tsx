@@ -1,14 +1,12 @@
-import { createSelector } from "@reduxjs/toolkit";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Badge } from "~/components/ui/badge";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "~/components/ui/hover-card";
-import { Progress } from "~/components/ui/progress";
-import { RootState, START_HUNGER } from "~/setup/store";
+} from "~/shared/components/ui/hover-card";
+import { Progress } from "~/shared/components/ui/progress";
+import { RootState, START_HUNGER } from "~/app/store";
 import { DraggableItem, DraggableItemProps } from "~/shared/basic";
 
 export const HungerBar = React.memo((props: DraggableItemProps) => {
