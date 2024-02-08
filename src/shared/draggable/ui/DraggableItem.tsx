@@ -1,11 +1,14 @@
-import { useDraggable, useDroppable } from '@dnd-kit/core';
+import { DraggableAttributes } from '@dnd-kit/core';
+import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import React from 'react';
-import { useMemo } from 'react';
 
 import { Button } from '~/shared/components/ui/button';
+import { useCombinedRefs } from '~/shared/hooks/useCombinedRefs';
+import { useDraggableStyles } from '~/shared/hooks/useDraggableStyles';
 
-export interface DraggableItemProps
-  extends Omit<React.ComponentProps<'button'>, 'ref'> {
+import { useDraggableItem } from '../hooks/useDraggableItem';
+
+export interface DraggableItemProps extends Omit<React.ComponentProps<'button'>, 'ref' | 'style'> {
   gridSize: number;
   height: number;
   width: number;
@@ -13,64 +16,32 @@ export interface DraggableItemProps
   y?: number;
 }
 
-export const DraggableItem = React.forwardRef<
-  HTMLButtonElement,
-  React.PropsWithChildren<DraggableItemProps>
->(({ children, gridSize, height, width, x, y, ...props }, ref) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    data: {
-      type: 'item',
-    },
-    id: props.id || crypto.randomUUID(),
-  });
+export const DraggableItem = React.forwardRef<HTMLButtonElement, React.PropsWithChildren<DraggableItemProps>>(
+  ({ children, gridSize, height, width, x, y, ...props }, ref) => {
+    const { attributes, listeners, nodeRef, setNodeRef, transform } = useDraggableItem(props.id);
 
-  const { setNodeRef: nodeRef } = useDroppable({
-    data: {
-      type: 'item',
-    },
-    id: props.id || crypto.randomUUID(),
-  });
+    const refs = useCombinedRefs([ref, setNodeRef, nodeRef]);
 
-  const [w, h] = useMemo(
-    () => [gridSize * width - 2, gridSize * height - 2],
-    [gridSize, height, width],
-  );
+    const style = useDraggableStyles(gridSize, width, height, x, y, transform);
 
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
-    : undefined;
-
-  return (
-    <Button
-      variant="outline"
-      {...listeners}
-      {...attributes}
-      style={{
-        ...style,
-        height: h,
-        left: x,
-        position: 'absolute',
-        top: y,
-        width: w,
-      }}
-      {...props}
-      ref={(el) => {
-        setNodeRef(el);
-        nodeRef(el);
-        if (ref) {
-          if (typeof ref === 'function') {
-            ref(el);
-          } else {
-            ref.current = el;
-          }
-        }
-      }}
-    >
-      {children}
-    </Button>
-  );
-});
+    return (
+      <Btn attributes={attributes} {...props} listeners={listeners} ref={refs} style={style}>
+        {children}
+      </Btn>
+    );
+  }
+);
 
 DraggableItem.displayName = 'DraggableItem';
+
+// Memo component to prevent unnecessary renders
+interface BtnProps extends Omit<React.ComponentProps<'button'>, 'ref'> {
+  attributes: DraggableAttributes;
+  listeners: SyntheticListenerMap | undefined;
+}
+
+const Btn = React.memo(
+  React.forwardRef<HTMLButtonElement, BtnProps>((props, ref) => (
+    <Button variant="outline" {...props} {...props.listeners} ref={ref}></Button>
+  ))
+);

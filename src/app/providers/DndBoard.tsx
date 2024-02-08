@@ -29,8 +29,6 @@ export const DndBoard = ({ children }: React.PropsWithChildren) => {
     <DndContext
       autoScroll={false}
       cancelDrop={({ active, over }) => {
-        console.log(active.data.current?.type === over?.data.current?.type && active.id !== over?.id);
-
         return active.data.current?.type === over?.data.current?.type && active.id !== over?.id;
       }}
       modifiers={[snapToGrid, restrictToParentElement]}
