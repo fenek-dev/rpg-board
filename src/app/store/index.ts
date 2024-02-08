@@ -1,3 +1,3 @@
 export * from './store';
-export * from './player';
-export * from './blocks';
+export * from '../../widgets/player/store';
+export * from '../../widgets/blocks/store';

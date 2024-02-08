@@ -1,4 +1,4 @@
-import { SerializedBlocks } from '.';
+import { SerializedBlocks } from '~/app/store';
 
 export const BASIC_UI_BLOCKS: SerializedBlocks = {
   HpBar: {

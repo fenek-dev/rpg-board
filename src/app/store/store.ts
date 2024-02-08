@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import blocksSlice from './blocks/blocks.slice';
-import playerSlice from './player/player.slice';
+import blocksSlice from '~/widgets/blocks/store/blocks.slice';
+import playerSlice from '~/widgets/player/store/player.slice';
 
 export const store = configureStore({
   reducer: {

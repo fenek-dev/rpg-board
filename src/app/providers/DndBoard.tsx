@@ -1,6 +1,6 @@
 import { DndContext } from '@dnd-kit/core';
 import { Coordinates } from '@dnd-kit/core/dist/types';
-import { createSnapModifier, restrictToParentElement, restrictToWindowEdges } from '@dnd-kit/modifiers';
+import { createSnapModifier, restrictToParentElement } from '@dnd-kit/modifiers';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 

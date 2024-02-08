@@ -1,4 +1,4 @@
-import { UI_BLOCKS } from '~/app/enum/blocks';
+import UI_BLOCKS from '~/app/packs/ui/blocks.pack';
 
 export interface Block {
   children?: Block[];
