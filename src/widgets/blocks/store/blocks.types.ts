@@ -9,7 +9,6 @@ export interface Block<Name extends string = string> {
   contain?: SerializedBlocks;
   height: number;
   name: Name;
-  parent?: string;
   type: BlockTypes;
   width: number;
   x: number;

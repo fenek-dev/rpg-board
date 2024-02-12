@@ -30,6 +30,8 @@ export const blocksSlice = createSlice({
       const { id, ...payload } = action.payload;
       const path = getPathFromComposedId(id);
       const block = _.get(state.blocks, path);
+      console.log(block, path);
+
       _.set(state.blocks, path, {
         ...block,
         x: block.x + payload.x,

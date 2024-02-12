@@ -1,3 +1,4 @@
+import { useDroppable } from '@dnd-kit/core';
 import _ from 'lodash';
 import React from 'react';
 
@@ -13,8 +14,12 @@ interface RenderProps {
 }
 
 export const Render = React.memo(({ blocks, gridSize, parentId }: RenderProps) => {
+  const { setNodeRef } = useDroppable({
+    id: parentId || crypto.randomUUID(),
+  });
+
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full" ref={setNodeRef}>
       {_.entries(blocks).map(([id, block]) => {
         if (block.type === BlockTypes.UI) {
           const Element = UI_BLOCKS[block.name as keyof UiBlockType];

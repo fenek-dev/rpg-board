@@ -1,4 +1,4 @@
-import { ContainerPopup } from '~/widgets/blocks/ui/ContainerPopup';
+import { ContainerPopup } from '~/widgets/popups/ui/ContainerPopup';
 
 const POPUP_BLOCKS = {
   ContainerPopup,

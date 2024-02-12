@@ -2,11 +2,12 @@ import { useDraggable } from '@dnd-kit/core';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Popup } from '~/app/contexts/Popups.context';
 import { RootState } from '~/app/store';
-import { Card, CardContent, CardHeader } from '~/shared/components/ui/card';
-import { boardPositionStyle, popupContainerPositionStyle } from '~/shared/utils';
+import { Card, CardContent } from '~/shared/components/ui/card';
+import { popupContainerPositionStyle } from '~/shared/utils';
 import { BlockTypes } from '~/widgets/blocks/store';
+
+import { Popup } from '../store/popups.types';
 
 export interface DraggablePopupProps {
   id: string;
@@ -25,19 +26,17 @@ export const DraggablePopup = React.memo(({ children, id, popup }: React.PropsWi
 
   const style = useMemo<React.CSSProperties>(
     () => ({
-      left: x,
+      left: x * gridSize,
       position: 'absolute',
-      top: y,
+      top: y * gridSize,
       transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [h, w, x, y, transform?.x, transform?.y]
   );
-
   return (
     <Card className="absolute z-10" id={id} ref={setNodeRef} style={style} {...listeners}>
-      <CardHeader>{popup.block_id}</CardHeader>
-      <CardContent style={boardPositionStyle(gridSize, width, height)}>{children}</CardContent>
+      <CardContent style={popupContainerPositionStyle(gridSize, width, height)}>{children}</CardContent>
     </Card>
   );
 });

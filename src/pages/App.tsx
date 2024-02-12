@@ -1,11 +1,10 @@
 import { useSelector } from 'react-redux';
 
 import { DndBoard } from '~/app/providers/DndBoard';
-import { PopupsBoard } from '~/app/providers/DndPopups';
 import { RootState } from '~/app/store';
 import { boardPositionStyle } from '~/shared/utils';
 import { Render } from '~/widgets/blocks/ui/Render';
-import { RenderPopups } from '~/widgets/blocks/ui/RenderPopups';
+import { RenderPopups } from '~/widgets/popups/ui/RenderPopups';
 
 function App() {
   const { gridSize, height, width } = useSelector((state: RootState) => state.settings);
@@ -19,11 +18,9 @@ function App() {
       >
         <DndBoard>
           <Render blocks={blocks} gridSize={gridSize} />
+          <RenderPopups />
         </DndBoard>
       </main>
-      <PopupsBoard>
-        <RenderPopups />
-      </PopupsBoard>
     </>
   );
 }
