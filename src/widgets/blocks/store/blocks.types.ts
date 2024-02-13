@@ -6,11 +6,11 @@ export enum BlockTypes {
 }
 
 export interface Block<Name extends string = string> {
-  contain?: SerializedBlocks;
-  height: number;
+  belong: string;
+  h: number;
   name: Name;
   type: BlockTypes;
-  width: number;
+  w: number;
   x: number;
   y: number;
 }

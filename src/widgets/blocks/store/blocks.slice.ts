@@ -1,7 +1,9 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { createSlice } from '@reduxjs/toolkit';
-import _ from 'lodash';
+import get from 'lodash/get';
+import set from 'lodash/set';
+import unset from 'lodash/unset';
 
 import { getPathFromComposedId } from '~/shared/utils';
 
@@ -24,15 +26,14 @@ export const blocksSlice = createSlice({
       const { id, ...payload } = action.payload;
       const path = getPathFromComposedId(id);
 
-      _.set(state.blocks, path, payload);
+      set(state.blocks, path, payload);
     },
     changeBlockPosition: (state, action: PayloadAction<{ id: string; x: number; y: number }>) => {
       const { id, ...payload } = action.payload;
       const path = getPathFromComposedId(id);
-      const block = _.get(state.blocks, path);
-      console.log(block, path);
+      const block = get(state.blocks, path);
 
-      _.set(state.blocks, path, {
+      set(state.blocks, path, {
         ...block,
         x: block.x + payload.x,
         y: block.y + payload.y,
@@ -41,7 +42,7 @@ export const blocksSlice = createSlice({
     removeBlock: (state, action: PayloadAction<string>) => {
       const path = getPathFromComposedId(action.payload);
 
-      _.unset(state.blocks, path);
+      unset(state.blocks, path);
     },
   },
 });

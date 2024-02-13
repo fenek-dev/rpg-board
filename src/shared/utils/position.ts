@@ -1,17 +1,12 @@
 import React from 'react';
 
 export const boardPositionStyle = (gridSize: number, width: number, height: number): React.CSSProperties => ({
-  height: height * gridSize - gridSize / 10,
-  width: width * gridSize - gridSize / 10,
+  height: height * gridSize + 1,
+  width: width * gridSize + 1,
 });
 
 export const popupContainerPositionStyle = (gridSize: number, width: number, height: number): React.CSSProperties => ({
-  height: height * gridSize - gridSize / 10,
+  height: height * gridSize + 1,
   margin: gridSize,
-  width: width * gridSize - gridSize / 10,
+  width: width * gridSize + 1,
 });
-
-export const transformAppliedToGrid = (gridSize: number, value?: number) => {
-  if (value) return value / gridSize;
-  return 0;
-};

@@ -1,7 +1,7 @@
-import { ContainerPopup } from '~/widgets/popups/ui/ContainerPopup';
+import { PopupWithGrid } from '~/widgets/popups/ui/PopupWithGrid';
 
 const POPUP_BLOCKS = {
-  ContainerPopup,
+  PopupWithGrid,
 } as const;
 
 export type PopupBlockType = typeof POPUP_BLOCKS;

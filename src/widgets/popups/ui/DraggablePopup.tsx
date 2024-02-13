@@ -22,13 +22,13 @@ export const DraggablePopup = React.memo(({ children, id, popup }: React.PropsWi
     id,
   });
 
-  const [w, h] = [gridSize * width - 2, gridSize * height - 2];
+  const [w, h] = [gridSize * width + 1, gridSize * height + 1];
 
   const style = useMemo<React.CSSProperties>(
     () => ({
-      left: x * gridSize,
+      left: x,
       position: 'absolute',
-      top: y * gridSize,
+      top: y,
       transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,7 +36,19 @@ export const DraggablePopup = React.memo(({ children, id, popup }: React.PropsWi
   );
   return (
     <Card className="absolute z-10" id={id} ref={setNodeRef} style={style} {...listeners}>
-      <CardContent style={popupContainerPositionStyle(gridSize, width, height)}>{children}</CardContent>
+      <Content gridSize={gridSize} height={height} width={width}>
+        {children}
+      </Content>
     </Card>
   );
 });
+
+interface ContentProps {
+  gridSize: number;
+  height: number;
+  width: number;
+}
+
+const Content = React.memo(({ children, gridSize, height, width }: React.PropsWithChildren<ContentProps>) => (
+  <CardContent style={popupContainerPositionStyle(gridSize, width, height)}>{children}</CardContent>
+));
