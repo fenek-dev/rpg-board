@@ -1,17 +1,15 @@
 import UI_BLOCKS, { UiBlockType } from '~/app/packs/ui/blocks.pack';
-import { composeIds } from '~/shared/utils';
 import { BlockTypes, SerializedBlocks } from '~/widgets/blocks/store';
 
 interface RenderProps {
   blocks: SerializedBlocks;
-  parentId?: string;
 }
 
-export const Render = ({ blocks, parentId }: RenderProps) => {
-  return Object.entries(blocks).map(([i, block]) => {
+export const Render = ({ blocks }: RenderProps) => {
+  return Object.entries(blocks).map(([id, block]) => {
     if (block.type === BlockTypes.UI) {
       const Element = UI_BLOCKS[block.name as keyof UiBlockType];
-      return <Element data-grid={block} id={composeIds(parentId, i)} key={i} />;
+      return <Element data-grid={block} id={id} key={id} />;
     }
     // if (block.type === BlockTypes.Container) {
     //   const Element = CONTAINER_BLOCKS[block.name as keyof ContainerBlockType];
@@ -19,7 +17,7 @@ export const Render = ({ blocks, parentId }: RenderProps) => {
     //     <Element
     //       gridSize={gridSize}
     //       height={block.height}
-    //       id={composeIds(parentId, id)}
+    //       id={id}
     //       key={id}
     //       width={block.width}
     //       x={block.x}
