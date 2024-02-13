@@ -1,7 +1,10 @@
 import UI_BLOCKS from '~/app/packs/ui/blocks.pack';
 // import CONTAINER_BLOCKS from '~/app/packs/ui/containers.pack';
 
-import { BlockTypes, SerializedBlocks } from './blocks.types';
+import { BlockTypes } from '~/entities/items/enum';
+import { BasicPopups } from '~/entities/popups/enum';
+
+import { SerializedBlocks } from './blocks.types';
 
 export const BASIC_UI_BLOCKS: SerializedBlocks = {
   // Container: {
@@ -23,7 +26,7 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
   //   y: 10,
   // },
   HpBar: {
-    belong: 'inventory',
+    belong: BasicPopups.Inventory,
     h: 1,
     name: UI_BLOCKS.HpBar.displayName!,
     type: BlockTypes.UI,
@@ -32,7 +35,7 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
     y: 0,
   },
   HungerBar: {
-    belong: 'inventory',
+    belong: BasicPopups.Inventory,
     h: 1,
     name: UI_BLOCKS.HungerBar.displayName!,
     type: BlockTypes.UI,
@@ -41,7 +44,7 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
     y: 0,
   },
   StaminaBar: {
-    belong: 'inventory',
+    belong: BasicPopups.Inventory,
     h: 1,
     name: UI_BLOCKS.StaminaBar.displayName!,
     type: BlockTypes.UI,
@@ -50,7 +53,7 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
     y: 1,
   },
   ThirstyBar: {
-    belong: 'inventory',
+    belong: BasicPopups.Inventory,
     h: 1,
     name: UI_BLOCKS.ThirstyBar.displayName!,
     type: BlockTypes.UI,

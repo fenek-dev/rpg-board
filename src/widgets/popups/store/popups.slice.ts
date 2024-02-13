@@ -3,6 +3,8 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { get, set, unset } from 'lodash-es';
 
+import { BasicPopups } from '~/entities/popups/enum';
+
 import { Popup, SerializedPopups } from './popups.types';
 
 export interface PopupsState {
@@ -11,8 +13,8 @@ export interface PopupsState {
 
 const initialState: PopupsState = {
   popups: {
-    inventory: {
-      block_id: 'inventory',
+    [BasicPopups.Inventory]: {
+      block_id: BasicPopups.Inventory,
       height: 20,
       width: 32,
       x: 0,

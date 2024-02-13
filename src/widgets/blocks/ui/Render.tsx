@@ -1,5 +1,6 @@
 import UI_BLOCKS, { UiBlockType } from '~/app/packs/ui/blocks.pack';
-import { BlockTypes, SerializedBlocks } from '~/widgets/blocks/store';
+import { BlockTypes } from '~/entities/items/enum';
+import { SerializedBlocks } from '~/widgets/blocks/store';
 
 interface RenderProps {
   blocks: SerializedBlocks;
