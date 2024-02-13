@@ -3,9 +3,9 @@ import Draggable, { DraggableEventHandler } from 'react-draggable';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
-import { Card, CardContent } from '~/shared/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '~/shared/components/ui/card';
 import { Skeleton } from '~/shared/components/ui/skeleton';
-import { popupContainerPositionStyle } from '~/shared/utils';
+import { popupContainerPositionStyle, popupHeaderStyle } from '~/shared/utils';
 
 import { changePopupPosition } from '../store/popups.slice';
 import { Popup } from '../store/popups.types';
@@ -35,6 +35,9 @@ export const DraggablePopup = React.memo(({ children, id, popup }: React.PropsWi
   return (
     <Draggable onStop={handleStop} position={popup}>
       <Card className="absolute z-10" id={id}>
+        <CardHeader style={popupHeaderStyle(gridSize)}>
+          <CardTitle>{popup.block_id}</CardTitle>
+        </CardHeader>
         <Suspense
           fallback={
             <Skeleton

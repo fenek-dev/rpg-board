@@ -16,7 +16,8 @@ const initialState: PopupsState = {
     [BasicPopups.Inventory]: {
       block_id: BasicPopups.Inventory,
       height: 20,
-      width: 32,
+      name: BasicPopups.Inventory,
+      width: 16,
       x: 0,
       y: 0,
     },
