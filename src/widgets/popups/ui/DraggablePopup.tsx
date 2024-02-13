@@ -1,12 +1,12 @@
-import { useDraggable } from '@dnd-kit/core';
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
+import Draggable, { DraggableEventHandler } from 'react-draggable';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
 import { Card, CardContent } from '~/shared/components/ui/card';
 import { popupContainerPositionStyle } from '~/shared/utils';
-import { BlockTypes } from '~/widgets/blocks/store';
 
+import { changePopupPosition } from '../store/popups.slice';
 import { Popup } from '../store/popups.types';
 
 export interface DraggablePopupProps {
@@ -15,31 +15,30 @@ export interface DraggablePopupProps {
 }
 
 export const DraggablePopup = React.memo(({ children, id, popup }: React.PropsWithChildren<DraggablePopupProps>) => {
-  const { height, width, x, y } = popup;
   const gridSize = useSelector((state: RootState) => state.settings.gridSize);
-  const { listeners, setNodeRef, transform } = useDraggable({
-    data: { type: BlockTypes.Popup },
-    id,
-  });
+  const dispatch = useDispatch();
 
-  const [w, h] = [gridSize * width + 1, gridSize * height + 1];
-
-  const style = useMemo<React.CSSProperties>(
-    () => ({
-      left: x,
-      position: 'absolute',
-      top: y,
-      transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [h, w, x, y, transform?.x, transform?.y]
+  const handleStop = useCallback<DraggableEventHandler>(
+    (_e, { x, y }) => {
+      dispatch(
+        changePopupPosition({
+          id,
+          x,
+          y,
+        })
+      );
+    },
+    [dispatch, id]
   );
+
   return (
-    <Card className="absolute z-10" id={id} ref={setNodeRef} style={style} {...listeners}>
-      <Content gridSize={gridSize} height={height} width={width}>
-        {children}
-      </Content>
-    </Card>
+    <Draggable onStop={handleStop} position={popup}>
+      <Card className="absolute z-10" id={id}>
+        <Content gridSize={gridSize} height={popup.height} width={popup.width}>
+          {children}
+        </Content>
+      </Card>
+    </Draggable>
   );
 });
 

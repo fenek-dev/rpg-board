@@ -1,9 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { createSlice } from '@reduxjs/toolkit';
-import get from 'lodash/get';
-import set from 'lodash/set';
-import unset from 'lodash/unset';
+import { get, set, unset } from 'lodash-es';
 
 import { getPathFromComposedId } from '~/shared/utils';
 
@@ -39,8 +37,8 @@ export const popupsSlice = createSlice({
       const path = getPathFromComposedId(id);
       const popup = get(state.popups, path);
 
-      popup.x += payload.x;
-      popup.y += payload.y;
+      popup.x = payload.x;
+      popup.y = payload.y;
       console.log(popup);
 
       set(state.popups, path, popup);
