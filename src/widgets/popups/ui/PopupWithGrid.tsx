@@ -41,6 +41,7 @@ const Layout = React.memo(({ block_id }: LayoutProps) => {
       margin={[0, 0]}
       maxRows={20}
       onDrag={(_a, _b, _c, _d, e) => e.stopPropagation()}
+      onDragStart={(_a, _b, _c, _d, e) => e.stopPropagation()}
       preventCollision
       rowHeight={gridSize}
       useCSSTransforms
