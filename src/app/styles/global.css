@@ -38,22 +38,6 @@ body {
   background: black;
 }
 
-.Grid {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  --dot-bg: black;
-  --dot-color: #444;
-  --dot-size: 2px;
-  --dot-space: 30px;
-  top: calc(var(--dot-space) * -1);
-  left: calc(var(--dot-space) * -1);
-  background:
-    linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) top left /
-      var(--dot-space) var(--dot-space),
-    linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) top left / var(--dot-space)
-      var(--dot-space),
-    var(--dot-color);
-  z-index: -1;
-  pointer-events: none;
+.react-grid-item.react-grid-placeholder {
+  background-color: hsl(var(--primary));
 }
