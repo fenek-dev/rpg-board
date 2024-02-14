@@ -3,9 +3,12 @@ export interface PopupSizes {
   w: number;
 }
 
-export interface Popup extends PopupSizes {
+export interface PopupBase extends PopupSizes {
   block_id: string;
   name: string;
+}
+
+export interface Popup extends PopupBase {
   x: number;
   y: number;
 }
