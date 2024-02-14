@@ -1,63 +1,37 @@
-import UI_BLOCKS from '~/app/packs/ui/blocks.pack';
-// import CONTAINER_BLOCKS from '~/app/packs/ui/containers.pack';
-
-import { BlockTypes } from '~/entities/items/enum';
+import CONTAINER_ITEMS from '~/app/packs/items/container';
+import UI_ITEMS from '~/app/packs/items/ui';
 import { BasicPopups } from '~/entities/popups/enum';
 
 import { SerializedBlocks } from './blocks.types';
 
 export const BASIC_UI_BLOCKS: SerializedBlocks = {
-  // Container: {
-  //   contain: {
-  //     HpBar1: {
-  //       h: 1,
-  //       name: UI_BLOCKS.HpBar.displayName!,
-  //       type: BlockTypes.UI,
-  //       w: 6,
-  //       x: 1,
-  //       y: 1,
-  //     },
-  //   },
-  //   h: 2,
-  //   name: CONTAINER_BLOCKS.DraggableContainer.displayName!,
-  //   type: BlockTypes.Container,
-  //   w: 2,
-  //   x: 10,
-  //   y: 10,
-  // },
   HpBar: {
+    ...UI_ITEMS.HpBar,
     belong: BasicPopups.Inventory,
-    h: 1,
-    name: UI_BLOCKS.HpBar.displayName!,
-    type: BlockTypes.UI,
-    w: 6,
     x: 0,
     y: 0,
   },
   HungerBar: {
+    ...UI_ITEMS.HungerBar,
     belong: BasicPopups.Inventory,
-    h: 1,
-    name: UI_BLOCKS.HungerBar.displayName!,
-    type: BlockTypes.UI,
-    w: 5,
     x: 6,
     y: 0,
   },
-  StaminaBar: {
+  Moneybag: {
+    ...CONTAINER_ITEMS.Moneybag,
     belong: BasicPopups.Inventory,
-    h: 1,
-    name: UI_BLOCKS.StaminaBar.displayName!,
-    type: BlockTypes.UI,
-    w: 6,
+    x: 10,
+    y: 10,
+  },
+  StaminaBar: {
+    ...UI_ITEMS.StaminaBar,
+    belong: BasicPopups.Inventory,
     x: 0,
     y: 1,
   },
   ThirstyBar: {
+    ...UI_ITEMS.ThirstyBar,
     belong: BasicPopups.Inventory,
-    h: 1,
-    name: UI_BLOCKS.ThirstyBar.displayName!,
-    type: BlockTypes.UI,
-    w: 5,
     x: 6,
     y: 1,
   },

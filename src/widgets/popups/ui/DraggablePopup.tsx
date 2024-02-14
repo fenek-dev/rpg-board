@@ -42,11 +42,11 @@ export const DraggablePopup = React.memo(({ children, id, popup }: React.PropsWi
           fallback={
             <Skeleton
               className="rounded-xl border border-input"
-              style={popupContainerPositionStyle(gridSize, popup.width, popup.height)}
+              style={popupContainerPositionStyle(gridSize, popup.w, popup.h)}
             />
           }
         >
-          <Content gridSize={gridSize} height={popup.height} width={popup.width}>
+          <Content gridSize={gridSize} height={popup.h} width={popup.w}>
             {children}
           </Content>
         </Suspense>

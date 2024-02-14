@@ -15,17 +15,17 @@ const initialState: PopupsState = {
   popups: {
     [BasicPopups.Inventory]: {
       block_id: BasicPopups.Inventory,
-      height: 20,
+      h: 20,
       name: BasicPopups.Inventory,
-      width: 16,
+      w: 16,
       x: 0,
       y: 0,
     },
     Merchant: {
       block_id: 'Merchant',
-      height: 10,
+      h: 10,
       name: 'Merchant',
-      width: 10,
+      w: 10,
       x: 550,
       y: 0,
     },
@@ -36,9 +36,9 @@ export const popupsSlice = createSlice({
   initialState,
   name: 'popups',
   reducers: {
-    addPopup: (state, action: PayloadAction<Popup & { id: string }>) => {
-      const { id, ...payload } = action.payload;
-      set(state.popups, id, payload);
+    addPopup: (state, action: PayloadAction<Popup>) => {
+      const payload = action.payload;
+      set(state.popups, payload.block_id, payload);
     },
     changePopupPosition: (state, action: PayloadAction<{ id: string; x: number; y: number }>) => {
       const { id, ...payload } = action.payload;

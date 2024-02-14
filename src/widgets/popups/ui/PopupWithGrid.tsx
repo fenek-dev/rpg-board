@@ -18,7 +18,7 @@ export const PopupWithGrid = React.memo(({ id, popup }: DraggablePopupProps) => 
 
   return (
     <DraggablePopup id={id} popup={popup}>
-      <Layout block_id={popup.block_id} height={popup.height} width={popup.width} />
+      <Layout block_id={popup.block_id} height={popup.h} width={popup.w} />
       <Grid size={gridSize} />
     </DraggablePopup>
   );
@@ -40,8 +40,8 @@ const Layout = React.memo(({ block_id, height, width }: LayoutProps) => {
   const blockPositionHandle = (_layout: RGL.Layout[], item: RGL.Layout) => {
     const block = window.dragging;
 
-    if (!block) return;
-    if (item.x >= width || item.y >= height) return;
+    if (!block || item.x >= width || item.y >= height || block.h > height || block.w > width || block.id === block_id)
+      return;
 
     dispatch(
       changeBlockPosition({
@@ -62,6 +62,7 @@ const Layout = React.memo(({ block_id, height, width }: LayoutProps) => {
       isBounded
       isDraggable={false}
       isDroppable
+      isResizable={false}
       margin={[0, 0]}
       maxRows={height}
       onDrop={blockPositionHandle}

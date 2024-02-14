@@ -1,8 +1,11 @@
-export interface Popup {
+export interface PopupSizes {
+  h: number;
+  w: number;
+}
+
+export interface Popup extends PopupSizes {
   block_id: string;
-  height: number;
   name: string;
-  width: number;
   x: number;
   y: number;
 }

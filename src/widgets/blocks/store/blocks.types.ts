@@ -1,11 +1,15 @@
-import { BlockTypes } from '~/entities/items/enum';
+import { PopupSizes } from '~/widgets/popups/store/popups.types';
 
-export interface Block<Name extends string = string> {
-  belong: string;
+export interface BlockBase {
   h: number;
-  name: Name;
-  type: keyof typeof BlockTypes;
+  name: string;
+  popup?: PopupSizes;
+  type: string;
   w: number;
+}
+
+export interface Block extends BlockBase {
+  belong: string;
   x: number;
   y: number;
 }
