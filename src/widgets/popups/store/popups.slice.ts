@@ -21,6 +21,14 @@ const initialState: PopupsState = {
       x: 0,
       y: 0,
     },
+    Merchant: {
+      block_id: 'Merchant',
+      height: 10,
+      name: 'Merchant',
+      width: 10,
+      x: 550,
+      y: 0,
+    },
   },
 };
 

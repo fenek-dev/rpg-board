@@ -22,13 +22,14 @@ export const blocksSlice = createSlice({
       const { id, ...payload } = action.payload;
       set(state.blocks, id, payload);
     },
-    changeBlockPosition: (state, action: PayloadAction<{ id: string; x: number; y: number }>) => {
+    changeBlockPosition: (state, action: PayloadAction<{ belong: string; id: string; x: number; y: number }>) => {
       const { id, ...payload } = action.payload;
 
       const block = get(state.blocks, id);
 
       block.x = payload.x;
       block.y = payload.y;
+      block.belong = payload.belong;
 
       set(state.blocks, id, block);
     },

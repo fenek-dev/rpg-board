@@ -1,5 +1,5 @@
 import React from 'react';
-import RGL, { ItemCallback, WidthProvider } from 'react-grid-layout';
+import RGL, { WidthProvider } from 'react-grid-layout';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Grid } from '~/app/layout';
@@ -37,13 +37,18 @@ const Layout = React.memo(({ block_id, height, width }: LayoutProps) => {
   const gridSize = useSelector((state: RootState) => state.settings.gridSize);
   const blocks = useSelector(selectBlocksBelongTo(block_id));
 
-  const blockPositionHandle: ItemCallback = (_a, _b, newItem, _d, e) => {
-    e.stopPropagation();
+  const blockPositionHandle = (_layout: RGL.Layout[], item: RGL.Layout) => {
+    const block = window.dragging;
+
+    if (!block) return;
+    if (item.x >= width || item.y >= height) return;
+
     dispatch(
       changeBlockPosition({
-        id: newItem.i,
-        x: newItem.x,
-        y: newItem.y,
+        belong: block_id,
+        id: block.id,
+        x: item.x,
+        y: item.y,
       })
     );
   };
@@ -51,13 +56,19 @@ const Layout = React.memo(({ block_id, height, width }: LayoutProps) => {
   return (
     <GridLayout
       autoSize={false}
+      className="z-10 h-full w-full"
       cols={width}
       compactType={null}
+      isBounded
+      isDraggable={false}
+      isDroppable
       margin={[0, 0]}
       maxRows={height}
-      onDrag={(_a, _b, _c, _d, e) => e.stopPropagation()}
-      onDragStart={(_a, _b, _c, _d, e) => e.stopPropagation()}
-      onDragStop={blockPositionHandle}
+      onDrop={blockPositionHandle}
+      onDropDragOver={() => ({
+        h: window.dragging?.h || 1,
+        w: window.dragging?.w || 1,
+      })}
       preventCollision
       rowHeight={gridSize}
       useCSSTransforms

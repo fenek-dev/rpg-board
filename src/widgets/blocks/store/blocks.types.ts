@@ -10,4 +10,8 @@ export interface Block<Name extends string = string> {
   y: number;
 }
 
+export interface BlockWithId extends Block {
+  id: string;
+}
+
 export type SerializedBlocks = Record<string, Block>;

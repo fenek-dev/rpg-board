@@ -62,5 +62,7 @@ interface ContentProps {
 }
 
 const Content = React.memo(({ children, gridSize, height, width }: React.PropsWithChildren<ContentProps>) => (
-  <CardContent style={popupContainerPositionStyle(gridSize, width, height)}>{children}</CardContent>
+  <CardContent onMouseDown={(e) => e.stopPropagation()} style={popupContainerPositionStyle(gridSize, width, height)}>
+    {children}
+  </CardContent>
 ));
