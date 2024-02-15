@@ -15,4 +15,5 @@ export const popupContainerPositionStyle = (gridSize: number, width: number, hei
 export const popupHeaderStyle = (gridSize: number): React.CSSProperties => ({
   padding: gridSize / 2,
   paddingBottom: gridSize / 4,
+  paddingTop: gridSize / 4,
 });

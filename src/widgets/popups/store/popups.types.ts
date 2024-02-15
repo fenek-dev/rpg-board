@@ -1,16 +1,8 @@
-export interface PopupSizes {
-  h: number;
-  w: number;
-}
+import { Popup } from '~/entities/extendable/popups';
 
-export interface PopupBase extends PopupSizes {
-  block_id: string;
-  name: string;
-}
-
-export interface Popup extends PopupBase {
+export interface PopupData extends Popup {
   x: number;
   y: number;
 }
 
-export type SerializedPopups = Record<string, Popup>;
+export type SerializedPopups = Record<string, PopupData>;

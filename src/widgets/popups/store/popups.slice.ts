@@ -5,7 +5,7 @@ import { get, set, unset } from 'lodash-es';
 
 import BASIC_POPUPS from '~/entities/constant/popup';
 
-import { Popup, SerializedPopups } from './popups.types';
+import { PopupData, SerializedPopups } from './popups.types';
 
 export interface PopupsState {
   popups: SerializedPopups;
@@ -35,9 +35,9 @@ export const popupsSlice = createSlice({
   initialState,
   name: 'popups',
   reducers: {
-    addPopup: (state, action: PayloadAction<Popup>) => {
+    addPopup: (state, action: PayloadAction<PopupData>) => {
       const payload = action.payload;
-      set(state.popups, payload.block_id, payload);
+      set(state.popups, payload.container_id, payload);
     },
     changePopupPosition: (state, action: PayloadAction<{ id: string; x: number; y: number }>) => {
       const { id, ...payload } = action.payload;

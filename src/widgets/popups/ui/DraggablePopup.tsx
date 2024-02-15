@@ -7,12 +7,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/shared/components/ui
 import { Skeleton } from '~/shared/components/ui/skeleton';
 import { popupContainerPositionStyle, popupHeaderStyle } from '~/shared/utils';
 
-import { changePopupPosition } from '../store/popups.slice';
-import { Popup } from '../store/popups.types';
+import { changePopupPosition, removePopup } from '../store/popups.slice';
+import { PopupData } from '../store/popups.types';
+import { PopupMenu } from './components/PopupMenu';
 
 export interface DraggablePopupProps {
   id: string;
-  popup: Popup;
+  popup: PopupData;
 }
 
 export const DraggablePopup = React.memo(({ children, id, popup }: React.PropsWithChildren<DraggablePopupProps>) => {
@@ -32,11 +33,23 @@ export const DraggablePopup = React.memo(({ children, id, popup }: React.PropsWi
     [dispatch, id]
   );
 
+  const handleClose = (popup_id: string) => () => {
+    dispatch(removePopup(popup_id));
+  };
+
   return (
     <Draggable onStop={handleStop} position={popup}>
-      <Card className="absolute z-10" id={id}>
-        <CardHeader style={popupHeaderStyle(gridSize)}>
-          <CardTitle>{popup.block_id}</CardTitle>
+      <Card className="absolute z-10 flex flex-col items-center" id={id}>
+        <PopupMenu
+          className="absolute -right-1 top-0 translate-x-full"
+          closable={popup.closable}
+          onClose={handleClose(id)}
+        />
+        <CardHeader
+          className="flex w-full flex-row items-center justify-between gap-1"
+          style={popupHeaderStyle(gridSize)}
+        >
+          <CardTitle className="block">{popup.name}</CardTitle>
         </CardHeader>
         <Suspense
           fallback={

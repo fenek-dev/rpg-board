@@ -12,13 +12,13 @@ const GridLayout = WidthProvider(RGL);
 
 export const PopupWithGrid = React.memo(({ id, popup }: DraggablePopupProps) => {
   const gridSize = useSelector((state: RootState) => state.settings.gridSize);
-  const blocks = useSelector(selectBlocksBelongTo(popup.block_id));
+  const blocks = useSelector(selectBlocksBelongTo(popup.container_id));
 
   if (!blocks) return null;
 
   return (
     <DraggablePopup id={id} popup={popup}>
-      <Layout block_id={popup.block_id} height={popup.h} width={popup.w} />
+      <Layout block_id={popup.container_id} height={popup.h} width={popup.w} />
       <Grid size={gridSize} />
     </DraggablePopup>
   );

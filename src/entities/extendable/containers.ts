@@ -1,10 +1,9 @@
-import { PopupSizes } from '~/widgets/popups/store/popups.types';
-
 import { Item } from './items';
+import { PopupOptions, PopupSizes } from './popups';
 
 export interface Container extends Omit<Item, 'type'> {
   category: 'container';
-  popup: PopupSizes;
+  popup: PopupSizes & PopupOptions;
   type: 'container';
 }
 

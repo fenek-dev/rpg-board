@@ -10,6 +10,7 @@ export const CONTAINER_ITEMS = asContainers({
     id: 'Foodbag',
     name: 'Foodbag',
     popup: {
+      closable: true,
       h: 4,
       w: 6,
     },
@@ -27,6 +28,7 @@ export const CONTAINER_ITEMS = asContainers({
     id: 'Moneybag',
     name: 'Moneybag',
     popup: {
+      closable: true,
       h: 3,
       w: 3,
     },

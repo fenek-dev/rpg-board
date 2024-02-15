@@ -16,7 +16,8 @@ export const BasicContainer = React.memo(
     const handleOpenContainer = () => {
       dispatch(
         addPopup({
-          block_id: container.id,
+          closable: container.popup.closable,
+          container_id: container.id,
           h: container.popup.h,
           name: container.name,
           w: container.popup.w,
