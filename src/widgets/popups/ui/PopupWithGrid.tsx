@@ -40,7 +40,14 @@ const Layout = React.memo(({ block_id, height, width }: LayoutProps) => {
   const blockPositionHandle = (_layout: RGL.Layout[], item: RGL.Layout) => {
     const block = window.dragging;
 
-    if (!block || item.x >= width || item.y >= height || block.h > height || block.w > width || block.id === block_id)
+    if (
+      !block ||
+      item.x + item.w > width ||
+      item.y + item.h > height ||
+      block.h > height ||
+      block.w > width ||
+      block.id === block_id
+    )
       return;
 
     dispatch(
