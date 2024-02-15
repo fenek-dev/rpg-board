@@ -1,9 +1,8 @@
 import { OpenInNewWindowIcon } from '@radix-ui/react-icons';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Container } from '~/entities/extendable/containers';
-import { Badge } from '~/shared/components/ui/badge';
 import { Button, ButtonProps } from '~/shared/components/ui/button';
 import { addPopup } from '~/widgets/popups/store/popups.slice';
 
@@ -30,7 +29,7 @@ export const BasicContainer = React.memo(
     };
 
     return (
-      <Button onClick={handleOpenContainer} variant="outline" {...props} ref={ref}>
+      <Button onClick={handleOpenContainer} rarity={container.rarity} variant="outline" {...props} ref={ref}>
         {container.icon}
         <span className="absolute bottom-1 right-1">
           <OpenInNewWindowIcon className="h-3 w-3" />

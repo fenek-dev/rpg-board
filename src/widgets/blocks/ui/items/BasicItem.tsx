@@ -10,7 +10,7 @@ interface BasicItemProps extends ButtonProps {
 export const BasicItem = React.memo(
   React.forwardRef<HTMLButtonElement, BasicItemProps>((props, ref) => {
     return (
-      <Button variant="outline" {...props} ref={ref}>
+      <Button rarity={props.item.rarity} variant="outline" {...props} ref={ref}>
         {props.item.icon}
       </Button>
     );

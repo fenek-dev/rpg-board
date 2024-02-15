@@ -25,7 +25,7 @@ export const POTIONS = asItems({
     icon: '🫙',
     id: 'HealPotion',
     name: 'Healing potion',
-    rarity: 'common',
+    rarity: 'rare',
     type: 'item',
     w: 1,
     weight: 500,

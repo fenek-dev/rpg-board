@@ -14,7 +14,7 @@ export const CONTAINER_ITEMS = asContainers({
       h: 4,
       w: 6,
     },
-    rarity: 'common',
+    rarity: 'rare',
     type: 'container',
     w: 3,
     weight: 20,
