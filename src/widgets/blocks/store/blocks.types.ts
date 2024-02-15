@@ -1,21 +1,10 @@
-import { PopupSizes } from '~/widgets/popups/store/popups.types';
+import { Container } from '~/entities/extendable/containers';
+import { Item } from '~/entities/extendable/items';
 
-export interface BlockBase {
-  h: number;
-  name: string;
-  popup?: PopupSizes;
-  type: string;
-  w: number;
-}
-
-export interface Block extends BlockBase {
+export type Block = (Container | Item) & {
   belong: string;
   x: number;
   y: number;
-}
-
-export interface BlockWithId extends Block {
-  id: string;
-}
+};
 
 export type SerializedBlocks = Record<string, Block>;

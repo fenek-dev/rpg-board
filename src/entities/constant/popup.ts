@@ -1,4 +1,4 @@
-import { asBlocks, asPopups } from '~/shared/utils/item';
+import { asPopups } from '~/shared/utils/item';
 
 export const BASIC_POPUPS = asPopups({
   Gear: {

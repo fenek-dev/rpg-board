@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { get, set, unset } from 'lodash-es';
 
-import BASIC_POPUPS from '~/app/packs/items/popup';
+import BASIC_POPUPS from '~/entities/constant/popup';
 
 import { Popup, SerializedPopups } from './popups.types';
 

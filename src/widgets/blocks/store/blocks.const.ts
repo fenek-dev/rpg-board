@@ -1,38 +1,38 @@
-import CONTAINER_ITEMS from '~/app/packs/items/container';
-import BASIC_POPUPS from '~/app/packs/items/popup';
-import UI_ITEMS from '~/app/packs/items/ui';
+import BASIC_POPUPS from '~/entities/constant/popup';
+import { FOOD, POTIONS } from '~/entities/items/consumbale';
+import CONTAINER_ITEMS from '~/entities/items/containers';
 
 import { SerializedBlocks } from './blocks.types';
 
 export const BASIC_UI_BLOCKS: SerializedBlocks = {
-  HpBar: {
-    ...UI_ITEMS.HpBar,
+  [CONTAINER_ITEMS.Foodbag.id]: {
+    ...CONTAINER_ITEMS.Foodbag,
     belong: BASIC_POPUPS.Inventory.block_id,
-    x: 0,
+    x: 4,
     y: 0,
   },
-  HungerBar: {
-    ...UI_ITEMS.HungerBar,
-    belong: BASIC_POPUPS.Inventory.block_id,
-    x: 6,
-    y: 0,
-  },
-  Moneybag: {
+  [CONTAINER_ITEMS.Moneybag.id]: {
     ...CONTAINER_ITEMS.Moneybag,
     belong: BASIC_POPUPS.Inventory.block_id,
-    x: 10,
-    y: 10,
-  },
-  StaminaBar: {
-    ...UI_ITEMS.StaminaBar,
-    belong: BASIC_POPUPS.Inventory.block_id,
     x: 0,
+    y: 0,
+  },
+  [FOOD.Loaf.id]: {
+    ...FOOD.Loaf,
+    belong: BASIC_POPUPS.Inventory.block_id,
+    x: 2,
+    y: 0,
+  },
+  [POTIONS.HealPotion.id]: {
+    ...POTIONS.HealPotion,
+    belong: BASIC_POPUPS.Inventory.block_id,
+    x: 2,
     y: 1,
   },
-  ThirstyBar: {
-    ...UI_ITEMS.ThirstyBar,
+  hello: {
+    ...POTIONS.HealPotion,
     belong: BASIC_POPUPS.Inventory.block_id,
-    x: 6,
+    x: 3,
     y: 1,
   },
 };
