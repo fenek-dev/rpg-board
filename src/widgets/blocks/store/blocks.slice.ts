@@ -28,7 +28,7 @@ export const blocksSlice = createSlice({
       const block = get(state.blocks, id);
       const to = get(state.blocks, payload.belong);
 
-      if (!block || (block.belong !== payload.belong && to.type === block.type)) return;
+      if (!block || (block.belong !== payload.belong && to?.type === block.type)) return;
 
       block.x = payload.x;
       block.y = payload.y;

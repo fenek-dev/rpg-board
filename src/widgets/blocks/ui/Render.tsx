@@ -14,6 +14,19 @@ export const Render = ({ blocks }: RenderProps) => {
   const dispatch = useDispatch();
 
   const putTogether = useCallback((from: string, to: string) => dispatch(putBlocksTogether({ from, to })), [dispatch]);
+
+  const onDragEnd: React.DragEventHandler<HTMLButtonElement> = useCallback((e) => {
+    e.currentTarget.classList.remove('opacity-60');
+    window.dragging = null;
+  }, []);
+
+  const onDragStart: React.DragEventHandler<HTMLButtonElement> = useCallback((e) => {
+    e.currentTarget.classList.add('opacity-60');
+    e.dataTransfer.setData('text/plain', '');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setDragImage(e.currentTarget, 0, -1);
+  }, []);
+
   return Object.entries(blocks).map(([id, block]) => {
     if (block.type === 'container') {
       return (
@@ -23,16 +36,10 @@ export const Render = ({ blocks }: RenderProps) => {
           draggable={true}
           id={id}
           key={id}
-          onDragEnd={(e) => {
-            e.currentTarget.classList.remove('opacity-60');
-            window.dragging = null;
-          }}
+          onDragEnd={onDragEnd}
           onDragStart={(e) => {
             window.dragging = { ...block, block_id: id };
-            e.currentTarget.classList.add('opacity-60');
-            e.dataTransfer.setData('text/plain', '');
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setDragImage(e.currentTarget, 0, -1);
+            onDragStart(e);
           }}
           unselectable="on"
         />
@@ -46,16 +53,10 @@ export const Render = ({ blocks }: RenderProps) => {
           id={id}
           item={block}
           key={id}
-          onDragEnd={(e) => {
-            e.currentTarget.classList.remove('opacity-60');
-            window.dragging = null;
-          }}
+          onDragEnd={onDragEnd}
           onDragStart={(e) => {
             window.dragging = { ...block, block_id: id };
-            e.currentTarget.classList.add('opacity-60');
-            e.dataTransfer.setData('text/plain', '');
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setDragImage(e.currentTarget, 0, -1);
+            onDragStart(e);
           }}
           putTogether={putTogether}
           unselectable="on"

@@ -10,14 +10,14 @@ interface BasicItemProps extends ButtonProps {
 }
 
 export const BasicItem = React.memo(
-  React.forwardRef<HTMLButtonElement, BasicItemProps>((props, ref) => {
-    const putTogether = () => {
+  React.forwardRef<HTMLButtonElement, BasicItemProps>(({ putTogether, ...props }, ref) => {
+    const onDrop = () => {
       if (window.dragging?.id === props.item.id && window.dragging.block_id !== props.id) {
-        props.putTogether(window.dragging.block_id, props.id!);
+        putTogether(window.dragging.block_id, props.id!);
       }
     };
     return (
-      <Button onDrop={putTogether} rarity={props.item.rarity} variant="outline" {...props} ref={ref}>
+      <Button onDrop={onDrop} rarity={props.item.rarity} variant="outline" {...props} ref={ref}>
         {props.item.icon}
         <span className="absolute bottom-1 right-1 text-xs">
           {props.item.amount > 1 ? props.item.amount : undefined}
