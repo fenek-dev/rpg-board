@@ -7,10 +7,10 @@ import { store } from '~/app/store';
 import '~/app/styles/global.css';
 import App from '~/pages/App';
 
-import { BlockWithId } from './widgets/blocks/store';
+import { Block } from './widgets/blocks/store';
 declare global {
   interface Window {
-    dragging: BlockWithId | null;
+    dragging: (Block & { block_id: string }) | null;
   }
 }
 

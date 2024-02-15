@@ -27,11 +27,23 @@ export const blocksSlice = createSlice({
 
       const block = get(state.blocks, id);
 
+      if (!block) return;
+
       block.x = payload.x;
       block.y = payload.y;
       block.belong = payload.belong;
 
       set(state.blocks, id, block);
+    },
+    putBlocksTogether: (state, action: PayloadAction<{ from: string; to: string }>) => {
+      const from = get(state.blocks, action.payload.from);
+      const to = get(state.blocks, action.payload.to);
+
+      if (from.id === to.id) {
+        to.amount += from.amount;
+        set(state.blocks, action.payload.to, to);
+        unset(state.blocks, action.payload.from);
+      }
     },
     removeBlock: (state, action: PayloadAction<string>) => {
       unset(state.blocks, action.payload);
@@ -39,6 +51,6 @@ export const blocksSlice = createSlice({
   },
 });
 
-export const { addBlock, changeBlockPosition, removeBlock } = blocksSlice.actions;
+export const { addBlock, changeBlockPosition, putBlocksTogether, removeBlock } = blocksSlice.actions;
 
 export default blocksSlice.reducer;

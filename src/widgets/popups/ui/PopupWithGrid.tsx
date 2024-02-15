@@ -46,7 +46,7 @@ const Layout = React.memo(({ block_id, height, width }: LayoutProps) => {
     dispatch(
       changeBlockPosition({
         belong: block_id,
-        id: block.id,
+        id: block.block_id,
         x: item.x,
         y: item.y,
       })
