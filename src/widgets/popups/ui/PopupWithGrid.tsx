@@ -42,6 +42,7 @@ const Layout = React.memo(({ block_id, height, width }: LayoutProps) => {
 
     if (
       !block ||
+      !item ||
       item.x + item.w > width ||
       item.y + item.h > height ||
       block.h > height ||
@@ -73,10 +74,14 @@ const Layout = React.memo(({ block_id, height, width }: LayoutProps) => {
       margin={[0, 0]}
       maxRows={height}
       onDrop={blockPositionHandle}
-      onDropDragOver={() => ({
-        h: window.dragging?.h || 1,
-        w: window.dragging?.w || 1,
-      })}
+      onDropDragOver={() => {
+        if (window.dragover) return false;
+
+        return {
+          h: window.dragging?.h || 1,
+          w: window.dragging?.w || 1,
+        };
+      }}
       preventCollision
       rowHeight={gridSize}
       useCSSTransforms

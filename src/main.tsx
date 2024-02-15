@@ -11,6 +11,7 @@ import { Block } from './widgets/blocks/store';
 declare global {
   interface Window {
     dragging: (Block & { block_id: string }) | null;
+    dragover: boolean;
   }
 }
 

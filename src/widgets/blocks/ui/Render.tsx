@@ -23,7 +23,7 @@ export const Render = ({ blocks }: RenderProps) => {
   const onDragStart: React.DragEventHandler<HTMLButtonElement> = useCallback((e) => {
     e.currentTarget.classList.add('opacity-60');
     e.dataTransfer.setData('text/plain', '');
-    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.effectAllowed = 'copyMove';
     e.dataTransfer.setDragImage(e.currentTarget, 0, -1);
   }, []);
 

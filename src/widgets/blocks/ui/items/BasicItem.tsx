@@ -16,8 +16,25 @@ export const BasicItem = React.memo(
         putTogether(window.dragging.block_id, props.id!);
       }
     };
+
     return (
-      <Button onDrop={onDrop} rarity={props.item.rarity} variant="outline" {...props} ref={ref}>
+      <Button
+        onDragLeave={() => {
+          window.dragover = false;
+        }}
+        onDragOver={(e) => {
+          // TODO: awful
+          if (window.dragging?.block_id !== props.id && window.dragging?.id === props.item.id) {
+            e.dataTransfer.dropEffect = 'copy';
+            window.dragover = true;
+          }
+        }}
+        onDrop={onDrop}
+        rarity={props.item.rarity}
+        variant="outline"
+        {...props}
+        ref={ref}
+      >
         {props.item.icon}
         <span className="absolute bottom-1 right-1 text-xs">
           {props.item.amount > 1 ? props.item.amount : undefined}
