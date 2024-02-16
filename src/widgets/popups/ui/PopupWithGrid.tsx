@@ -1,93 +1,36 @@
 import React from 'react';
-import RGL, { WidthProvider } from 'react-grid-layout';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Grid } from '~/app/layout';
-import { RootState } from '~/app/store';
-import { changeBlockPosition, selectBlocksBelongTo } from '~/widgets/blocks/store';
+import { Block, changeBlockPosition } from '~/widgets/blocks/store';
 import { Render } from '~/widgets/blocks/ui/Render';
-import { DraggablePopup, DraggablePopupProps } from '~/widgets/popups/ui/DraggablePopup';
+import { GridLayout } from '~/widgets/grid/ui/GridLayout';
+import { DraggablePopup } from '~/widgets/popups/ui/DraggablePopup';
 
-const GridLayout = WidthProvider(RGL);
+import { selectPopupById } from '../store/popups.selector';
 
-export const PopupWithGrid = React.memo(({ id, popup }: DraggablePopupProps) => {
-  const gridSize = useSelector((state: RootState) => state.settings.gridSize);
-  const blocks = useSelector(selectBlocksBelongTo(popup.container_id));
+export const PopupWithGrid = React.memo(({ id }: { id: string }) => {
+  const popup = useSelector(selectPopupById(id));
 
-  if (!blocks) return null;
-
-  return (
-    <DraggablePopup id={id} popup={popup}>
-      <Layout block_id={popup.container_id} height={popup.h} width={popup.w} />
-      <Grid size={gridSize} />
-    </DraggablePopup>
-  );
-});
-
-PopupWithGrid.displayName = 'PopupWithGrid';
-
-interface LayoutProps {
-  block_id: string;
-  height: number;
-  width: number;
-}
-const Layout = React.memo(({ block_id, height, width }: LayoutProps) => {
   const dispatch = useDispatch();
 
-  const gridSize = useSelector((state: RootState) => state.settings.gridSize);
-  const blocks = useSelector(selectBlocksBelongTo(block_id));
-
-  const blockPositionHandle = (_layout: RGL.Layout[], item: RGL.Layout) => {
-    const block = window.dragging;
-
-    if (
-      !block ||
-      !item ||
-      item.x + item.w > width ||
-      item.y + item.h > height ||
-      block.h > height ||
-      block.w > width ||
-      block.id === block_id
-    )
-      return;
-
+  const onItemDrop = (x: number, y: number, _item: Block, id: string, belong: string) => {
     dispatch(
       changeBlockPosition({
-        belong: block_id,
-        id: block.block_id,
-        x: item.x,
-        y: item.y,
+        belong,
+        id,
+        x,
+        y,
       })
     );
   };
 
   return (
-    <GridLayout
-      autoSize={false}
-      className="z-10 h-full w-full"
-      cols={width}
-      compactType={null}
-      isBounded
-      isDraggable={false}
-      isDroppable
-      isResizable={false}
-      margin={[0, 0]}
-      maxRows={height}
-      onDrop={blockPositionHandle}
-      onDropDragOver={() => {
-        if (window.dragover) return false;
-
-        return {
-          h: window.dragging?.h || 1,
-          w: window.dragging?.w || 1,
-        };
-      }}
-      preventCollision
-      rowHeight={gridSize}
-      useCSSTransforms
-      width={gridSize * width}
-    >
-      {...Render({ blocks })}
-    </GridLayout>
+    <DraggablePopup id={id} popup={popup}>
+      <GridLayout cols={popup.w} id={popup.container_id} onItemDrop={onItemDrop} rows={popup.h}>
+        <Render container_id={popup.container_id} />
+      </GridLayout>
+    </DraggablePopup>
   );
 });
+
+PopupWithGrid.displayName = 'PopupWithGrid';

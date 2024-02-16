@@ -18,24 +18,22 @@ interface GridProps {
 
 export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: React.PropsWithChildren<GridProps>) => {
   const gridSize = useSelector((state: RootState) => state.settings.gridSize);
-  const width = gridSize * cols;
-  const height = gridSize * rows;
+  const width = gridSize * cols + 1;
+  const height = gridSize * rows + 1;
 
   const overlay = useRef<HTMLDivElement>(null);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     const droppedElement = event.dataTransfer.getData('block');
     const element_id = event.dataTransfer.getData('id');
-    console.log(droppedElement, element_id);
 
     const { x, y } = adjustPosition(event, gridSize, cols, rows);
-    console.log(x, y);
 
     if (onItemDrop) onItemDrop(x, y, JSON.parse(droppedElement) as Block, element_id, id);
     overlay.current!.classList.remove('grid-placeholder');
 
     event.preventDefault();
-    // event.stopPropagation();
+    event.stopPropagation();
   };
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     const { x, y } = adjustPosition(event, gridSize, cols, rows);
@@ -43,7 +41,7 @@ export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: 
     overlay.current!.classList.add('grid-placeholder');
 
     event.preventDefault();
-    // event.stopPropagation();
+    event.stopPropagation();
   };
 
   const handleDragLeave = () => {
@@ -52,7 +50,8 @@ export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: 
 
   return (
     <div
-      className={cn('relative ml-10 mt-10', className)}
+      className={cn('relative', className)}
+      onDragEnd={handleDragLeave}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
       onDrop={handleDrop}

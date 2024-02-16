@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
@@ -14,6 +14,8 @@ export const useGridItem = (block: Block, id: string) => {
     event.dataTransfer.effectAllowed = 'copyMove';
     event.dataTransfer.dropEffect = 'move';
     event.dataTransfer.setDragImage(event.currentTarget, 0, -1);
+    window.dragging = block;
+    window.dragId = id;
   };
 
   const onDragEnd = (event: React.DragEvent<HTMLElement>) => {

@@ -1,40 +1,42 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
 import { Button, ButtonProps } from '~/shared/components/ui/button';
 import { useGridItem } from '~/widgets/grid/hooks/useGridItem';
 
-import { Block } from '../../store';
-
-interface BasicItemProps extends ButtonProps {
-  // putTogether: (from: string, to: string) => void;
-}
+import { Block, putBlocksTogether } from '../../store';
 
 export const BasicItem = React.memo(
-  React.forwardRef<HTMLButtonElement, BasicItemProps>((props, ref) => {
+  React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+    const dispatch = useDispatch();
     const item = useSelector((state: RootState) => state.blocks.blocks[props.id!]);
     const { onDragEnd, onDragStart, style } = useGridItem(item, props.id!);
-    console.log(style, item);
 
-    const onDrop = () => {
-      if (window.dragging?.id === item.id && window.dragging.block_id !== props.id) {
-        // putTogether(window.dragging.block_id, props.id!);
+    const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
+      const block = JSON.parse(e.dataTransfer.getData('block')) as Block;
+      const block_id = e.dataTransfer.getData('id');
+      if (block.id === item.id && block_id !== props.id) {
+        dispatch(putBlocksTogether({ from: block_id, to: props.id! }));
       }
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
+      if (window.dragId !== props.id && window.dragging?.id === item.id) {
+        e.dataTransfer.dropEffect = 'copy';
+      }
+      e.preventDefault();
+      e.stopPropagation();
     };
 
     return (
       <Button
-        // onDragOver={(e) => {
-        //   // TODO: awful
-        //   if (window.dragging?.block_id !== props.id && window.dragging?.id === item.id) {
-        //     e.dataTransfer.dropEffect = 'copy';
-        //     window.dragover = true;
-        //   }
         draggable={true}
         onDragEnd={onDragEnd}
+        onDragOver={onDragOver}
         onDragStart={onDragStart}
-        // }}
         onDrop={onDrop}
         rarity={item.rarity}
         ref={ref}
