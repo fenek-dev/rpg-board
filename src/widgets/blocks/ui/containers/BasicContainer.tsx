@@ -37,9 +37,8 @@ export const BasicContainer = React.memo(
     const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
       const block = JSON.parse(e.dataTransfer.getData('block')) as Block;
       const block_id = e.dataTransfer.getData('id');
-      console.log(container.accept, block.category);
 
-      if (block.type !== 'container' && isAcceptableForThisContainer(container, block)) {
+      if (block.type !== 'container' && !isAcceptableForThisContainer(container, block)) {
         dispatch(putBlockInsideContainer({ block_id, container, container_id: props.id! }));
       }
       e.preventDefault();
