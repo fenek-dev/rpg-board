@@ -3,6 +3,9 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { get, set, unset } from 'lodash-es';
 
+import { Container } from '~/entities/extendable/containers';
+
+import { findFreePlace } from '../utils/position';
 import { BASIC_UI_BLOCKS } from './blocks.const';
 import { Block, SerializedBlocks } from './blocks.types';
 
@@ -36,6 +39,26 @@ export const blocksSlice = createSlice({
 
       set(state.blocks, id, block);
     },
+    putBlockInsideContainer: (
+      state,
+      action: PayloadAction<{ block_id: string; container: Container; container_id: string }>
+    ) => {
+      const { block_id, container, container_id } = action.payload;
+
+      const containerBlocks = Object.values(state.blocks).filter((block) => block.belong === container_id);
+
+      const position = findFreePlace(containerBlocks, container.popup);
+
+      if (position.length === 0) return;
+
+      const block = get(state.blocks, block_id);
+
+      block.x = position[0];
+      block.y = position[1];
+      block.belong = container_id;
+
+      set(state.blocks, block_id, block);
+    },
     putBlocksTogether: (state, action: PayloadAction<{ from: string; to: string }>) => {
       const from = get(state.blocks, action.payload.from);
       const to = get(state.blocks, action.payload.to);
@@ -52,6 +75,7 @@ export const blocksSlice = createSlice({
   },
 });
 
-export const { addBlock, changeBlockPosition, putBlocksTogether, removeBlock } = blocksSlice.actions;
+export const { addBlock, changeBlockPosition, putBlockInsideContainer, putBlocksTogether, removeBlock } =
+  blocksSlice.actions;
 
 export default blocksSlice.reducer;

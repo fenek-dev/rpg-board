@@ -10,7 +10,7 @@ export interface SettingsState {
 }
 
 const initialState: SettingsState = {
-  gridSize: 32,
+  gridSize: 40,
   height: 20,
   theme: 'dark',
   width: 32,

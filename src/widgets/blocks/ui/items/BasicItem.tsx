@@ -25,6 +25,7 @@ export const BasicItem = React.memo(
     };
 
     const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
+      e.dataTransfer.dropEffect = 'move';
       if (window.dragId !== props.id && window.dragging?.id === item.id) {
         e.dataTransfer.dropEffect = 'copy';
       }

@@ -1,3 +1,4 @@
+import debounce from 'lodash-es/debounce';
 import React from 'react';
 
 import { Badge } from '~/shared/components/ui/badge';
@@ -11,24 +12,29 @@ interface DetailsProps {
 
 export const Details = ({ block, children }: React.PropsWithChildren<DetailsProps>) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const isLeft = React.useRef(false);
+
+  const debouncedSetIsOpen = debounce((value: boolean) => {
+    if (!isLeft.current) {
+      setIsOpen(value);
+    }
+  }, 700);
 
   const handleMouseEnter = () => {
-    setIsOpen(true);
+    debouncedSetIsOpen(true);
+    isLeft.current = false;
   };
 
   const handleMouseLeave = () => {
     setIsOpen(false);
-  };
-
-  const handleDragStart = () => {
-    setIsOpen(false);
+    isLeft.current = true;
   };
 
   return (
     <HoverCard open={isOpen}>
       <HoverCardTrigger
         asChild
-        onDragStart={handleDragStart}
+        onDragStart={handleMouseLeave}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

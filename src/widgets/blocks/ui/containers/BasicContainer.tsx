@@ -8,7 +8,7 @@ import { Button, ButtonProps } from '~/shared/components/ui/button';
 import { useGridItem } from '~/widgets/grid/hooks/useGridItem';
 import { addPopup } from '~/widgets/popups/store/popups.slice';
 
-import { Block } from '../../store';
+import { Block, putBlockInsideContainer } from '../../store';
 import { Details } from '../common/Details';
 
 export const BasicContainer = React.memo(
@@ -33,13 +33,33 @@ export const BasicContainer = React.memo(
       );
     };
 
+    const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
+      const block = JSON.parse(e.dataTransfer.getData('block')) as Block;
+      const block_id = e.dataTransfer.getData('id');
+      if (block.type !== 'container') {
+        dispatch(putBlockInsideContainer({ block_id, container, container_id: props.id! }));
+      }
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
+      if (window.dragId !== props.id && window.dragging?.type !== 'container') {
+        e.dataTransfer.dropEffect = 'link';
+      }
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
     return (
       <Details block={container}>
         <Button
           draggable={true}
           onClick={handleOpenContainer}
           onDragEnd={onDragEnd}
+          onDragOver={onDragOver}
           onDragStart={onDragStart}
+          onDrop={onDrop}
           rarity={container.rarity}
           ref={ref}
           style={style}
