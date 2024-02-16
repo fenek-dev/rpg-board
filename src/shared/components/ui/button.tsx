@@ -30,9 +30,9 @@ const buttonVariants = cva(
       // eslint-disable-next-line perfectionist/sort-objects
       rarity: {
         common: 'border-input',
-        epic: 'border-purple-700/40',
-        legendary: 'border-yellow-700/50',
-        rare: 'border-blue-700/40',
+        epic: 'border-purple-700/40 bg-purple-900/30',
+        legendary: 'border-yellow-700/50 bg-yellow-900/30',
+        rare: 'border-blue-700/40 bg-blue-900/30',
       },
     },
   }
