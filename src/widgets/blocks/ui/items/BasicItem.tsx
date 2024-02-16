@@ -36,7 +36,7 @@ export const BasicItem = React.memo(
         ref={ref}
       >
         {props.item.icon}
-        <span className="absolute bottom-1 right-1 text-xs">
+        <span className="absolute bottom-1 right-1 text-xs leading-none">
           {props.item.amount > 1 ? props.item.amount : undefined}
         </span>
       </Button>

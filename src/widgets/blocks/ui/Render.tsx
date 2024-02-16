@@ -24,6 +24,7 @@ export const Render = ({ blocks }: RenderProps) => {
     e.currentTarget.classList.add('opacity-60');
     e.dataTransfer.setData('text/plain', '');
     e.dataTransfer.effectAllowed = 'copyMove';
+    e.dataTransfer.dropEffect = 'move';
     e.dataTransfer.setDragImage(e.currentTarget, 0, -1);
   }, []);
 

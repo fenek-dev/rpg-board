@@ -14,16 +14,17 @@ export const BasicContainer = React.memo(
   React.forwardRef<HTMLButtonElement, BasicContainerProps>(({ container, ...props }, ref) => {
     const dispatch = useDispatch();
 
-    const handleOpenContainer = () => {
+    const handleOpenContainer = (e: React.MouseEvent<HTMLButtonElement>) => {
       dispatch(
         addPopup({
           closable: container.popup.closable,
           container_id: container.id,
           h: container.popup.h,
+          isCollapsed: false,
           name: container.name,
           w: container.popup.w,
-          x: 0,
-          y: 0,
+          x: e.clientX,
+          y: e.clientY,
         })
       );
     };
