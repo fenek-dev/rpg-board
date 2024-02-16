@@ -1,6 +1,7 @@
 export const ItemCategory = {
   consumable: 'consumable',
   container: 'container',
+  money: 'money',
   resource: 'resource',
 };
 export const ItemRarity = {

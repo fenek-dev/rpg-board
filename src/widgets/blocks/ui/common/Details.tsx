@@ -56,8 +56,8 @@ export const Details = ({ block, children }: React.PropsWithChildren<DetailsProp
             </div>
             <Separator />
             <div className="flex justify-between p-1 text-xs text-muted-foreground">
-              <span title="Weight">𐄷 {block.weight}g</span>
-              <span title="Cost">© {block.cost}</span>
+              <span title="Weight">⚖️ {block.weight * block.amount}g</span>
+              <span title="Cost">🪙 {block.cost * block.amount}</span>
             </div>
           </div>
         </HoverCardContent>
