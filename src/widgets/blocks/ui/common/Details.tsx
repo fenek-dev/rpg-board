@@ -4,6 +4,7 @@ import React from 'react';
 import { Badge } from '~/shared/components/ui/badge';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/shared/components/ui/hover-card';
 import { Separator } from '~/shared/components/ui/separator';
+import { abbreviateWeight } from '~/shared/utils/number';
 import { Block } from '~/widgets/blocks/store';
 
 interface DetailsProps {
@@ -56,7 +57,10 @@ export const Details = ({ block, children }: React.PropsWithChildren<DetailsProp
             </div>
             <Separator />
             <div className="flex justify-between p-1 text-xs text-muted-foreground">
-              <span title="Weight">⚖️ {block.weight * block.amount}g</span>
+              <span title="Amount">🧮 {block.amount}</span>
+              <Separator orientation="vertical" />
+              <span title="Weight">⚖️ {abbreviateWeight(block.weight * block.amount)}</span>
+              <Separator orientation="vertical" />
               <span title="Cost">🪙 {block.cost * block.amount}</span>
             </div>
           </div>

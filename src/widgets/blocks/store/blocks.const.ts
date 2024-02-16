@@ -29,7 +29,7 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
   },
   [MONEY.SilverCoin.id]: {
     ...MONEY.SilverCoin,
-    amount: 100,
+    amount: 10000,
     belong: CONTAINER_ITEMS.Moneybag.id,
     x: 0,
     y: 0,

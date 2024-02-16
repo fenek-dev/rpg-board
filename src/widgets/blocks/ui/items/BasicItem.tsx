@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '~/app/store';
 import { Item } from '~/entities/extendable/items';
 import { Button, ButtonProps } from '~/shared/components/ui/button';
+import { abbreviateAmount } from '~/shared/utils/number';
 import { useGridItem } from '~/widgets/grid/hooks/useGridItem';
 
 import { Block, putBlocksTogether } from '../../store';
@@ -52,7 +53,7 @@ export const BasicItem = React.memo(
         >
           {item.icon}
           <span className="absolute bottom-1 right-1 text-xs leading-none">
-            {item.amount > 1 ? item.amount : undefined}
+            {item.amount > 1 ? abbreviateAmount(item.amount) : undefined}
           </span>
         </Button>
       </Details>
