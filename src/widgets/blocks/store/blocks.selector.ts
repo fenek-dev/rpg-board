@@ -9,3 +9,11 @@ export const selectBlocksBelongTo = (block_id: string) =>
       return Object.fromEntries(Object.entries(blocks).filter(([, b]) => b.belong === block_id));
     }
   );
+
+export const selectBlocksByBelong = (id: string) =>
+  createSelector(
+    (state: RootState) => state.blocks.blocks,
+    (blocks) => {
+      return Object.fromEntries(Object.entries(blocks).filter(([, b]) => b.belong === id));
+    }
+  );

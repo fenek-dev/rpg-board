@@ -14,13 +14,11 @@ export interface Item<Category = keyof typeof ItemCategory, Rarity = keyof typeo
   category: Category;
   cost: number;
   description: string;
-  h: number;
   icon: string;
   id: string;
   name: string;
   rarity: Rarity;
   type: 'item';
-  w: number;
   weight: number;
 }
 

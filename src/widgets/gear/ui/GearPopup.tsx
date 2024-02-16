@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button } from '~/shared/components/ui/button';
 import { DraggablePopup, DraggablePopupProps } from '~/widgets/popups/ui/DraggablePopup';
 
