@@ -1,24 +1,28 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { SerializedBlocks, putBlocksTogether } from '~/widgets/blocks/store';
+import { SerializedBlocks, putBlocksTogether, selectBlocksByBelong } from '~/widgets/blocks/store';
 
 import { BasicContainer } from './containers/BasicContainer';
 import { BasicItem } from './items/BasicItem';
 
 interface RenderProps {
-  blocks: SerializedBlocks;
+  container_id: string;
 }
 
-export const Render = ({ blocks }: RenderProps) => {
+export const Render = React.memo(({ container_id }: RenderProps) => {
+  const blocks = useSelector(selectBlocksByBelong(container_id));
+  console.log(blocks);
+
   const dispatch = useDispatch();
 
   const putTogether = useCallback((from: string, to: string) => dispatch(putBlocksTogether({ from, to })), [dispatch]);
 
-  const onDragEnd: React.DragEventHandler<HTMLButtonElement> = useCallback((e) => {
-    e.currentTarget.classList.remove('opacity-60');
-    window.dragging = null;
-  }, []);
+  // const onDragEnd: React.DragEventHandler<HTMLButtonElement> = useCallback((e) => {
+  //   e.currentTarget.classList.remove('opacity-60');
+  //   window.dragging = null;
+  // }, []);
 
   const onDragStart: React.DragEventHandler<HTMLButtonElement> = useCallback((e) => {
     e.currentTarget.classList.add('opacity-60');
@@ -28,44 +32,40 @@ export const Render = ({ blocks }: RenderProps) => {
     e.dataTransfer.setDragImage(e.currentTarget, 0, -1);
   }, []);
 
-  return Object.entries(blocks).map(([id, block]) => {
-    if (block.type === 'container') {
-      return (
-        <BasicContainer
-          container={block}
-          data-grid={block}
-          draggable={true}
-          id={id}
-          key={id}
-          onDragEnd={onDragEnd}
-          onDragStart={(e) => {
-            window.dragging = { ...block, block_id: id };
-            onDragStart(e);
-          }}
-          unselectable="on"
-        />
-      );
-    }
-    if (block.type === 'item') {
-      return (
-        <BasicItem
-          data-grid={block}
-          draggable={true}
-          id={id}
-          item={block}
-          key={id}
-          onDragEnd={onDragEnd}
-          onDragStart={(e) => {
-            window.dragging = { ...block, block_id: id };
-            onDragStart(e);
-          }}
-          putTogether={putTogether}
-          unselectable="on"
-        />
-      );
-    }
-    return null;
-  });
-};
+  return (
+    <div>
+      {Object.entries(blocks).map(([id, block]) => {
+        // if (block.type === 'container') {
+        //   return (
+        //     <BasicContainer
+        //       container={block}
+        //       data-grid={block}
+        //       draggable={true}
+        //       id={id}
+        //       key={id}
+        //       onDragEnd={onDragEnd}
+        //       onDragStart={(e) => {
+        //         window.dragging = { ...block, block_id: id };
+        //         onDragStart(e);
+        //       }}
+        //       unselectable="on"
+        //     />
+        //   );
+        // }
+        if (block.type === 'item') {
+          return (
+            <BasicItem
+              id={id}
+              key={id}
+              // onDragEnd={onDragEnd}
+              // putTogether={putTogether}
+            />
+          );
+        }
+        return null;
+      })}
+    </div>
+  );
+});
 
 Render.displayName = 'Render';
