@@ -8,6 +8,7 @@ import { Container } from '~/entities/extendable/containers';
 import { findFreePlace } from '../utils/position';
 import { BASIC_UI_BLOCKS } from './blocks.const';
 import { Block, SerializedBlocks } from './blocks.types';
+import { isAcceptableForThisContainer, isNotContainerIntoContainer } from './blocks.utils';
 
 export interface BlocksState {
   blocks: SerializedBlocks;
@@ -31,7 +32,7 @@ export const blocksSlice = createSlice({
       const block = get(state.blocks, id);
       const to = get(state.blocks, payload.belong);
 
-      if (!block || (block.belong !== payload.belong && to?.type === block.type)) return;
+      if (!block || isNotContainerIntoContainer(block, to) || isAcceptableForThisContainer(to, block)) return;
 
       block.x = payload.x;
       block.y = payload.y;

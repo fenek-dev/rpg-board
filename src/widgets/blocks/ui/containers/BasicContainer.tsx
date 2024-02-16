@@ -9,6 +9,7 @@ import { useGridItem } from '~/widgets/grid/hooks/useGridItem';
 import { addPopup } from '~/widgets/popups/store/popups.slice';
 
 import { Block, putBlockInsideContainer } from '../../store';
+import { isAcceptableForThisContainer } from '../../store/blocks.utils';
 import { Details } from '../common/Details';
 
 export const BasicContainer = React.memo(
@@ -36,7 +37,9 @@ export const BasicContainer = React.memo(
     const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
       const block = JSON.parse(e.dataTransfer.getData('block')) as Block;
       const block_id = e.dataTransfer.getData('id');
-      if (block.type !== 'container') {
+      console.log(container.accept, block.category);
+
+      if (block.type !== 'container' && isAcceptableForThisContainer(container, block)) {
         dispatch(putBlockInsideContainer({ block_id, container, container_id: props.id! }));
       }
       e.preventDefault();
@@ -44,7 +47,12 @@ export const BasicContainer = React.memo(
     };
 
     const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
-      if (window.dragId !== props.id && window.dragging?.type !== 'container') {
+      e.dataTransfer.dropEffect = 'none';
+      if (
+        window.dragId !== props.id &&
+        window.dragging?.type !== 'container' &&
+        (container.accept === window.dragging?.category || container.accept === 'all')
+      ) {
         e.dataTransfer.dropEffect = 'link';
       }
       e.preventDefault();
