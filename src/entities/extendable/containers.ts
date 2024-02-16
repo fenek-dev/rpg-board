@@ -1,7 +1,7 @@
 import { Item } from './items';
 import { PopupOptions, PopupSizes } from './popups';
 
-export interface Container extends Omit<Item, 'type'> {
+export interface Container extends Omit<Item, 'stackable' | 'type'> {
   category: 'container';
   popup: PopupSizes & PopupOptions;
   type: 'container';

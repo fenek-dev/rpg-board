@@ -18,6 +18,7 @@ export interface Item<Category = keyof typeof ItemCategory, Rarity = keyof typeo
   id: string;
   name: string;
   rarity: Rarity;
+  stackable: boolean;
   type: 'item';
   weight: number;
 }

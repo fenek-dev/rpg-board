@@ -54,6 +54,7 @@ export const BasicContainer = React.memo(
     return (
       <Details block={container}>
         <Button
+          className="text-3xl"
           draggable={true}
           onClick={handleOpenContainer}
           onDragEnd={onDragEnd}
@@ -69,7 +70,7 @@ export const BasicContainer = React.memo(
         >
           {container.icon}
           <span className="absolute bottom-1 right-1">
-            <OpenInNewWindowIcon className="h-2 w-2" />
+            <OpenInNewWindowIcon className="h-3 w-3" />
           </span>
         </Button>
       </Details>
