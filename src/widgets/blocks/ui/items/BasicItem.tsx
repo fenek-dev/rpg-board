@@ -6,6 +6,7 @@ import { Button, ButtonProps } from '~/shared/components/ui/button';
 import { useGridItem } from '~/widgets/grid/hooks/useGridItem';
 
 import { Block, putBlocksTogether } from '../../store';
+import { Details } from '../common/Details';
 
 export const BasicItem = React.memo(
   React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
@@ -32,24 +33,26 @@ export const BasicItem = React.memo(
     };
 
     return (
-      <Button
-        draggable={true}
-        onDragEnd={onDragEnd}
-        onDragOver={onDragOver}
-        onDragStart={onDragStart}
-        onDrop={onDrop}
-        rarity={item.rarity}
-        ref={ref}
-        style={style}
-        unselectable="on"
-        variant="outline"
-        {...props}
-      >
-        {item.icon}
-        <span className="absolute bottom-1 right-1 text-xs leading-none">
-          {item.amount > 1 ? item.amount : undefined}
-        </span>
-      </Button>
+      <Details block={item}>
+        <Button
+          draggable={true}
+          onDragEnd={onDragEnd}
+          onDragOver={onDragOver}
+          onDragStart={onDragStart}
+          onDrop={onDrop}
+          rarity={item.rarity}
+          ref={ref}
+          style={style}
+          unselectable="on"
+          variant="outline"
+          {...props}
+        >
+          {item.icon}
+          <span className="absolute bottom-1 right-1 text-xs leading-none">
+            {item.amount > 1 ? item.amount : undefined}
+          </span>
+        </Button>
+      </Details>
     );
   })
 );

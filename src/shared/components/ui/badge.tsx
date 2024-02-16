@@ -7,6 +7,7 @@ const badgeVariants = cva(
   'inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
   {
     defaultVariants: {
+      rarity: 'common',
       variant: 'default',
     },
     variants: {
@@ -16,14 +17,21 @@ const badgeVariants = cva(
         outline: 'text-foreground border-input',
         secondary: 'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
       },
+      // eslint-disable-next-line perfectionist/sort-objects
+      rarity: {
+        common: 'border-input',
+        epic: 'border-purple-700/40',
+        legendary: 'border-yellow-700/50',
+        rare: 'border-blue-700/40',
+      },
     },
   }
 );
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {}
 
-function Badge({ className, variant, ...props }: BadgeProps) {
-  return <div className={cn(badgeVariants({ variant }), className)} {...props} />;
+function Badge({ className, rarity, variant, ...props }: BadgeProps) {
+  return <div className={cn(badgeVariants({ rarity, variant }), className)} {...props} />;
 }
 
 export { Badge, badgeVariants };

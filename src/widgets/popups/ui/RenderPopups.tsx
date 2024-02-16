@@ -12,7 +12,6 @@ export const RenderPopups = () => {
       {Object.keys(popups).map((id) => (
         <PopupWithGrid id={id} key={id} />
       ))}
-      ;
     </div>
   );
 };
