@@ -34,11 +34,11 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: hsl(var(--primary));
   background: black;
 }
 
 .grid-placeholder {
   background-color: hsl(var(--primary));
-  opacity: 0.5;
+  opacity: 0.15;
 }
