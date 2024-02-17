@@ -76,6 +76,9 @@ export const BasicContainer = React.memo(
           {...props}
         >
           {container.icon}
+          {container.subicon && (
+            <span className="absolute right-1 top-1 text-xs leading-none">{container.subicon}</span>
+          )}
           <span className="absolute bottom-1 right-1">
             <OpenInNewWindowIcon className="h-3 w-3" />
           </span>

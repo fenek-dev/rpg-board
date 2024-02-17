@@ -52,9 +52,10 @@ export const BasicItem = React.memo(
           {...props}
         >
           {item.icon}
-          <span className="absolute bottom-1 right-1 text-xs leading-none">
-            {item.amount > 1 ? abbreviateAmount(item.amount) : undefined}
-          </span>
+          {item.subicon && <span className="absolute right-1 top-1 text-xs leading-none">{item.subicon}</span>}
+          {item.amount > 1 && (
+            <span className="absolute bottom-1 right-1 text-xs leading-none">{abbreviateAmount(item.amount)}</span>
+          )}
         </Button>
       </Details>
     );
