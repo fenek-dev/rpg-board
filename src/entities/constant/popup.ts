@@ -13,10 +13,11 @@ export const BASIC_POPUPS = asPopups({
     name: 'Inventory',
     w: 8,
   },
-  Merchant: {
-    container_id: 'Merchant',
-    h: 10,
-    name: 'Merchant',
+  Status: {
+    container_id: 'Status',
+    h: 1,
+    name: 'Status',
+    static: true,
     w: 10,
   },
 });

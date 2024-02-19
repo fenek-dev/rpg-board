@@ -61,7 +61,7 @@ export const BasicContainer = React.memo(
     return (
       <Details block={container}>
         <Button
-          className="text-3xl"
+          className="text-3xl transition-transform"
           draggable={true}
           onClick={handleOpenContainer}
           onDragEnd={onDragEnd}

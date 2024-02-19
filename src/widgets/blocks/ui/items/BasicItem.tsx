@@ -40,7 +40,7 @@ export const BasicItem = React.memo(
       <ItemMenu block={item} id={props.id!}>
         <Details block={item}>
           <Button
-            className="text-3xl"
+            className="text-3xl transition-transform"
             draggable={true}
             onDragEnd={onDragEnd}
             onDragOver={onDragOver}

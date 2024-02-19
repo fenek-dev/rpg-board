@@ -5,6 +5,7 @@ export interface PopupSizes {
 
 export interface PopupOptions {
   closable?: boolean;
+  static?: boolean;
 }
 
 export interface Popup extends PopupSizes, PopupOptions {

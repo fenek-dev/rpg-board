@@ -25,7 +25,7 @@ export const PopupWithGrid = React.memo(({ id }: { id: string }) => {
   };
 
   return (
-    <DraggablePopup id={id} popup={popup}>
+    <DraggablePopup id={id}>
       <GridLayout cols={popup.w} id={popup.container_id} onItemDrop={onItemDrop} rows={popup.h}>
         <Render container_id={popup.container_id} />
       </GridLayout>
