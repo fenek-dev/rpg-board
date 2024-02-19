@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   settings: settingsSlice,
 });
 
-const store = configureStore({
+export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(effectsMiddleware, deathMiddleware),
   reducer: rootReducer,
 });

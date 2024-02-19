@@ -1,6 +1,6 @@
 export interface Effect {
   description: string;
-  icon?: string;
+  icon: string;
   id: string;
   name: string;
 }

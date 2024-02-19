@@ -55,6 +55,21 @@ export const Details = ({ block, children }: React.PropsWithChildren<DetailsProp
                 {block.rarity}
               </Badge>
             </div>
+            {block.type === 'item' && block.effects && (
+              <>
+                <Separator />
+                <h4 className="text-lg text-muted-foreground">Effects</h4>
+                {block.effects.map((eff) => (
+                  <div className="rounded-md border border-input p-1">
+                    <h5 className="text-sm">
+                      <span className="text-xl">{eff.icon}</span> {eff.name} ({Math.sign(eff.amount) ? '+' : '-'}
+                      {Math.abs(eff.amount)})
+                    </h5>
+                    <p className="text-xs text-muted-foreground">{eff.description}</p>
+                  </div>
+                ))}
+              </>
+            )}
             <Separator />
             <div className="flex justify-between p-1 text-xs text-muted-foreground">
               <span title="Amount">🧮 {block.amount}</span>

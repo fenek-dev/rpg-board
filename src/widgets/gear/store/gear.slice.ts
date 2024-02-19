@@ -32,6 +32,6 @@ export const gearSlice = createSlice({
   reducers: {},
 });
 
-export const {} = gearSlice.actions;
+// export const {} = gearSlice.actions;
 
 export default gearSlice.reducer;

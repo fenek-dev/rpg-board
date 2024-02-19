@@ -40,7 +40,26 @@ export const POTIONS = asItems({
     stackable: true,
     subicon: '❤️',
     type: 'item',
-    weight: 500,
+    weight: 100,
+  },
+  ManaPotion: {
+    category: 'consumable',
+    cost: 10,
+    description: 'Some kind of flask with blue fluid inside',
+    effects: [
+      {
+        ...EFFECTS.RestoreMana,
+        amount: 10,
+      },
+    ],
+    icon: '🫙',
+    id: 'ManaPotion',
+    name: 'Mana potion',
+    rarity: 'rare',
+    stackable: true,
+    subicon: '🔹',
+    type: 'item',
+    weight: 100,
   },
 });
 

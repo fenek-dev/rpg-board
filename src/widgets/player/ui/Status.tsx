@@ -13,7 +13,7 @@ export const Status = () => {
     <SimpleDraggablePopup id={BASIC_POPUPS.Status.container_id}>
       <div className="w-96 space-y-2">
         <Progress
-          indicatorClassName="bg-red-700/60"
+          indicatorClassName="bg-red-700"
           max={max_hp}
           style={{
             height: gridSize / 2.5,
@@ -25,7 +25,7 @@ export const Status = () => {
           </span>
         </Progress>
         <Progress
-          indicatorClassName="bg-blue-700/60"
+          indicatorClassName="bg-blue-700"
           max={max_mana}
           style={{
             height: gridSize / 2.5,
