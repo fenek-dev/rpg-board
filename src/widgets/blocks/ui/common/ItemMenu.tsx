@@ -12,7 +12,7 @@ import {
 } from '~/shared/components/ui/context-menu';
 import { selectPopupById } from '~/widgets/popups/store/popups.selector';
 
-import { Block, putBlocksIntoOne, splitBlock } from '../../store';
+import { Block, effectBlock, putBlocksIntoOne, splitBlock } from '../../store';
 
 interface ItemMenu {
   block: Block;
@@ -40,11 +40,19 @@ export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMe
       })
     );
   };
+
+  const use = () => {
+    dispatch(
+      effectBlock({
+        id,
+      })
+    );
+  };
   return (
     <ContextMenu>
-      <ContextMenuTrigger>{children}</ContextMenuTrigger>
+      <ContextMenuTrigger onDoubleClick={use}>{children}</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem>Use</ContextMenuItem>
+        <ContextMenuItem onClick={use}>Use</ContextMenuItem>
         <ContextMenuSub>
           <ContextMenuSubTrigger disabled={block.amount <= 1}>Split</ContextMenuSubTrigger>
           <ContextMenuSubContent>

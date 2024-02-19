@@ -13,7 +13,7 @@ export interface PlayerState {
 }
 
 const initialState: PlayerState = {
-  hp: START_HP,
+  hp: 10,
   mana: START_MANA,
   max_hp: START_MAX_HP,
   max_mana: START_MAX_MANA,
@@ -23,15 +23,13 @@ export const playerSlice = createSlice({
   initialState,
   name: 'player',
   reducers: {
-    increasePlayerStat: (state, action: PayloadAction<ChangePlayerStat>) => {
-      state[action.payload.name] += action.payload.value;
-    },
-    reducePlayerStat: (state, action: PayloadAction<ChangePlayerStat>) => {
-      state[action.payload.name] -= action.payload.value;
+    heal: (state, action: PayloadAction<number>) => {
+      state.hp += action.payload;
+      if (state.hp > state.max_hp) state.hp = state.max_hp;
     },
   },
 });
 
-export const { increasePlayerStat, reducePlayerStat } = playerSlice.actions;
+export const { heal } = playerSlice.actions;
 
 export default playerSlice.reducer;

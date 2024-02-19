@@ -41,6 +41,18 @@ export const blocksSlice = createSlice({
 
       set(state.blocks, id, block);
     },
+    effectBlock: (state, action: PayloadAction<{ id: string }>) => {
+      const { id } = action.payload;
+      const block = get(state.blocks, id);
+
+      block.amount -= 1;
+
+      if (block.amount <= 0) {
+        unset(state.blocks, id);
+      } else {
+        set(state.blocks, id, block);
+      }
+    },
     putBlockInsideContainer: (
       state,
       action: PayloadAction<{ block_id: string; container: Container; container_id: string }>
@@ -117,6 +129,7 @@ export const blocksSlice = createSlice({
 export const {
   addBlock,
   changeBlockPosition,
+  effectBlock,
   putBlockInsideContainer,
   putBlocksIntoOne,
   putBlocksTogether,

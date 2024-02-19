@@ -1,3 +1,5 @@
+import { EffectWithData } from './effects';
+
 export const ItemCategory = {
   consumable: 'consumable',
   container: 'container',
@@ -15,6 +17,7 @@ export interface Item<Category = keyof typeof ItemCategory, Rarity = keyof typeo
   category: Category;
   cost: number;
   description: string;
+  effects?: EffectWithData[];
   icon: string;
   id: string;
   name: string;
