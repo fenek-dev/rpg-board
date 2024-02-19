@@ -5,7 +5,6 @@ export const adjustPosition = (event: React.DragEvent<HTMLElement>, cellSize: nu
 
   const x = Math.max(Math.min(Math.floor(offsetX / cellSize), cols - 1), 0);
   const y = Math.max(Math.min(Math.floor(offsetY / cellSize), rows - 1), 0);
-  console.log(x, y);
 
   return { x, y };
 };

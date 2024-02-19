@@ -12,7 +12,7 @@ import {
 } from '~/shared/components/ui/context-menu';
 import { selectPopupById } from '~/widgets/popups/store/popups.selector';
 
-import { Block, splitBlock } from '../../store';
+import { Block, putBlocksIntoOne, splitBlock } from '../../store';
 
 interface ItemMenu {
   block: Block;
@@ -22,7 +22,6 @@ interface ItemMenu {
 export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMenu>) => {
   const dispatch = useDispatch();
   const popup = useSelector(selectPopupById(block.belong));
-  console.log(popup);
 
   const split = (amount: number) => () => {
     dispatch(
@@ -30,6 +29,14 @@ export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMe
         amount,
         id,
         popup,
+      })
+    );
+  };
+
+  const putTogether = () => {
+    dispatch(
+      putBlocksIntoOne({
+        id,
       })
     );
   };
@@ -46,8 +53,8 @@ export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMe
             <ContextMenuItem>Custom</ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
-        <ContextMenuItem>Put together</ContextMenuItem>
-        <ContextMenuItem>Remove</ContextMenuItem>
+        <ContextMenuItem onClick={putTogether}>Put together</ContextMenuItem>
+        <ContextMenuItem className="text-red-500">Remove</ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   );

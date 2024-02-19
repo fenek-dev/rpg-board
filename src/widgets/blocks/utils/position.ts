@@ -5,7 +5,7 @@ import { Block } from '../store';
 export const findFreePlace = (blocks: Block[], popup: PopupSizes) => {
   let position: number[] = [];
 
-  const array: boolean[][] = new Array(popup.h).fill(new Array(popup.w).fill(false));
+  const array: boolean[][] = new Array(popup.h).fill(false).map(() => new Array(popup.w).fill(false));
 
   blocks.forEach((block) => {
     array[block.y][block.x] = true;

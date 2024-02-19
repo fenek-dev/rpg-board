@@ -61,6 +61,23 @@ export const blocksSlice = createSlice({
 
       set(state.blocks, block_id, block);
     },
+    putBlocksIntoOne: (state, action: PayloadAction<{ id: string }>) => {
+      const { id } = action.payload;
+      const block = get(state.blocks, id);
+
+      const blocks = Object.entries(state.blocks).filter(
+        ([key, b]) => b.belong === block.belong && b.id === block.id && id !== key
+      );
+
+      const amount = blocks.reduce((prev, [key, curr]) => {
+        unset(state.blocks, key);
+        return curr.amount + prev;
+      }, 0);
+
+      block.amount += amount;
+
+      set(state.blocks, id, block);
+    },
     putBlocksTogether: (state, action: PayloadAction<{ from: string; to: string }>) => {
       const from = get(state.blocks, action.payload.from);
       const to = get(state.blocks, action.payload.to);
@@ -97,7 +114,14 @@ export const blocksSlice = createSlice({
   },
 });
 
-export const { addBlock, changeBlockPosition, putBlockInsideContainer, putBlocksTogether, removeBlock, splitBlock } =
-  blocksSlice.actions;
+export const {
+  addBlock,
+  changeBlockPosition,
+  putBlockInsideContainer,
+  putBlocksIntoOne,
+  putBlocksTogether,
+  removeBlock,
+  splitBlock,
+} = blocksSlice.actions;
 
 export default blocksSlice.reducer;

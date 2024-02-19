@@ -29,7 +29,7 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
   },
   [MONEY.SilverCoin.id]: {
     ...MONEY.SilverCoin,
-    amount: 10000,
+    amount: 100,
     belong: CONTAINER_ITEMS.Moneybag.id,
     x: 0,
     y: 0,
@@ -53,6 +53,20 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
     amount: 1,
     belong: BASIC_POPUPS.Inventory.name,
     x: 4,
+    y: 4,
+  },
+  hello3: {
+    ...POTIONS.HealPotion,
+    amount: 1,
+    belong: BASIC_POPUPS.Inventory.name,
+    x: 6,
+    y: 4,
+  },
+  hello4: {
+    ...POTIONS.HealPotion,
+    amount: 1,
+    belong: BASIC_POPUPS.Inventory.name,
+    x: 7,
     y: 4,
   },
 };
