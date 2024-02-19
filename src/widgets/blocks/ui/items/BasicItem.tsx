@@ -9,6 +9,7 @@ import { useGridItem } from '~/widgets/grid/hooks/useGridItem';
 
 import { Block, putBlocksTogether } from '../../store';
 import { Details } from '../common/Details';
+import { ItemMenu } from '../common/ItemMenu';
 
 export const BasicItem = React.memo(
   React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
@@ -36,28 +37,30 @@ export const BasicItem = React.memo(
     };
 
     return (
-      <Details block={item}>
-        <Button
-          className="text-3xl"
-          draggable={true}
-          onDragEnd={onDragEnd}
-          onDragOver={onDragOver}
-          onDragStart={onDragStart}
-          onDrop={onDrop}
-          rarity={item.rarity}
-          ref={ref}
-          style={style}
-          unselectable="on"
-          variant="outline"
-          {...props}
-        >
-          {item.icon}
-          {item.subicon && <span className="absolute right-1 top-1 text-xs leading-none">{item.subicon}</span>}
-          {item.amount > 1 && (
-            <span className="absolute bottom-1 right-1 text-xs leading-none">{abbreviateAmount(item.amount)}</span>
-          )}
-        </Button>
-      </Details>
+      <ItemMenu block={item} id={props.id!}>
+        <Details block={item}>
+          <Button
+            className="text-3xl"
+            draggable={true}
+            onDragEnd={onDragEnd}
+            onDragOver={onDragOver}
+            onDragStart={onDragStart}
+            onDrop={onDrop}
+            rarity={item.rarity}
+            ref={ref}
+            style={style}
+            unselectable="on"
+            variant="outline"
+            {...props}
+          >
+            {item.icon}
+            {item.subicon && <span className="absolute right-1 top-1 text-xs leading-none">{item.subicon}</span>}
+            {item.amount > 1 && (
+              <span className="absolute bottom-1 right-1 text-xs leading-none">{abbreviateAmount(item.amount)}</span>
+            )}
+          </Button>
+        </Details>
+      </ItemMenu>
     );
   })
 );

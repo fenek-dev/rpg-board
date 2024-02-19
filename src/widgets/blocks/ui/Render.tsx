@@ -12,6 +12,7 @@ interface RenderProps {
 
 export const Render = React.memo(({ container_id }: RenderProps) => {
   const blocks = useSelector(selectBlocksByBelong(container_id));
+  console.log(blocks);
 
   return (
     <div>

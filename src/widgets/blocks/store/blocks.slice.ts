@@ -1,9 +1,10 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { get, set, unset } from 'lodash-es';
+import { cloneDeep, get, set, unset } from 'lodash-es';
 
 import { Container } from '~/entities/extendable/containers';
+import { Popup } from '~/entities/extendable/popups';
 
 import { findFreePlace } from '../utils/position';
 import { BASIC_UI_BLOCKS } from './blocks.const';
@@ -73,10 +74,30 @@ export const blocksSlice = createSlice({
     removeBlock: (state, action: PayloadAction<string>) => {
       unset(state.blocks, action.payload);
     },
+    splitBlock: (state, action: PayloadAction<{ amount: number; id: string; popup: Popup }>) => {
+      const { amount, id, popup } = action.payload;
+      const block = get(state.blocks, id);
+
+      const containerBlocks = Object.values(state.blocks).filter((b) => b.belong === block.belong);
+
+      const position = findFreePlace(containerBlocks, popup);
+
+      if (position.length === 0) return;
+
+      block.amount -= amount;
+      const new_block = cloneDeep(block);
+
+      new_block.amount = amount;
+      new_block.x = position[0];
+      new_block.y = position[1];
+
+      set(state.blocks, id, block);
+      set(state.blocks, crypto.randomUUID(), new_block);
+    },
   },
 });
 
-export const { addBlock, changeBlockPosition, putBlockInsideContainer, putBlocksTogether, removeBlock } =
+export const { addBlock, changeBlockPosition, putBlockInsideContainer, putBlocksTogether, removeBlock, splitBlock } =
   blocksSlice.actions;
 
 export default blocksSlice.reducer;
