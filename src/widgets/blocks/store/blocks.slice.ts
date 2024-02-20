@@ -29,8 +29,37 @@ export const blocksSlice = createSlice({
       const { block_id, ...payload } = action.payload;
       set(state.blocks, block_id, payload);
     },
+    buyItem: (state, action: PayloadAction<{ belong: string; id: string; x: number; y: number }>) => {
+      const { id } = action.payload;
+      const block = get(state.blocks, id);
+
+      const coins = findItemsInsideContainer(state.blocks, MONEY.SilverCoin.id, BASIC_POPUPS.Inventory.container_id);
+
+      const cost = block.amount * block.cost;
+      const coins_amount = Object.values(coins).reduce((p, c) => p + c.amount, 0);
+      if (coins_amount >= cost) {
+        let left = cost;
+        Object.entries(coins).forEach(([key, coin]) => {
+          if (coin.amount >= left) {
+            coin.amount -= left;
+            left = 0;
+            set(state.blocks, key, coin);
+          } else {
+            left -= coin.amount;
+            unset(state.blocks, key);
+          }
+        });
+        console.log(changeBlockPosition);
+
+        blocksSlice.caseReducers.changeBlockPosition(state, action);
+      } else {
+        // TODO: Sonner
+        console.log('Not enough money');
+      }
+    },
     changeBlockPosition: (state, action: PayloadAction<{ belong: string; id: string; x: number; y: number }>) => {
       const { id, ...payload } = action.payload;
+      console.log('changeBlockPosition', id, payload);
 
       const block = get(state.blocks, id);
       const to = get(state.blocks, payload.belong);
@@ -105,17 +134,17 @@ export const blocksSlice = createSlice({
     removeBlock: (state, action: PayloadAction<string>) => {
       unset(state.blocks, action.payload);
     },
-    sellItem: (state, action: PayloadAction<{ id: string }>) => {
+    sellItem: (state, action: PayloadAction<{ belong: string; id: string; x: number; y: number }>) => {
       const { id } = action.payload;
       const block = get(state.blocks, id);
 
-      const containerBlocks = Object.values(state.blocks).filter(
-        (b) => b.belong === BASIC_POPUPS.Inventory.container_id
-      );
       const coins = findItemsInsideContainer(state.blocks, MONEY.SilverCoin.id, BASIC_POPUPS.Inventory.container_id);
 
       const amount = block.amount * block.cost;
       if (Object.keys(coins).length === 0) {
+        const containerBlocks = Object.values(state.blocks).filter(
+          (b) => b.belong === BASIC_POPUPS.Inventory.container_id
+        );
         const position = findFreePlace(containerBlocks, BASIC_POPUPS.Inventory);
 
         if (position.length === 0 || amount <= 0) return;
@@ -133,6 +162,7 @@ export const blocksSlice = createSlice({
         coin.amount += amount;
         set(state.blocks, coinId, coin);
       }
+      blocksSlice.caseReducers.changeBlockPosition(state, action);
     },
     splitBlock: (state, action: PayloadAction<{ amount: number; id: string; popup: Popup }>) => {
       const { amount, id, popup } = action.payload;
@@ -159,6 +189,7 @@ export const blocksSlice = createSlice({
 
 export const {
   addBlock,
+  buyItem,
   changeBlockPosition,
   effectBlock,
   putBlockInsideContainer,

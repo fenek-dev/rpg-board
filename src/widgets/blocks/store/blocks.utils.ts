@@ -21,8 +21,6 @@ export const findItemsInsideContainer = (
           return true;
         } else {
           const container = get(blocks, block.belong);
-          console.log(block.belong);
-
           return container?.belong === container_id;
         }
       })
