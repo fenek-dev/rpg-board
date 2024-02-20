@@ -136,7 +136,12 @@ export const blocksSlice = createSlice({
       }
     },
     removeBlock: (state, action: PayloadAction<string>) => {
+      const block = get(state.blocks, action.payload);
       unset(state.blocks, action.payload);
+      toast.success(`You removed ${block.name}`, {
+        description: `Amount: ${block.amount}`,
+        icon: '🗑️',
+      });
     },
     sellItem: (state, action: PayloadAction<{ belong: string; id: string; x: number; y: number }>) => {
       const { id } = action.payload;
