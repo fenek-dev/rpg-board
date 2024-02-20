@@ -41,7 +41,7 @@ export const blocksSlice = createSlice({
       if (coins_amount >= cost) {
         let left = cost;
         Object.entries(coins).forEach(([key, coin]) => {
-          if (coin.amount >= left) {
+          if (coin.amount > left) {
             coin.amount -= left;
             left = 0;
             set(state.blocks, key, coin);
