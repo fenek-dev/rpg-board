@@ -48,4 +48,11 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
     x: 1,
     y: 1,
   },
+  heal2: {
+    ...POTIONS.HealPotion,
+    amount: 2,
+    belong: BASIC_POPUPS.Shop.name,
+    x: 0,
+    y: 1,
+  },
 };

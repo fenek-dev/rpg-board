@@ -2,6 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { createSlice } from '@reduxjs/toolkit';
 import { cloneDeep, get, set, unset } from 'lodash-es';
+import { toast } from 'sonner';
 
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { Container } from '~/entities/extendable/containers';
@@ -49,17 +50,20 @@ export const blocksSlice = createSlice({
             unset(state.blocks, key);
           }
         });
-        console.log(changeBlockPosition);
-
         blocksSlice.caseReducers.changeBlockPosition(state, action);
+        toast.success(`You bought ${block.name}`, {
+          description: `Amount: ${block.amount}, Cost: ${cost}`,
+          icon: '🪙',
+        });
       } else {
-        // TODO: Sonner
-        console.log('Not enough money');
+        toast.error(`You don't have enough money to buy ${block.name}`, {
+          description: `Amount: ${block.amount}, Cost: ${cost}, Left: ${cost - coins_amount}`,
+          icon: '❌',
+        });
       }
     },
     changeBlockPosition: (state, action: PayloadAction<{ belong: string; id: string; x: number; y: number }>) => {
       const { id, ...payload } = action.payload;
-      console.log('changeBlockPosition', id, payload);
 
       const block = get(state.blocks, id);
       const to = get(state.blocks, payload.belong);
@@ -163,6 +167,10 @@ export const blocksSlice = createSlice({
         set(state.blocks, coinId, coin);
       }
       blocksSlice.caseReducers.changeBlockPosition(state, action);
+      toast.success(`You sold ${block.name}`, {
+        description: `Amount: ${block.amount}, Cost: ${amount}`,
+        icon: '🪙',
+      });
     },
     splitBlock: (state, action: PayloadAction<{ amount: number; id: string; popup: Popup }>) => {
       const { amount, id, popup } = action.payload;

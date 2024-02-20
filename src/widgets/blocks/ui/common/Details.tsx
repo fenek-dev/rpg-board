@@ -42,7 +42,7 @@ export const Details = ({ block, children }: React.PropsWithChildren<DetailsProp
         {children}
       </HoverCardTrigger>
       {isOpen && (
-        <HoverCardContent align="start" className="min-w-40 max-w-80" side="right">
+        <HoverCardContent align="start" className="z-50 min-w-40 max-w-80" side="right">
           <div className="space-y-2">
             <h4 className="text-lg font-semibold">{block.name}</h4>
             <p className="text-sm text-muted-foreground">{block.description}</p>
@@ -60,7 +60,7 @@ export const Details = ({ block, children }: React.PropsWithChildren<DetailsProp
                 <Separator />
                 <h4 className="text-lg text-muted-foreground">Effects</h4>
                 {block.effects.map((eff) => (
-                  <div className="rounded-md border border-input p-1">
+                  <div className="rounded-md border border-input p-1" key={eff.id}>
                     <h5 className="text-sm">
                       <span className="text-xl">{eff.icon}</span> {eff.name} ({Math.sign(eff.amount) ? '+' : '-'}
                       {Math.abs(eff.amount)})

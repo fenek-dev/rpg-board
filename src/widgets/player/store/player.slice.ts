@@ -1,6 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'sonner';
 
 import { START_MAX_HP, START_MAX_MANA } from './player.enum';
 
@@ -25,10 +26,16 @@ export const playerSlice = createSlice({
     heal: (state, action: PayloadAction<number>) => {
       state.hp += action.payload;
       if (state.hp > state.max_hp) state.hp = state.max_hp;
+      toast.success(`You healed ${action.payload} hp`, {
+        icon: '❤️‍🩹',
+      });
     },
     restoreMana: (state, action: PayloadAction<number>) => {
       state.mana += action.payload;
       if (state.mana > state.max_mana) state.mana = state.max_mana;
+      toast.success(`You restored ${action.payload} mana`, {
+        icon: '🔹',
+      });
     },
   },
 });
