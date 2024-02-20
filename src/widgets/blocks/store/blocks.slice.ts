@@ -11,7 +11,7 @@ import { MONEY } from '~/entities/items/money';
 import { findFreePlace } from '../utils/position';
 import { BASIC_UI_BLOCKS } from './blocks.const';
 import { Block, SerializedBlocks } from './blocks.types';
-import { isAcceptableForThisContainer, isNotContainerIntoContainer } from './blocks.utils';
+import { findItemsInsideContainer, isAcceptableForThisContainer, isNotContainerIntoContainer } from './blocks.utils';
 
 export interface BlocksState {
   blocks: SerializedBlocks;
@@ -112,20 +112,27 @@ export const blocksSlice = createSlice({
       const containerBlocks = Object.values(state.blocks).filter(
         (b) => b.belong === BASIC_POPUPS.Inventory.container_id
       );
-
-      const position = findFreePlace(containerBlocks, BASIC_POPUPS.Inventory);
+      const coins = findItemsInsideContainer(state.blocks, MONEY.SilverCoin.id, BASIC_POPUPS.Inventory.container_id);
 
       const amount = block.amount * block.cost;
-      if (position.length === 0 || amount <= 0) return;
+      if (Object.keys(coins).length === 0) {
+        const position = findFreePlace(containerBlocks, BASIC_POPUPS.Inventory);
 
-      unset(state.blocks, id);
-      set(state.blocks, crypto.randomUUID(), {
-        ...MONEY.SilverCoin,
-        amount,
-        belong: BASIC_POPUPS.Inventory.container_id,
-        x: position[0],
-        y: position[1],
-      });
+        if (position.length === 0 || amount <= 0) return;
+
+        set(state.blocks, crypto.randomUUID(), {
+          ...MONEY.SilverCoin,
+          amount,
+          belong: BASIC_POPUPS.Inventory.container_id,
+          x: position[0],
+          y: position[1],
+        });
+      } else {
+        const coinId = Object.keys(coins)[0];
+        const coin = get(state.blocks, coinId);
+        coin.amount += amount;
+        set(state.blocks, coinId, coin);
+      }
     },
     splitBlock: (state, action: PayloadAction<{ amount: number; id: string; popup: Popup }>) => {
       const { amount, id, popup } = action.payload;
