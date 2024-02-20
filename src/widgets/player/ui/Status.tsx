@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { Progress } from '~/shared/components/ui/progress';
-import { SimpleDraggablePopup } from '~/widgets/popups/ui/SimpleDraggablePopup';
+import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDraggablePopup';
 
 export const Status = () => {
   const { hp, mana, max_hp, max_mana } = useSelector((state: RootState) => state.player);

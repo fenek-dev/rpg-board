@@ -1,5 +1,5 @@
 import { GearPopup } from '~/widgets/gear/ui/GearPopup';
-import { PopupWithGrid } from '~/widgets/popups/ui/PopupWithGrid';
+import { PopupWithGrid } from '~/widgets/popups/ui/containers/PopupWithGrid';
 
 const POPUP_BLOCKS = {
   GearPopup,

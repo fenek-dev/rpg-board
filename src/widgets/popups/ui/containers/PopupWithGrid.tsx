@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Block, changeBlockPosition } from '~/widgets/blocks/store';
 import { Render } from '~/widgets/blocks/ui/Render';
 import { GridLayout } from '~/widgets/grid/ui/GridLayout';
-import { DraggablePopup } from '~/widgets/popups/ui/DraggablePopup';
+import { DraggablePopup } from '~/widgets/popups/ui/components/DraggablePopup';
 
-import { selectPopupById } from '../store/popups.selector';
+import { selectPopupById } from '../../store/popups.selector';
 
 export const PopupWithGrid = React.memo(({ id }: { id: string }) => {
   const popup = useSelector(selectPopupById(id));

@@ -3,8 +3,10 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { cloneDeep, get, set, unset } from 'lodash-es';
 
+import BASIC_POPUPS from '~/entities/constant/popup';
 import { Container } from '~/entities/extendable/containers';
 import { Popup } from '~/entities/extendable/popups';
+import { MONEY } from '~/entities/items/money';
 
 import { findFreePlace } from '../utils/position';
 import { BASIC_UI_BLOCKS } from './blocks.const';
@@ -23,9 +25,9 @@ export const blocksSlice = createSlice({
   initialState,
   name: 'blocks',
   reducers: {
-    addBlock: (state, action: PayloadAction<Block & { id: string }>) => {
-      const { id, ...payload } = action.payload;
-      set(state.blocks, id, payload);
+    addBlock: (state, action: PayloadAction<Block & { block_id: string }>) => {
+      const { block_id, ...payload } = action.payload;
+      set(state.blocks, block_id, payload);
     },
     changeBlockPosition: (state, action: PayloadAction<{ belong: string; id: string; x: number; y: number }>) => {
       const { id, ...payload } = action.payload;
@@ -103,6 +105,28 @@ export const blocksSlice = createSlice({
     removeBlock: (state, action: PayloadAction<string>) => {
       unset(state.blocks, action.payload);
     },
+    sellItem: (state, action: PayloadAction<{ id: string }>) => {
+      const { id } = action.payload;
+      const block = get(state.blocks, id);
+
+      const containerBlocks = Object.values(state.blocks).filter(
+        (b) => b.belong === BASIC_POPUPS.Inventory.container_id
+      );
+
+      const position = findFreePlace(containerBlocks, BASIC_POPUPS.Inventory);
+
+      const amount = block.amount * block.cost;
+      if (position.length === 0 || amount <= 0) return;
+
+      unset(state.blocks, id);
+      set(state.blocks, crypto.randomUUID(), {
+        ...MONEY.SilverCoin,
+        amount,
+        belong: BASIC_POPUPS.Inventory.container_id,
+        x: position[0],
+        y: position[1],
+      });
+    },
     splitBlock: (state, action: PayloadAction<{ amount: number; id: string; popup: Popup }>) => {
       const { amount, id, popup } = action.payload;
       const block = get(state.blocks, id);
@@ -134,6 +158,7 @@ export const {
   putBlocksIntoOne,
   putBlocksTogether,
   removeBlock,
+  sellItem,
   splitBlock,
 } = blocksSlice.actions;
 

@@ -8,6 +8,7 @@ import settingsSlice from '~/widgets/settings/store/settings.slice';
 
 import { deathMiddleware } from './middlewares/death';
 import { effectsMiddleware } from './middlewares/effect';
+import { shopMiddleware } from './middlewares/shop';
 
 const rootReducer = combineReducers({
   blocks: blocksSlice,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
 });
 
 export const store = configureStore({
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(effectsMiddleware, deathMiddleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(effectsMiddleware, deathMiddleware, shopMiddleware),
   reducer: rootReducer,
 });
 

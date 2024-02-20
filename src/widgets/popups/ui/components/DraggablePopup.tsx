@@ -7,9 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/shared/components/ui
 import { Skeleton } from '~/shared/components/ui/skeleton';
 import { popupContainerPositionStyle, popupHeaderStyle } from '~/shared/utils';
 
-import { selectPopupById } from '../store/popups.selector';
-import { changePopupPosition } from '../store/popups.slice';
-import { PopupMenu } from './components/PopupMenu';
+import { selectPopupById } from '../../store/popups.selector';
+import { changePopupPosition } from '../../store/popups.slice';
+import { PopupMenu } from './PopupMenu';
 
 export interface DraggablePopupProps {
   id: string;

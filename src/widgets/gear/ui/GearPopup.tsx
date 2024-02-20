@@ -1,5 +1,5 @@
 import { Button } from '~/shared/components/ui/button';
-import { DraggablePopup, DraggablePopupProps } from '~/widgets/popups/ui/DraggablePopup';
+import { DraggablePopup, DraggablePopupProps } from '~/widgets/popups/ui/components/DraggablePopup';
 
 export const GearPopup = (props: DraggablePopupProps) => {
   return (

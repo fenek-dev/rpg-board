@@ -19,6 +19,12 @@ const initialState: PopupsState = {
       x: 50,
       y: 50,
     },
+    [BASIC_POPUPS.Shop.name]: {
+      ...BASIC_POPUPS.Shop,
+      isCollapsed: false,
+      x: 700,
+      y: 50,
+    },
     [BASIC_POPUPS.Status.name]: {
       ...BASIC_POPUPS.Status,
       isCollapsed: false,

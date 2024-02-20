@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Card, CardContent, CardHeader, CardTitle } from '~/shared/components/ui/card';
 
-import { selectPopupById } from '../store/popups.selector';
-import { changePopupPosition } from '../store/popups.slice';
+import { selectPopupById } from '../../store/popups.selector';
+import { changePopupPosition } from '../../store/popups.slice';
 
 export interface DraggablePopupProps {
   id: string;
