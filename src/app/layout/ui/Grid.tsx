@@ -1,8 +1,10 @@
+import React from 'react';
+
 interface Props {
   size: number;
 }
 
-export const Grid = ({ size }: Props) => {
+export const Grid = React.memo(({ size }: Props) => {
   return (
     <svg className="absolute left-0 top-0 -z-20" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -13,4 +15,4 @@ export const Grid = ({ size }: Props) => {
       <rect fill="url(#smallGrid)" height="100%" width="100%" />
     </svg>
   );
-};
+});
