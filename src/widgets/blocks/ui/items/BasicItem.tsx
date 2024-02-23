@@ -40,12 +40,13 @@ export const BasicItem = React.memo(
       <ItemMenu block={item} id={props.id!}>
         <Details block={item}>
           <Button
-            className="text-3xl transition-transform"
+            className="cursor-move text-3xl transition-transform"
             draggable={true}
             onDragEnd={onDragEnd}
             onDragOver={onDragOver}
             onDragStart={onDragStart}
             onDrop={onDrop}
+            onMouseDown={(e) => e.stopPropagation()}
             rarity={item.rarity}
             ref={ref}
             style={style}

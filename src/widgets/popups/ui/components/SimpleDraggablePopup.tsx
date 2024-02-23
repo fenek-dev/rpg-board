@@ -34,7 +34,7 @@ export const SimpleDraggablePopup = React.memo(({ children, id }: React.PropsWit
         <CardHeader className="flex w-full flex-row items-center justify-between gap-1">
           <CardTitle className="block">{popup.name}</CardTitle>
         </CardHeader>
-        <CardContent className="cursor-default">{children}</CardContent>
+        <CardContent>{children}</CardContent>
       </Card>
     </Draggable>
   );

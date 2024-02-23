@@ -61,13 +61,14 @@ export const BasicContainer = React.memo(
     return (
       <Details block={container}>
         <Button
-          className="text-3xl transition-transform"
+          className="cursor-move text-3xl transition-transform"
           draggable={true}
           onClick={handleOpenContainer}
           onDragEnd={onDragEnd}
           onDragOver={onDragOver}
           onDragStart={onDragStart}
           onDrop={onDrop}
+          onMouseDown={(e) => e.stopPropagation()}
           rarity={container.rarity}
           ref={ref}
           style={style}
