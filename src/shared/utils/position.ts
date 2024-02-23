@@ -6,9 +6,9 @@ export const boardPositionStyle = (gridSize: number, width: number, height: numb
 });
 
 export const popupContainerPositionStyle = (gridSize: number, width: number, height: number): React.CSSProperties => ({
-  height: height * gridSize + 1,
   margin: gridSize / 2,
   marginTop: 0,
+  minHeight: height * gridSize + 1,
   width: width * gridSize + 1,
 });
 

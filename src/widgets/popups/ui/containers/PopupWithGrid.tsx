@@ -8,7 +8,7 @@ import { DraggablePopup } from '~/widgets/popups/ui/components/DraggablePopup';
 
 import { selectPopupById } from '../../store/popups.selector';
 
-export const PopupWithGrid = React.memo(({ id }: { id: string }) => {
+export const PopupWithGrid = React.memo(({ children, id }: React.PropsWithChildren<{ id: string }>) => {
   const popup = useSelector(selectPopupById(id));
 
   const dispatch = useDispatch();
@@ -29,6 +29,7 @@ export const PopupWithGrid = React.memo(({ id }: { id: string }) => {
       <GridLayout cols={popup.w} id={popup.container_id} onItemDrop={onItemDrop} rows={popup.h}>
         <Render container_id={popup.container_id} />
       </GridLayout>
+      {children}
     </DraggablePopup>
   );
 });
