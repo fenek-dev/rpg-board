@@ -56,7 +56,7 @@ export const blocksSlice = createSlice({
     },
     putBlockInsideContainer: (
       state,
-      action: PayloadAction<{ block_id: string; container: Container; container_id: string }>
+      action: PayloadAction<{ block_id: string; container: Block<Container>; container_id: string }>
     ) => {
       const { block_id, container, container_id } = action.payload;
 

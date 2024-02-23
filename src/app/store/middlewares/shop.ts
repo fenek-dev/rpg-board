@@ -2,7 +2,7 @@ import { Middleware, PayloadAction } from '@reduxjs/toolkit';
 import { get } from 'lodash-es';
 
 import BASIC_POPUPS from '~/entities/constant/popup';
-import { changeBlockPosition, putBlocksTogether } from '~/widgets/blocks/store';
+import { changeBlockPosition, putBlockInsideContainer, putBlocksTogether } from '~/widgets/blocks/store';
 import { gainMoney, spendMoney } from '~/widgets/player/store';
 import { addPopup, removePopup } from '~/widgets/popups/store/popups.slice';
 
@@ -14,7 +14,6 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
   const sell = (cost: number) => {
     next(action);
     next(gainMoney(cost));
-    return;
   };
 
   const buy = (cost: number) => {
@@ -23,7 +22,6 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
     if (cost <= money) {
       next(action);
     }
-    return;
   };
 
   // On block position change
@@ -37,7 +35,7 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
       if (block.type === 'container') {
         next(removePopup(block.id));
       }
-      sell(cost);
+      return sell(cost);
     }
     // BUY
     else if (
@@ -45,7 +43,7 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
       block.belong === BASIC_POPUPS.Shop.container_id &&
       a.payload.belong !== BASIC_POPUPS.Shop.container_id
     ) {
-      buy(cost);
+      return buy(cost);
     }
   }
 
@@ -62,11 +60,34 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
       if (from.type === 'container') {
         next(removePopup(from.id));
       }
-      sell(cost);
+      return sell(cost);
     }
     // BUY
     else if (from && from.belong === BASIC_POPUPS.Shop.container_id && to.belong !== BASIC_POPUPS.Shop.container_id) {
-      buy(cost);
+      return buy(cost);
+    }
+  }
+
+  // On put inside container
+  if (action.type === putBlockInsideContainer.type) {
+    const a = action as ReturnType<typeof putBlockInsideContainer>;
+    const container = a.payload.container;
+    const block = get(storeApi.getState().blocks.blocks, a.payload.block_id);
+
+    const cost = block.amount * block.cost;
+
+    // SELL
+    if (container.belong === BASIC_POPUPS.Shop.container_id) {
+      return;
+    }
+    // BUY
+    else if (
+      block &&
+      container &&
+      block.belong === BASIC_POPUPS.Shop.container_id &&
+      container.belong !== BASIC_POPUPS.Shop.container_id
+    ) {
+      return buy(cost);
     }
   }
 
