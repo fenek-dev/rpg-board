@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 
 import { selectBlocksByBelong } from '~/widgets/blocks/store';
 
-import { BasicContainer } from './containers/BasicContainer';
-import { BasicItem } from './items/BasicItem';
+import { ContainerItem } from './items/container/ContainerItem';
 import { GearItem } from './items/gear/GearItem';
+import { BasicItem } from './items/item/BasicItem';
 
 interface RenderProps {
   container_id: string;
@@ -18,7 +18,7 @@ export const Render = React.memo(({ container_id }: RenderProps) => {
     <div>
       {Object.entries(blocks).map(([id, block]) => {
         if (block.type === 'container') {
-          return <BasicContainer id={id} key={id} />;
+          return <ContainerItem id={id} key={id} />;
         }
         if (block.type === 'item') {
           return <BasicItem id={id} key={id} />;

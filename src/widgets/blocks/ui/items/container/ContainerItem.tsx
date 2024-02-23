@@ -8,11 +8,12 @@ import { Button, ButtonProps } from '~/shared/components/ui/button';
 import { useGridItem } from '~/widgets/grid/hooks/useGridItem';
 import { addPopup } from '~/widgets/popups/store/popups.slice';
 
-import { Block, putBlockInsideContainer } from '../../store';
-import { isAcceptableForThisContainer } from '../../store/blocks.utils';
-import { Details } from '../common/Details';
+import { Block, putBlockInsideContainer } from '../../../store';
+import { isAcceptableForThisContainer } from '../../../store/blocks.utils';
+import { Details } from '../../common/Details';
+import { ContainerMenu } from './ContainerMenu';
 
-export const BasicContainer = React.memo(
+export const ContainerItem = React.memo(
   React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     const container = useSelector((state: RootState) => state.blocks.blocks[props.id!]) as Block<Container>;
     const dispatch = useDispatch();
@@ -64,33 +65,35 @@ export const BasicContainer = React.memo(
 
     return (
       <Details block={container} id={props.id!}>
-        <Button
-          className="cursor-grab text-3xl transition-transform"
-          draggable={true}
-          onClick={handleOpenContainer}
-          onDragEnd={onDragEnd}
-          onDragOver={onDragOver}
-          onDragStart={onDragStart}
-          onDrop={onDrop}
-          onMouseDown={(e) => e.stopPropagation()}
-          rarity={container.rarity}
-          ref={ref}
-          style={style}
-          unselectable="on"
-          variant="outline"
-          {...props}
-        >
-          {container.icon}
-          {container.subicon && (
-            <span className="absolute right-1 top-1 text-xs leading-none">{container.subicon}</span>
-          )}
-          <span className="absolute bottom-1 right-1">
-            <OpenInNewWindowIcon className="h-3 w-3" />
-          </span>
-        </Button>
+        <ContainerMenu block={container} id={props.id!}>
+          <Button
+            className="cursor-grab text-3xl transition-transform"
+            draggable={true}
+            onClick={handleOpenContainer}
+            onDragEnd={onDragEnd}
+            onDragOver={onDragOver}
+            onDragStart={onDragStart}
+            onDrop={onDrop}
+            onMouseDown={(e) => e.stopPropagation()}
+            rarity={container.rarity}
+            ref={ref}
+            style={style}
+            unselectable="on"
+            variant="outline"
+            {...props}
+          >
+            {container.icon}
+            {container.subicon && (
+              <span className="absolute right-1 top-1 text-xs leading-none">{container.subicon}</span>
+            )}
+            <span className="absolute bottom-1 right-1">
+              <OpenInNewWindowIcon className="h-3 w-3" />
+            </span>
+          </Button>
+        </ContainerMenu>
       </Details>
     );
   })
 );
 
-BasicContainer.displayName = 'BasicContainer';
+ContainerItem.displayName = 'ContainerItem';

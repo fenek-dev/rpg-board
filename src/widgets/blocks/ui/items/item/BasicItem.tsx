@@ -7,9 +7,9 @@ import { Button, ButtonProps } from '~/shared/components/ui/button';
 import { abbreviateAmount } from '~/shared/utils/number';
 import { useGridItem } from '~/widgets/grid/hooks/useGridItem';
 
-import { Block, putBlocksTogether } from '../../store';
-import { Details } from '../common/Details';
-import { ItemMenu } from '../common/ItemMenu';
+import { Block, putBlocksTogether } from '../../../store';
+import { Details } from '../../common/Details';
+import { ItemMenu } from './ItemMenu';
 
 export const BasicItem = React.memo(
   React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {

@@ -13,7 +13,7 @@ import {
 } from '~/shared/components/ui/context-menu';
 import { selectPopupById } from '~/widgets/popups/store/popups.selector';
 
-import { Block, effectBlock, putBlocksIntoOne, removeBlock, splitBlock } from '../../store';
+import { Block, effectBlock, putBlocksIntoOne, removeBlock, splitBlock } from '../../../store';
 
 interface ItemMenu {
   block: Block;
@@ -24,7 +24,7 @@ export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMe
   const dispatch = useDispatch();
   const popup = useSelector(selectPopupById(block.belong));
 
-  const allowed = !POPUPS_WITHOUT_ITEM_ACTIVATION.includes(popup.container_id);
+  const disabled = POPUPS_WITHOUT_ITEM_ACTIVATION.includes(popup.container_id);
 
   const split = (amount: number) => () => {
     dispatch(
@@ -56,9 +56,11 @@ export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMe
   };
   return (
     <ContextMenu>
-      <ContextMenuTrigger onDoubleClick={allowed ? use : undefined}>{children}</ContextMenuTrigger>
+      <ContextMenuTrigger onDoubleClick={disabled ? undefined : use}>{children}</ContextMenuTrigger>
       <ContextMenuContent>
-        {allowed && <ContextMenuItem onClick={use}>Use</ContextMenuItem>}
+        <ContextMenuItem disabled={disabled} onClick={use}>
+          Use
+        </ContextMenuItem>
         <ContextMenuSub>
           <ContextMenuSubTrigger disabled={block.amount <= 1}>Split</ContextMenuSubTrigger>
           <ContextMenuSubContent>
@@ -68,16 +70,17 @@ export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMe
           </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuItem onClick={putTogether}>Put together</ContextMenuItem>
-        {allowed && (
-          <ContextMenuSub>
-            <ContextMenuSubTrigger className="text-red-500">Remove</ContextMenuSubTrigger>
-            <ContextMenuSubContent>
-              <ContextMenuItem className="text-red-500" onClick={remove}>
-                Confirm
-              </ContextMenuItem>
-            </ContextMenuSubContent>
-          </ContextMenuSub>
-        )}
+
+        <ContextMenuSub>
+          <ContextMenuSubTrigger className="text-red-500" disabled={disabled}>
+            Remove
+          </ContextMenuSubTrigger>
+          <ContextMenuSubContent>
+            <ContextMenuItem className="text-red-500" disabled={disabled} onClick={remove}>
+              Confirm
+            </ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
       </ContextMenuContent>
     </ContextMenu>
   );
