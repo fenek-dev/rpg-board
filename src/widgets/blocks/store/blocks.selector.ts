@@ -20,10 +20,11 @@ export const selectBlocksByBelong = (id: string) =>
     }
   );
 
-export const selectWeightInContainer = (id: string) =>
+export const selectWeightInContainer = (id: string, isContainer?: boolean) =>
   createSelector(
     (state: RootState) => state.blocks.blocks,
     (blocks) => {
+      if (!isContainer) return 0;
       return countWeightInContainer(blocks, id);
     }
   );

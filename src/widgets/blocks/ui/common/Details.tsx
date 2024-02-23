@@ -1,19 +1,23 @@
 import debounce from 'lodash-es/debounce';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { Badge } from '~/shared/components/ui/badge';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/shared/components/ui/hover-card';
 import { Separator } from '~/shared/components/ui/separator';
 import { abbreviateWeight } from '~/shared/utils/number';
-import { Block } from '~/widgets/blocks/store';
+import { Block, selectWeightInContainer } from '~/widgets/blocks/store';
 
 interface DetailsProps {
   block: Block;
+  id: string;
 }
 
-export const Details = ({ block, children }: React.PropsWithChildren<DetailsProps>) => {
+export const Details = ({ block, children, id }: React.PropsWithChildren<DetailsProps>) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const isLeft = React.useRef(false);
+
+  const weightInside = useSelector(selectWeightInContainer(id, block.type === 'container'));
 
   const debouncedSetIsOpen = debounce((value: boolean) => {
     if (!isLeft.current) {
@@ -74,7 +78,7 @@ export const Details = ({ block, children }: React.PropsWithChildren<DetailsProp
             <div className="flex justify-between p-1 text-xs text-muted-foreground">
               <span title="Amount">🧮 {block.amount}</span>
               <Separator orientation="vertical" />
-              <span title="Weight">⚖️ {abbreviateWeight(block.weight * block.amount)}</span>
+              <span title="Weight">⚖️ {abbreviateWeight(block.weight * block.amount + weightInside)}</span>
               <Separator orientation="vertical" />
               <span title="Cost">🪙 {block.cost * block.amount}</span>
             </div>

@@ -59,7 +59,7 @@ export const BasicContainer = React.memo(
     };
 
     return (
-      <Details block={container}>
+      <Details block={container} id={props.id!}>
         <Button
           className="cursor-move text-3xl transition-transform"
           draggable={true}
