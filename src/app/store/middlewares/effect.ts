@@ -16,10 +16,10 @@ export const effectsMiddleware: Middleware<unknown, RootState> = (storeApi) => (
       block.effects?.forEach((eff) => {
         switch (eff.id) {
           case EFFECTS.Heal.id:
-            next(heal(eff.amount));
+            next(heal(eff.dices));
             break;
           case EFFECTS.RestoreMana.id:
-            next(restoreMana(eff.amount));
+            next(restoreMana(eff.dices));
             break;
           default:
             break;

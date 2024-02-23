@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Badge } from '~/shared/components/ui/badge';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/shared/components/ui/hover-card';
 import { Separator } from '~/shared/components/ui/separator';
+import { getMinMaxFromDices } from '~/shared/utils/dices';
 import { abbreviateWeight } from '~/shared/utils/number';
 import { Block, selectCostInContainer, selectWeightInContainer } from '~/widgets/blocks/store';
 
@@ -67,8 +68,8 @@ export const Details = ({ block, children, id }: React.PropsWithChildren<Details
                 {block.effects.map((eff) => (
                   <div className="rounded-md border border-input p-1" key={eff.id}>
                     <h5 className="text-sm">
-                      <span className="text-xl">{eff.icon}</span> {eff.name} ({Math.sign(eff.amount) ? '+' : '-'}
-                      {Math.abs(eff.amount)})
+                      <span className="text-xl">{eff.icon}</span> {eff.name} (
+                      {getMinMaxFromDices(eff.dices).join(' - ')})
                     </h5>
                     <p className="text-xs text-muted-foreground">{eff.description}</p>
                   </div>

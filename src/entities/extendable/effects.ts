@@ -1,3 +1,5 @@
+import { Dice } from './dices';
+
 export interface Effect {
   description: string;
   icon: string;
@@ -6,7 +8,7 @@ export interface Effect {
 }
 
 export interface EffectWithData extends Effect {
-  amount: number;
+  dices: Dice[];
 }
 
 export const asEffects = <T>(et: { [K in keyof T]: Effect }) => et;

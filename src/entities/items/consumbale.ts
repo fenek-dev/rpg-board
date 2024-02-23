@@ -1,4 +1,5 @@
 import { asItems } from '../extendable/items';
+import { DICES } from './dices';
 import { EFFECTS } from './effects';
 
 export const FOOD = asItems({
@@ -9,7 +10,7 @@ export const FOOD = asItems({
     effects: [
       {
         ...EFFECTS.Heal,
-        amount: 5,
+        dices: [DICES.d2, DICES.d2],
       },
     ],
     h: 1,
@@ -32,7 +33,7 @@ export const POTIONS = asItems({
     effects: [
       {
         ...EFFECTS.Heal,
-        amount: 25,
+        dices: [DICES.d4, DICES.d4],
       },
     ],
     h: 2,
@@ -53,7 +54,7 @@ export const POTIONS = asItems({
     effects: [
       {
         ...EFFECTS.RestoreMana,
-        amount: 10,
+        dices: [DICES.d4, DICES.d2],
       },
     ],
     h: 2,
