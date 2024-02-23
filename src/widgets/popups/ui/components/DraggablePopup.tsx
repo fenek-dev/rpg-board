@@ -35,11 +35,11 @@ export const DraggablePopup = React.memo(({ children, id }: React.PropsWithChild
 
   return (
     <Draggable onStop={handleStop} position={popup}>
-      <Card className="absolute z-10 flex flex-col items-center" id={id}>
+      <Card className="absolute z-10 flex cursor-grab flex-col items-center" id={id}>
         {!popup.static && <PopupMenu className="absolute -right-1 top-0 translate-x-full" id={id} popup={popup} />}
 
         <CardHeader
-          className="flex w-full flex-row items-center justify-between gap-1"
+          className="flex w-full select-none flex-row items-center justify-between gap-1"
           style={popupHeaderStyle(gridSize)}
         >
           <CardTitle className="block">{popup.name}</CardTitle>
@@ -70,7 +70,11 @@ interface ContentProps {
 }
 
 const Content = React.memo(({ children, gridSize, height, width }: React.PropsWithChildren<ContentProps>) => (
-  <CardContent onMouseDown={(e) => e.stopPropagation()} style={popupContainerPositionStyle(gridSize, width, height)}>
+  <CardContent
+    className="cursor-default"
+    onMouseDown={(e) => e.stopPropagation()}
+    style={popupContainerPositionStyle(gridSize, width, height)}
+  >
     {children}
   </CardContent>
 ));
