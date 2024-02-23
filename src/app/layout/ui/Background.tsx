@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const Background = () => {
   return (
     <svg className="fixed inset-0 -z-50" height="100%" width="100%">
