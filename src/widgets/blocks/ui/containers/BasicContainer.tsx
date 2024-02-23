@@ -17,7 +17,7 @@ export const BasicContainer = React.memo(
     const container = useSelector((state: RootState) => state.blocks.blocks[props.id!]) as Block<Container>;
     const dispatch = useDispatch();
 
-    const { onDragEnd, onDragStart, style } = useGridItem(container, props.id!);
+    const { isDragging, onDragEnd, onDragStart, style } = useGridItem(container, props.id!);
 
     const handleOpenContainer = (e: React.MouseEvent<HTMLButtonElement>) => {
       dispatch(
@@ -35,27 +35,31 @@ export const BasicContainer = React.memo(
     };
 
     const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
-      const block = JSON.parse(e.dataTransfer.getData('block')) as Block;
-      const block_id = e.dataTransfer.getData('id');
+      if (!isDragging.current) {
+        const block = JSON.parse(e.dataTransfer.getData('block')) as Block;
+        const block_id = e.dataTransfer.getData('id');
 
-      if (block.type !== 'container' && !isAcceptableForThisContainer(container, block)) {
-        dispatch(putBlockInsideContainer({ block_id, container, container_id: props.id! }));
+        if (block.type !== 'container' && !isAcceptableForThisContainer(container, block)) {
+          dispatch(putBlockInsideContainer({ block_id, container, container_id: props.id! }));
+        }
+        e.preventDefault();
+        e.stopPropagation();
       }
-      e.preventDefault();
-      e.stopPropagation();
     };
 
     const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
-      e.dataTransfer.dropEffect = 'none';
-      if (
-        window.dragId !== props.id &&
-        window.dragging?.type !== 'container' &&
-        (container.accept === window.dragging?.category || container.accept === 'all')
-      ) {
-        e.dataTransfer.dropEffect = 'link';
+      if (!isDragging.current) {
+        e.dataTransfer.dropEffect = 'none';
+        if (
+          window.dragId !== props.id &&
+          window.dragging?.type !== 'container' &&
+          (container.accept === window.dragging?.category || container.accept === 'all')
+        ) {
+          e.dataTransfer.dropEffect = 'link';
+        }
+        e.preventDefault();
+        e.stopPropagation();
       }
-      e.preventDefault();
-      e.stopPropagation();
     };
 
     return (

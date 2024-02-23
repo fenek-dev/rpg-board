@@ -15,25 +15,29 @@ export const BasicItem = React.memo(
   React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     const dispatch = useDispatch();
     const item = useSelector((state: RootState) => state.blocks.blocks[props.id!]) as Block<Item>;
-    const { onDragEnd, onDragStart, style } = useGridItem(item, props.id!);
+    const { isDragging, onDragEnd, onDragStart, style } = useGridItem(item, props.id!);
 
     const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
-      const block = JSON.parse(e.dataTransfer.getData('block')) as Block;
-      const block_id = e.dataTransfer.getData('id');
-      if (block.id === item.id && block_id !== props.id && item.stackable) {
-        dispatch(putBlocksTogether({ from: block_id, to: props.id! }));
+      if (!isDragging.current) {
+        const block = JSON.parse(e.dataTransfer.getData('block')) as Block;
+        const block_id = e.dataTransfer.getData('id');
+        if (block.id === item.id && block_id !== props.id && item.stackable) {
+          dispatch(putBlocksTogether({ from: block_id, to: props.id! }));
+        }
+        e.preventDefault();
+        e.stopPropagation();
       }
-      e.preventDefault();
-      e.stopPropagation();
     };
 
     const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
-      e.dataTransfer.dropEffect = 'move';
-      if (window.dragId !== props.id && window.dragging?.id === item.id && item.stackable) {
-        e.dataTransfer.dropEffect = 'copy';
+      if (!isDragging.current) {
+        e.dataTransfer.dropEffect = 'move';
+        if (window.dragId !== props.id && window.dragging?.id === item.id && item.stackable) {
+          e.dataTransfer.dropEffect = 'copy';
+        }
+        e.preventDefault();
+        e.stopPropagation();
       }
-      e.preventDefault();
-      e.stopPropagation();
     };
 
     return (
