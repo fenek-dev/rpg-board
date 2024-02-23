@@ -4,15 +4,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { cloneDeep, get, set, unset } from 'lodash-es';
 import { toast } from 'sonner';
 
-import BASIC_POPUPS from '~/entities/constant/popup';
 import { Container } from '~/entities/extendable/containers';
 import { Popup } from '~/entities/extendable/popups';
-import { MONEY } from '~/entities/items/money';
 
 import { findFreePlace } from '../utils/position';
 import { BASIC_UI_BLOCKS } from './blocks.const';
 import { Block, SerializedBlocks } from './blocks.types';
-import { findItemsInsideContainer, isAcceptableForThisContainer, isNotContainerIntoContainer } from './blocks.utils';
+import { isAcceptableForThisContainer, isNotContainerIntoContainer } from './blocks.utils';
 
 export interface BlocksState {
   blocks: SerializedBlocks;
@@ -29,38 +27,6 @@ export const blocksSlice = createSlice({
     addBlock: (state, action: PayloadAction<Block & { block_id: string }>) => {
       const { block_id, ...payload } = action.payload;
       set(state.blocks, block_id, payload);
-    },
-    buyItem: (state, action: PayloadAction<{ belong: string; id: string; x: number; y: number }>) => {
-      const { id } = action.payload;
-      const block = get(state.blocks, id);
-
-      const coins = findItemsInsideContainer(state.blocks, MONEY.SilverCoin.id, BASIC_POPUPS.Inventory.container_id);
-
-      const cost = block.amount * block.cost;
-      const coins_amount = Object.values(coins).reduce((p, c) => p + c.amount, 0);
-      if (coins_amount >= cost) {
-        let left = cost;
-        Object.entries(coins).forEach(([key, coin]) => {
-          if (coin.amount > left) {
-            coin.amount -= left;
-            left = 0;
-            set(state.blocks, key, coin);
-          } else {
-            left -= coin.amount;
-            unset(state.blocks, key);
-          }
-        });
-        blocksSlice.caseReducers.changeBlockPosition(state, action);
-        toast.success(`You bought ${block.name}`, {
-          description: `Amount: ${block.amount}, Cost: ${cost}`,
-          icon: '🪙',
-        });
-      } else {
-        toast.error(`You don't have enough money to buy ${block.name}`, {
-          description: `Amount: ${block.amount}, Cost: ${cost}, Left: ${cost - coins_amount}`,
-          icon: '❌',
-        });
-      }
     },
     changeBlockPosition: (state, action: PayloadAction<{ belong: string; id: string; x: number; y: number }>) => {
       const { id, ...payload } = action.payload;
@@ -143,40 +109,6 @@ export const blocksSlice = createSlice({
         icon: '🗑️',
       });
     },
-    sellItem: (state, action: PayloadAction<{ belong: string; id: string; x: number; y: number }>) => {
-      const { id } = action.payload;
-      const block = get(state.blocks, id);
-
-      const coins = findItemsInsideContainer(state.blocks, MONEY.SilverCoin.id, BASIC_POPUPS.Inventory.container_id);
-
-      const amount = block.amount * block.cost;
-      if (Object.keys(coins).length === 0) {
-        const containerBlocks = Object.values(state.blocks).filter(
-          (b) => b.belong === BASIC_POPUPS.Inventory.container_id
-        );
-        const position = findFreePlace(containerBlocks, BASIC_POPUPS.Inventory);
-
-        if (position.length === 0 || amount <= 0) return;
-
-        set(state.blocks, crypto.randomUUID(), {
-          ...MONEY.SilverCoin,
-          amount,
-          belong: BASIC_POPUPS.Inventory.container_id,
-          x: position[0],
-          y: position[1],
-        });
-      } else {
-        const coinId = Object.keys(coins)[0];
-        const coin = get(state.blocks, coinId);
-        coin.amount += amount;
-        set(state.blocks, coinId, coin);
-      }
-      blocksSlice.caseReducers.changeBlockPosition(state, action);
-      toast.success(`You sold ${block.name}`, {
-        description: `Amount: ${block.amount}, Cost: ${amount}`,
-        icon: '🪙',
-      });
-    },
     splitBlock: (state, action: PayloadAction<{ amount: number; id: string; popup: Popup }>) => {
       const { amount, id, popup } = action.payload;
       const block = get(state.blocks, id);
@@ -202,14 +134,12 @@ export const blocksSlice = createSlice({
 
 export const {
   addBlock,
-  buyItem,
   changeBlockPosition,
   effectBlock,
   putBlockInsideContainer,
   putBlocksIntoOne,
   putBlocksTogether,
   removeBlock,
-  sellItem,
   splitBlock,
 } = blocksSlice.actions;
 

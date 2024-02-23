@@ -18,23 +18,6 @@ export const CONTAINER_ITEMS = asContainers({
     type: 'container',
     weight: 20,
   },
-  Moneybag: {
-    accept: 'money',
-    category: 'container',
-    cost: 0,
-    description: '',
-    icon: '💰',
-    id: 'Moneybag',
-    name: 'Moneybag',
-    popup: {
-      closable: true,
-      h: 3,
-      w: 3,
-    },
-    rarity: 'common',
-    type: 'container',
-    weight: 10,
-  },
 });
 
 export default CONTAINER_ITEMS;
