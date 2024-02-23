@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { Container } from '~/entities/extendable/containers';
 import { Popup } from '~/entities/extendable/popups';
 
-import { findFreePlace } from '../utils/position';
+import { checkIntersect, findFreePlace } from '../utils/position';
 import { BASIC_UI_BLOCKS } from './blocks.const';
 import { Block, SerializedBlocks } from './blocks.types';
 import { isAcceptableForThisContainer, isNotContainerIntoContainer } from './blocks.utils';
@@ -36,11 +36,17 @@ export const blocksSlice = createSlice({
 
       if (!block || isNotContainerIntoContainer(block, to) || isAcceptableForThisContainer(to, block)) return;
 
-      block.x = payload.x;
-      block.y = payload.y;
-      block.belong = payload.belong;
-
-      set(state.blocks, id, block);
+      if (
+        !checkIntersect(
+          Object.values(state.blocks).filter((b) => b.belong === payload.belong),
+          { ...block, belong: payload.belong, x: payload.x, y: payload.y }
+        )
+      ) {
+        block.x = payload.x;
+        block.y = payload.y;
+        block.belong = payload.belong;
+        set(state.blocks, id, block);
+      }
     },
     effectBlock: (state, action: PayloadAction<{ id: string }>) => {
       const { id } = action.payload;

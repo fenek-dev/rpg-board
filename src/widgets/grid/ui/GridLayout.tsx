@@ -29,7 +29,9 @@ export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: 
 
     const { x, y } = adjustPosition(event, gridSize, cols, rows);
 
-    if (onItemDrop) onItemDrop(x, y, JSON.parse(droppedElement) as Block, element_id, id);
+    const block = JSON.parse(droppedElement) as Block;
+
+    if (onItemDrop && block.w + x <= cols && block.h + y <= rows) onItemDrop(x, y, block, element_id, id);
     overlay.current!.classList.remove('grid-placeholder');
 
     event.preventDefault();

@@ -32,3 +32,15 @@ export const findFreePlace = (blocks: Block[], popup: PopupSizes, block: Block) 
 
   return position;
 };
+
+export const checkIntersect = (blocks: Block[], newBlock: Block): boolean => {
+  return blocks.some(
+    (block) =>
+      newBlock.id !== block.id &&
+      newBlock.belong === block.belong &&
+      newBlock.x < block.x + block.w &&
+      newBlock.x + newBlock.w > block.x &&
+      newBlock.y < block.y + block.h &&
+      newBlock.y + newBlock.h > block.y
+  );
+};
