@@ -61,6 +61,12 @@ export const blocksSlice = createSlice({
         set(state.blocks, id, block);
       }
     },
+    equipBlock: (state, action: PayloadAction<string>) => {
+      const block = get(state.blocks, action.payload);
+
+      block.equipped = true;
+      set(state.blocks, action.payload, block);
+    },
     putBlockInsideContainer: (
       state,
       action: PayloadAction<{ block_id: string; container: Block<Container>; container_id: string }>
@@ -135,6 +141,12 @@ export const blocksSlice = createSlice({
       set(state.blocks, id, block);
       set(state.blocks, crypto.randomUUID(), new_block);
     },
+    unequipBlock: (state, action: PayloadAction<string>) => {
+      const block = get(state.blocks, action.payload);
+
+      block.equipped = false;
+      set(state.blocks, action.payload, block);
+    },
   },
 });
 
@@ -142,11 +154,13 @@ export const {
   addBlock,
   changeBlockPosition,
   effectBlock,
+  equipBlock,
   putBlockInsideContainer,
   putBlocksIntoOne,
   putBlocksTogether,
   removeBlock,
   splitBlock,
+  unequipBlock,
 } = blocksSlice.actions;
 
 export default blocksSlice.reducer;

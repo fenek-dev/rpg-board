@@ -1,44 +1,45 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { Block } from '~/widgets/blocks/store';
-
 export interface GearState {
-  arms: Block | null;
-  artefact: Block | null;
-  chest: Block | null;
-  foot: Block | null;
-  head: Block | null;
-  melee: Block | null;
-  necklace: Block | null;
-  range: Block | null;
-  ring: Block | null;
-  ring2: Block | null;
+  arms: string | undefined;
+  artefact: string | undefined;
+  chest: string | undefined;
+  foot: string | undefined;
+  head: string | undefined;
+  melee: string | undefined;
+  necklace: string | undefined;
+  range: string | undefined;
+  ring: string | undefined;
+  ring2: string | undefined;
 }
 
 const initialState: GearState = {
-  arms: null,
-  artefact: null,
-  chest: null,
-  foot: null,
-  head: null,
-  melee: null,
-  necklace: null,
-  range: null,
-  ring: null,
-  ring2: null,
+  arms: undefined,
+  artefact: undefined,
+  chest: undefined,
+  foot: undefined,
+  head: undefined,
+  melee: undefined,
+  necklace: undefined,
+  range: undefined,
+  ring: undefined,
+  ring2: undefined,
 };
 
 export const gearSlice = createSlice({
   initialState,
   name: 'gear',
   reducers: {
-    equipGear: (state, action: PayloadAction<Block & { key: keyof GearState }>) => {
-      const { key, ...block } = action.payload;
-      state[key] = block as Block;
+    equipGear: (state, action: PayloadAction<{ id: string; name: keyof GearState }>) => {
+      const { id, name } = action.payload;
+      state[name] = id;
+    },
+    unequipGear: (state, action: PayloadAction<keyof GearState>) => {
+      state[action.payload] = undefined;
     },
   },
 });
 
-export const { equipGear } = gearSlice.actions;
+export const { equipGear, unequipGear } = gearSlice.actions;
 
 export default gearSlice.reducer;

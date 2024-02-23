@@ -5,6 +5,7 @@ import { Weapon } from '~/entities/extendable/weapon';
 export type Block<T = Container | Item | Weapon> = T & {
   amount: number;
   belong: string;
+  equipped?: boolean;
   x: number;
   y: number;
 };

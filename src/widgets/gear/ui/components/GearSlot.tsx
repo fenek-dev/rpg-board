@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ItemCategory } from '~/entities/extendable/items';
 import { Button } from '~/shared/components/ui/button';
-import { Block } from '~/widgets/blocks/store';
+import { equipBlock, unequipBlock } from '~/widgets/blocks/store';
 import { Details } from '~/widgets/blocks/ui/common/Details';
 
 import { selectGear } from '../../store/gear.selector';
-import { GearState, equipGear } from '../../store/gear.slice';
+import { GearState, equipGear, unequipGear } from '../../store/gear.slice';
 
 interface GearSlotProps {
   allowed?: keyof Pick<typeof ItemCategory, 'weapon'>;
@@ -16,7 +16,7 @@ interface GearSlotProps {
 
 export const GearSlot = ({ allowed, defaultIcon, name }: GearSlotProps) => {
   const dispatch = useDispatch();
-  const gear = useSelector(selectGear(name));
+  const [id, gear] = useSelector(selectGear(name));
 
   const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
     e.dataTransfer.dropEffect = 'none';
@@ -27,26 +27,35 @@ export const GearSlot = ({ allowed, defaultIcon, name }: GearSlotProps) => {
     e.stopPropagation();
   };
 
-  const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
-    const block = JSON.parse(e.dataTransfer.getData('block')) as Block;
+  const onEquip = (e: React.DragEvent<HTMLButtonElement>) => {
+    const id = e.dataTransfer.getData('id');
     if (window.dragging?.category === allowed) {
       dispatch(
         equipGear({
-          key: name,
-          ...block,
+          id,
+          name,
         })
       );
+      dispatch(equipBlock(id));
     }
     e.preventDefault();
     e.stopPropagation();
+  };
+
+  const onUnequip = () => {
+    if (gear) {
+      dispatch(unequipBlock(id));
+      dispatch(unequipGear(name));
+    }
   };
 
   return gear ? (
     <Details block={gear} id={gear.id}>
       <Button
         className="text-3xl"
+        onDoubleClick={onUnequip}
         onDragOver={onDragOver}
-        onDrop={onDrop}
+        onDrop={onEquip}
         rarity={gear.rarity}
         size="slot"
         title={name}
@@ -56,7 +65,7 @@ export const GearSlot = ({ allowed, defaultIcon, name }: GearSlotProps) => {
       </Button>
     </Details>
   ) : (
-    <Button className="text-3xl" onDragOver={onDragOver} onDrop={onDrop} size="slot" title={name} variant="outline">
+    <Button className="text-3xl" onDragOver={onDragOver} onDrop={onEquip} size="slot" title={name} variant="outline">
       <span className="opacity-20">{defaultIcon}</span>
     </Button>
   );
