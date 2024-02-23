@@ -12,8 +12,10 @@ export const Inventory = React.memo(({ id }: { id: string }) => {
 
   return (
     <PopupWithGrid id={id}>
-      <p className="leading-0 translate-y-1/2 text-sm text-muted-foreground">Coins: {money_amount} 🪙</p>
-      <p className="leading-0 translate-y-1/2 text-sm text-muted-foreground">Weight: {weight}</p>
+      <div className="leading-0 flex translate-y-1/2 select-none justify-between text-sm text-muted-foreground">
+        <span>Coins: {money_amount} 🪙</span>
+        <span>Weight: {weight}</span>
+      </div>
     </PopupWithGrid>
   );
 });
