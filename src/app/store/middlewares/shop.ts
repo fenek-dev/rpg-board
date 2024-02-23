@@ -4,6 +4,7 @@ import { get } from 'lodash-es';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { changeBlockPosition, putBlocksTogether } from '~/widgets/blocks/store';
 import { gainMoney, spendMoney } from '~/widgets/player/store';
+import { addPopup, removePopup } from '~/widgets/popups/store/popups.slice';
 
 import { RootState } from '../store';
 
@@ -25,6 +26,7 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
     return;
   };
 
+  // On block position change
   if (action.type === changeBlockPosition.type) {
     const a = action as ReturnType<typeof changeBlockPosition>;
     const block = get(storeApi.getState().blocks.blocks, a.payload.id);
@@ -32,6 +34,9 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
 
     // SELL
     if (block && a.payload.belong === BASIC_POPUPS.Shop.container_id && a.payload.belong !== block.belong) {
+      if (block.type === 'container') {
+        next(removePopup(block.id));
+      }
       sell(cost);
     }
     // BUY
@@ -43,6 +48,8 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
       buy(cost);
     }
   }
+
+  // On put together
   if (action.type === putBlocksTogether.type) {
     const a = action as ReturnType<typeof putBlocksTogether>;
 
@@ -52,6 +59,9 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
 
     // SELL
     if (from && to && to.belong === BASIC_POPUPS.Shop.container_id && to.belong !== from.belong) {
+      if (from.type === 'container') {
+        next(removePopup(from.id));
+      }
       sell(cost);
     }
     // BUY
@@ -59,5 +69,15 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
       buy(cost);
     }
   }
+
+  // On popup open
+  if (action.type === addPopup.type) {
+    const a = action as ReturnType<typeof addPopup>;
+
+    const block = get(storeApi.getState().blocks.blocks, a.payload.container_id);
+
+    if (block.belong === BASIC_POPUPS.Shop.container_id) return;
+  }
+
   next(action);
 };
