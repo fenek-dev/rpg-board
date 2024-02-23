@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Block } from '~/widgets/blocks/store';
 
@@ -31,9 +31,14 @@ const initialState: GearState = {
 export const gearSlice = createSlice({
   initialState,
   name: 'gear',
-  reducers: {},
+  reducers: {
+    equipGear: (state, action: PayloadAction<Block & { key: keyof GearState }>) => {
+      const { key, ...block } = action.payload;
+      state[key] = block as Block;
+    },
+  },
 });
 
-// export const {} = gearSlice.actions;
+export const { equipGear } = gearSlice.actions;
 
 export default gearSlice.reducer;

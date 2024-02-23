@@ -14,7 +14,6 @@ export const useGridItem = (block: Block, id: string) => {
     event.dataTransfer.setData('block', JSON.stringify(block));
     event.dataTransfer.setData('id', id);
     event.dataTransfer.effectAllowed = 'all';
-    event.dataTransfer.dropEffect = 'move';
     event.dataTransfer.setDragImage(event.currentTarget, 0, -1);
     window.dragging = block;
     window.dragId = id;
