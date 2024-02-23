@@ -12,6 +12,7 @@ export interface GearState {
   necklace: Block | null;
   range: Block | null;
   ring: Block | null;
+  ring2: Block | null;
 }
 
 const initialState: GearState = {
@@ -24,6 +25,7 @@ const initialState: GearState = {
   necklace: null,
   range: null,
   ring: null,
+  ring2: null,
 };
 
 export const gearSlice = createSlice({

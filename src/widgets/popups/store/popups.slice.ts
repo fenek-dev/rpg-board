@@ -13,19 +13,25 @@ export interface PopupsState {
 
 const initialState: PopupsState = {
   popups: {
-    [BASIC_POPUPS.Inventory.name]: {
+    [BASIC_POPUPS.Gear.container_id]: {
+      ...BASIC_POPUPS.Gear,
+      isCollapsed: false,
+      x: 500,
+      y: 500,
+    },
+    [BASIC_POPUPS.Inventory.container_id]: {
       ...BASIC_POPUPS.Inventory,
       isCollapsed: false,
       x: 50,
       y: 50,
     },
-    [BASIC_POPUPS.Shop.name]: {
+    [BASIC_POPUPS.Shop.container_id]: {
       ...BASIC_POPUPS.Shop,
       isCollapsed: false,
       x: 700,
       y: 50,
     },
-    [BASIC_POPUPS.Status.name]: {
+    [BASIC_POPUPS.Status.container_id]: {
       ...BASIC_POPUPS.Status,
       isCollapsed: false,
       x: 50,
