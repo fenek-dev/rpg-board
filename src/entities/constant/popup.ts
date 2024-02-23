@@ -23,3 +23,5 @@ export const BASIC_POPUPS = asPopups({
 });
 
 export default BASIC_POPUPS;
+
+export const POPUPS_WITHOUT_ITEM_ACTIVATION = [BASIC_POPUPS.Shop.container_id];

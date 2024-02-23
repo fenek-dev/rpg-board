@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { POPUPS_WITHOUT_ITEM_ACTIVATION } from '~/entities/constant/popup';
 import {
   ContextMenu,
   ContextMenuContent,
@@ -22,6 +23,8 @@ interface ItemMenu {
 export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMenu>) => {
   const dispatch = useDispatch();
   const popup = useSelector(selectPopupById(block.belong));
+
+  const allowed = !POPUPS_WITHOUT_ITEM_ACTIVATION.includes(popup.container_id);
 
   const split = (amount: number) => () => {
     dispatch(
@@ -55,7 +58,7 @@ export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMe
     <ContextMenu>
       <ContextMenuTrigger onDoubleClick={use}>{children}</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem onClick={use}>Use</ContextMenuItem>
+        {allowed && <ContextMenuItem onClick={use}>Use</ContextMenuItem>}
         <ContextMenuSub>
           <ContextMenuSubTrigger disabled={block.amount <= 1}>Split</ContextMenuSubTrigger>
           <ContextMenuSubContent>
@@ -65,14 +68,16 @@ export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMe
           </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuItem onClick={putTogether}>Put together</ContextMenuItem>
-        <ContextMenuSub>
-          <ContextMenuSubTrigger className="text-red-500">Remove</ContextMenuSubTrigger>
-          <ContextMenuSubContent>
-            <ContextMenuItem className="text-red-500" onClick={remove}>
-              Confirm
-            </ContextMenuItem>
-          </ContextMenuSubContent>
-        </ContextMenuSub>
+        {allowed && (
+          <ContextMenuSub>
+            <ContextMenuSubTrigger className="text-red-500">Remove</ContextMenuSubTrigger>
+            <ContextMenuSubContent>
+              <ContextMenuItem className="text-red-500" onClick={remove}>
+                Confirm
+              </ContextMenuItem>
+            </ContextMenuSubContent>
+          </ContextMenuSub>
+        )}
       </ContextMenuContent>
     </ContextMenu>
   );
