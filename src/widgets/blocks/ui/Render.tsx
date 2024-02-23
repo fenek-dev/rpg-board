@@ -19,7 +19,7 @@ export const Render = React.memo(({ container_id }: RenderProps) => {
         if (block.type === 'container') {
           return <BasicContainer id={id} key={id} />;
         }
-        if (block.type === 'item') {
+        if (block.type === 'item' || block.category === 'weapon') {
           return <BasicItem id={id} key={id} />;
         }
         return null;

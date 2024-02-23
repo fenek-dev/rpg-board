@@ -13,8 +13,8 @@ interface GearSlotProps {
 export const GearSlot = ({ defaultIcon, name }: GearSlotProps) => {
   const gear = useSelector(selectGear(name));
   return (
-    <Button className="text-3xl" size="slot" title={name} variant="outline">
-      {gear ? undefined : <span className="opacity-20">{defaultIcon}</span>}
+    <Button className="text-3xl" rarity={gear?.rarity} size="slot" title={name} variant="outline">
+      {gear ? <span>{gear.icon}</span> : <span className="opacity-20">{defaultIcon}</span>}
     </Button>
   );
 };

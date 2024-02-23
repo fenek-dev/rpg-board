@@ -61,7 +61,7 @@ export const Details = ({ block, children, id }: React.PropsWithChildren<Details
                 {block.rarity}
               </Badge>
             </div>
-            {block.type === 'item' && block.effects && (
+            {'effects' in block && block.effects && (
               <>
                 <Separator />
                 <h4 className="text-lg text-muted-foreground">Effects</h4>

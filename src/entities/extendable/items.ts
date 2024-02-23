@@ -5,6 +5,7 @@ export const ItemCategory = {
   container: 'container',
   money: 'money',
   resource: 'resource',
+  weapon: 'weapon',
 };
 export const ItemRarity = {
   common: 'common',
