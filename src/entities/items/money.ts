@@ -11,6 +11,6 @@ export const MONEY = asItems({
     rarity: 'rare',
     stackable: true,
     type: 'item',
-    weight: 10,
+    weight: 1,
   },
 });

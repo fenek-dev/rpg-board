@@ -4,7 +4,7 @@ import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { MONEY } from '~/entities/items/money';
 
-import { findItemsInsideContainer } from './blocks.utils';
+import { countWeightInContainer, findItemsInsideContainer } from './blocks.utils';
 
 export const selectBlocksBelongTo = (block_id: string) =>
   createSelector(
@@ -30,3 +30,11 @@ export const selectMoneyAmountInInventory = createSelector(
     return coins_amount;
   }
 );
+
+export const selectWeightInContainer = (id: string) =>
+  createSelector(
+    (state: RootState) => state.blocks.blocks,
+    (blocks) => {
+      return countWeightInContainer(blocks, id);
+    }
+  );
