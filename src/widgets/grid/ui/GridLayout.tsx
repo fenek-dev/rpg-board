@@ -39,6 +39,9 @@ export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: 
   };
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     const { x, y } = adjustPosition(event, gridSize, cols, rows);
+
+    if (window.dragging?.w + x > cols || window.dragging?.h + y > rows) return handleDragLeave();
+
     overlay.current!.style.transform = `translate(${x * gridSize}px, ${y * gridSize}px)`;
     overlay.current!.classList.add('grid-placeholder');
     overlay.current!.style.height = `${(window.dragging?.h || 1) * gridSize}px`;
