@@ -56,7 +56,7 @@ export const ItemMenu = ({ block, children, id }: React.PropsWithChildren<ItemMe
   };
   return (
     <ContextMenu>
-      <ContextMenuTrigger onDoubleClick={use}>{children}</ContextMenuTrigger>
+      <ContextMenuTrigger onDoubleClick={allowed ? use : undefined}>{children}</ContextMenuTrigger>
       <ContextMenuContent>
         {allowed && <ContextMenuItem onClick={use}>Use</ContextMenuItem>}
         <ContextMenuSub>
