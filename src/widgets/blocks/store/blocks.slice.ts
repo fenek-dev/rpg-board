@@ -38,8 +38,9 @@ export const blocksSlice = createSlice({
 
       if (
         !checkIntersect(
-          Object.values(state.blocks).filter((b) => b.belong === payload.belong),
-          { ...block, belong: payload.belong, x: payload.x, y: payload.y }
+          Object.fromEntries(Object.entries(state.blocks).filter(([, b]) => b.belong === payload.belong)),
+          { ...block, belong: payload.belong, x: payload.x, y: payload.y },
+          id
         )
       ) {
         block.x = payload.x;

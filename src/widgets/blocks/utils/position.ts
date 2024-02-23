@@ -2,7 +2,7 @@ import { range } from 'lodash-es';
 
 import { PopupSizes } from '~/entities/extendable/popups';
 
-import { Block } from '../store';
+import { Block, SerializedBlocks } from '../store';
 
 export const findFreePlace = (blocks: Block[], popup: PopupSizes, block: Block) => {
   let position: number[] = [];
@@ -33,10 +33,10 @@ export const findFreePlace = (blocks: Block[], popup: PopupSizes, block: Block) 
   return position;
 };
 
-export const checkIntersect = (blocks: Block[], newBlock: Block): boolean => {
-  return blocks.some(
-    (block) =>
-      newBlock.id !== block.id &&
+export const checkIntersect = (blocks: SerializedBlocks, newBlock: Block, block_id: string): boolean => {
+  return Object.entries(blocks).some(
+    ([id, block]) =>
+      id !== block_id &&
       newBlock.belong === block.belong &&
       newBlock.x < block.x + block.w &&
       newBlock.x + newBlock.w > block.x &&
