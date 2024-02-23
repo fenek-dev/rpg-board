@@ -30,7 +30,7 @@ export const SimpleDraggablePopup = React.memo(({ children, id }: React.PropsWit
 
   return (
     <Draggable onStop={handleStop} position={popup}>
-      <Card className="absolute z-10 flex cursor-grab select-none flex-col items-center" id={id}>
+      <Card className="absolute z-10 flex cursor-move select-none flex-col items-center" id={id}>
         <CardHeader className="flex w-full flex-row items-center justify-between gap-1">
           <CardTitle className="block">{popup.name}</CardTitle>
         </CardHeader>
