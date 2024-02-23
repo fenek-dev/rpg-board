@@ -37,3 +37,14 @@ export const countWeightInContainer = (blocks: SerializedBlocks, container_id: s
     }
   }, 0);
 };
+
+export const countCostInContainer = (blocks: SerializedBlocks, container_id: string): number => {
+  const selected_blocks = Object.fromEntries(Object.entries(blocks).filter(([, b]) => b.belong === container_id));
+  return Object.entries(selected_blocks).reduce((prev, [id, block]) => {
+    if (block.type === 'container') {
+      return prev + countCostInContainer(blocks, id) + block.cost;
+    } else {
+      return prev + block.cost * block.amount;
+    }
+  }, 0);
+};

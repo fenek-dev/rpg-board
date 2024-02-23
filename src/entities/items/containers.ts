@@ -6,7 +6,7 @@ export const CONTAINER_ITEMS = asContainers({
     category: 'container',
     cost: 0,
     description: '',
-    h: 3,
+    h: 2,
     icon: '🛒',
     id: 'Foodbag',
     name: 'Foodbag',

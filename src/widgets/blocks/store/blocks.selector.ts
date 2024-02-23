@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from '~/app/store';
 
-import { countWeightInContainer } from './blocks.utils';
+import { countCostInContainer, countWeightInContainer } from './blocks.utils';
 
 export const selectBlocksBelongTo = (block_id: string) =>
   createSelector(
@@ -26,5 +26,14 @@ export const selectWeightInContainer = (id: string, isContainer?: boolean) =>
     (blocks) => {
       if (!isContainer) return 0;
       return countWeightInContainer(blocks, id);
+    }
+  );
+
+export const selectCostInContainer = (id: string, isContainer?: boolean) =>
+  createSelector(
+    (state: RootState) => state.blocks.blocks,
+    (blocks) => {
+      if (!isContainer) return 0;
+      return countCostInContainer(blocks, id);
     }
   );

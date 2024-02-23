@@ -3,6 +3,7 @@ import { get } from 'lodash-es';
 
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { changeBlockPosition, putBlockInsideContainer, putBlocksTogether } from '~/widgets/blocks/store';
+import { countCostInContainer } from '~/widgets/blocks/store/blocks.utils';
 import { gainMoney, spendMoney } from '~/widgets/player/store';
 import { addPopup, removePopup } from '~/widgets/popups/store/popups.slice';
 
@@ -27,13 +28,15 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
   // On block position change
   if (action.type === changeBlockPosition.type) {
     const a = action as ReturnType<typeof changeBlockPosition>;
-    const block = get(storeApi.getState().blocks.blocks, a.payload.id);
-    const cost = block.amount * block.cost;
+    const blocks = storeApi.getState().blocks.blocks;
+    const block = get(blocks, a.payload.id);
+    let cost = block.amount * block.cost;
 
     // SELL
     if (block && a.payload.belong === BASIC_POPUPS.Shop.container_id && a.payload.belong !== block.belong) {
       if (block.type === 'container') {
         next(removePopup(block.id));
+        cost += countCostInContainer(blocks, a.payload.id);
       }
       return sell(cost);
     }
@@ -43,6 +46,9 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
       block.belong === BASIC_POPUPS.Shop.container_id &&
       a.payload.belong !== BASIC_POPUPS.Shop.container_id
     ) {
+      if (block.type === 'container') {
+        cost += countCostInContainer(blocks, a.payload.id);
+      }
       return buy(cost);
     }
   }
@@ -50,20 +56,25 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
   // On put together
   if (action.type === putBlocksTogether.type) {
     const a = action as ReturnType<typeof putBlocksTogether>;
+    const blocks = storeApi.getState().blocks.blocks;
 
-    const from = get(storeApi.getState().blocks.blocks, a.payload.from);
-    const to = get(storeApi.getState().blocks.blocks, a.payload.to);
-    const cost = from.amount * from.cost;
+    const from = get(blocks, a.payload.from);
+    const to = get(blocks, a.payload.to);
+    let cost = from.amount * from.cost;
 
     // SELL
     if (from && to && to.belong === BASIC_POPUPS.Shop.container_id && to.belong !== from.belong) {
       if (from.type === 'container') {
         next(removePopup(from.id));
+        cost += countCostInContainer(blocks, a.payload.from);
       }
       return sell(cost);
     }
     // BUY
     else if (from && from.belong === BASIC_POPUPS.Shop.container_id && to.belong !== BASIC_POPUPS.Shop.container_id) {
+      if (from.type === 'container') {
+        cost += countCostInContainer(blocks, a.payload.from);
+      }
       return buy(cost);
     }
   }
@@ -72,9 +83,10 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
   if (action.type === putBlockInsideContainer.type) {
     const a = action as ReturnType<typeof putBlockInsideContainer>;
     const container = a.payload.container;
-    const block = get(storeApi.getState().blocks.blocks, a.payload.block_id);
+    const blocks = storeApi.getState().blocks.blocks;
+    const block = get(blocks, a.payload.block_id);
 
-    const cost = block.amount * block.cost;
+    let cost = block.amount * block.cost;
 
     // SELL
     if (container.belong === BASIC_POPUPS.Shop.container_id) {
@@ -87,6 +99,9 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
       block.belong === BASIC_POPUPS.Shop.container_id &&
       container.belong !== BASIC_POPUPS.Shop.container_id
     ) {
+      if (block.type === 'container') {
+        cost += countCostInContainer(blocks, a.payload.block_id);
+      }
       return buy(cost);
     }
   }

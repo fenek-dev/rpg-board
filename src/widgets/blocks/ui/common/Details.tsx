@@ -6,7 +6,7 @@ import { Badge } from '~/shared/components/ui/badge';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/shared/components/ui/hover-card';
 import { Separator } from '~/shared/components/ui/separator';
 import { abbreviateWeight } from '~/shared/utils/number';
-import { Block, selectWeightInContainer } from '~/widgets/blocks/store';
+import { Block, selectCostInContainer, selectWeightInContainer } from '~/widgets/blocks/store';
 
 interface DetailsProps {
   block: Block;
@@ -18,6 +18,7 @@ export const Details = ({ block, children, id }: React.PropsWithChildren<Details
   const isLeft = React.useRef(false);
 
   const weightInside = useSelector(selectWeightInContainer(id, block.type === 'container'));
+  const insideCost = useSelector(selectCostInContainer(id, block.type === 'container'));
 
   const debouncedSetIsOpen = debounce((value: boolean) => {
     if (!isLeft.current) {
@@ -80,7 +81,7 @@ export const Details = ({ block, children, id }: React.PropsWithChildren<Details
               <Separator orientation="vertical" />
               <span title="Weight">⚖️ {abbreviateWeight(block.weight * block.amount + weightInside)}</span>
               <Separator orientation="vertical" />
-              <span title="Cost">🪙 {block.cost * block.amount}</span>
+              <span title="Cost">🪙 {block.cost * block.amount + insideCost}</span>
             </div>
           </div>
         </HoverCardContent>
