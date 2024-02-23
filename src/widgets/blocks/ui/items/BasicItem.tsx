@@ -1,4 +1,3 @@
-import { AccessibilityIcon } from '@radix-ui/react-icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -59,11 +58,6 @@ export const BasicItem = React.memo(
             variant="outline"
             {...props}
           >
-            {item.equipped && (
-              <span className="absolute left-1 top-1 text-xs leading-none">
-                <AccessibilityIcon className="text-green-900" />
-              </span>
-            )}
             {item.icon}
             {item.subicon && <span className="absolute right-1 top-1 text-xs leading-none">{item.subicon}</span>}
             {item.amount > 1 && (

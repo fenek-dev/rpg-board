@@ -1,10 +1,10 @@
-import { asWeapons } from '../extendable/weapon';
-import { DICES } from './dices';
-import { EFFECTS } from './effects';
+import { asGears } from '../../extendable/gear';
+import { DICES } from '../dices';
+import { EFFECTS } from '../effects';
 
-export const MELEE_WEAPONS = asWeapons({
+export const MELEE_GEAR = asGears({
   WoodenSword: {
-    category: 'weapon',
+    category: 'gear',
     cost: 1,
     description: 'Simple wooden sword',
     effects: [

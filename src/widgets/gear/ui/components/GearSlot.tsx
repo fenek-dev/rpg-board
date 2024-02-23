@@ -9,7 +9,7 @@ import { selectGear } from '../../store/gear.selector';
 import { GearState, equipGear, unequipGear } from '../../store/gear.slice';
 
 interface GearSlotProps {
-  allowed?: keyof Pick<typeof ItemCategory, 'weapon'>;
+  allowed?: keyof Pick<typeof ItemCategory, 'gear'>;
   defaultIcon: string;
   name: keyof GearState;
 }
@@ -29,7 +29,7 @@ export const GearSlot = ({ allowed, defaultIcon, name }: GearSlotProps) => {
 
   const onEquip = (e: React.DragEvent<HTMLButtonElement>) => {
     const id = e.dataTransfer.getData('id');
-    if (window.dragging?.category === allowed) {
+    if (window.dragging?.category === allowed && name === window.dragging?.type) {
       dispatch(
         equipGear({
           id,
@@ -52,7 +52,7 @@ export const GearSlot = ({ allowed, defaultIcon, name }: GearSlotProps) => {
   return gear ? (
     <Details block={gear} id={gear.id}>
       <Button
-        className="text-3xl"
+        className="relative text-3xl"
         onDoubleClick={onUnequip}
         onDragOver={onDragOver}
         onDrop={onEquip}
@@ -61,6 +61,7 @@ export const GearSlot = ({ allowed, defaultIcon, name }: GearSlotProps) => {
         title={name}
         variant="outline"
       >
+        {gear.subicon && <span className="absolute right-1 top-1 text-xs leading-none">{gear.subicon}</span>}
         {gear.icon}
       </Button>
     </Details>

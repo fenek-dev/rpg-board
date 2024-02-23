@@ -5,6 +5,7 @@ import { selectBlocksByBelong } from '~/widgets/blocks/store';
 
 import { BasicContainer } from './containers/BasicContainer';
 import { BasicItem } from './items/BasicItem';
+import { GearItem } from './items/gear/GearItem';
 
 interface RenderProps {
   container_id: string;
@@ -19,8 +20,11 @@ export const Render = React.memo(({ container_id }: RenderProps) => {
         if (block.type === 'container') {
           return <BasicContainer id={id} key={id} />;
         }
-        if (block.type === 'item' || block.category === 'weapon') {
+        if (block.type === 'item') {
           return <BasicItem id={id} key={id} />;
+        }
+        if (block.category === 'gear') {
+          return <GearItem id={id} key={id} />;
         }
         return null;
       })}

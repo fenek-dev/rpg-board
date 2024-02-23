@@ -1,7 +1,7 @@
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { FOOD, POTIONS } from '~/entities/items/consumbale';
 import CONTAINER_ITEMS from '~/entities/items/containers';
-import { MELEE_WEAPONS } from '~/entities/items/weapon';
+import { GEAR_ITEMS } from '~/entities/items/gear';
 
 import { SerializedBlocks } from './blocks.types';
 
@@ -20,8 +20,8 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
     x: 2,
     y: 0,
   },
-  [MELEE_WEAPONS.WoodenSword.id]: {
-    ...MELEE_WEAPONS.WoodenSword,
+  [GEAR_ITEMS.WoodenSword.id]: {
+    ...GEAR_ITEMS.WoodenSword,
     amount: 1,
     belong: BASIC_POPUPS.Inventory.name,
     x: 5,

@@ -10,7 +10,7 @@ export const GearPopup = () => {
         <GearSlot defaultIcon="📿" name="necklace"></GearSlot>
         <GearSlot defaultIcon="👒" name="head"></GearSlot>
         <GearSlot defaultIcon="🔮" name="artefact"></GearSlot>
-        <GearSlot allowed="weapon" defaultIcon="🗡️" name="melee"></GearSlot>
+        <GearSlot allowed="gear" defaultIcon="🗡️" name="melee"></GearSlot>
         <GearSlot defaultIcon="🥋" name="chest"></GearSlot>
         <GearSlot defaultIcon="🏹" name="range"></GearSlot>
         <GearSlot defaultIcon="💍" name="ring"></GearSlot>

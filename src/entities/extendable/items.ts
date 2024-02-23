@@ -3,9 +3,9 @@ import { EffectWithData } from './effects';
 export const ItemCategory = {
   consumable: 'consumable',
   container: 'container',
+  gear: 'gear',
   money: 'money',
   resource: 'resource',
-  weapon: 'weapon',
 };
 export const ItemRarity = {
   common: 'common',
