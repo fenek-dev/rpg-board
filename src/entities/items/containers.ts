@@ -1,6 +1,6 @@
 import { asContainers } from '../extendable/containers';
 
-export const CONTAINER_ITEMS = asContainers({
+export const CONTAINERS = asContainers({
   Foodbag: {
     accept: 'consumable',
     category: 'container',
@@ -21,5 +21,3 @@ export const CONTAINER_ITEMS = asContainers({
     weight: 20,
   },
 });
-
-export default CONTAINER_ITEMS;

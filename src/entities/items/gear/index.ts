@@ -1,3 +1,5 @@
-import { MELEE_GEAR } from './melee';
+import { MELEE } from './melee';
 
-export const GEAR_ITEMS = Object.assign({}, MELEE_GEAR);
+export const GEAR = {
+  MELEE,
+};

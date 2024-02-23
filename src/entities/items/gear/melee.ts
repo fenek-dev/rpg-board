@@ -2,7 +2,7 @@ import { asGears } from '../../extendable/gear';
 import { DICES } from '../dices';
 import { EFFECTS } from '../effects';
 
-export const MELEE_GEAR = asGears({
+export const MELEE = asGears({
   WoodenSword: {
     category: 'gear',
     cost: 1,
