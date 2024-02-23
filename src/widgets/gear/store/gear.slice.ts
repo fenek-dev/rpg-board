@@ -5,12 +5,12 @@ export interface GearState {
   artefact: string | undefined;
   chest: string | undefined;
   foot: string | undefined;
+  gloves: string | undefined;
   head: string | undefined;
   melee: string | undefined;
   necklace: string | undefined;
   range: string | undefined;
   ring: string | undefined;
-  ring2: string | undefined;
 }
 
 const initialState: GearState = {
@@ -18,12 +18,12 @@ const initialState: GearState = {
   artefact: undefined,
   chest: undefined,
   foot: undefined,
+  gloves: undefined,
   head: undefined,
   melee: undefined,
   necklace: undefined,
   range: undefined,
   ring: undefined,
-  ring2: undefined,
 };
 
 export const gearSlice = createSlice({

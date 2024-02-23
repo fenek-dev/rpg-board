@@ -15,7 +15,7 @@ export const GearPopup = () => {
         <GearSlot defaultIcon="🏹" name="range"></GearSlot>
         <GearSlot defaultIcon="💍" name="ring"></GearSlot>
         <GearSlot defaultIcon="👟" name="foot"></GearSlot>
-        <GearSlot defaultIcon="💍" name="ring2"></GearSlot>
+        <GearSlot defaultIcon="🧤" name="gloves"></GearSlot>
       </div>
     </SimpleDraggablePopup>
   );
