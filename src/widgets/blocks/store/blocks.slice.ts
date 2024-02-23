@@ -61,12 +61,11 @@ export const blocksSlice = createSlice({
       const { block_id, container, container_id } = action.payload;
 
       const containerBlocks = Object.values(state.blocks).filter((block) => block.belong === container_id);
+      const block = get(state.blocks, block_id);
 
-      const position = findFreePlace(containerBlocks, container.popup);
+      const position = findFreePlace(containerBlocks, container.popup, block);
 
       if (position.length === 0) return;
-
-      const block = get(state.blocks, block_id);
 
       block.x = position[0];
       block.y = position[1];
@@ -115,7 +114,7 @@ export const blocksSlice = createSlice({
 
       const containerBlocks = Object.values(state.blocks).filter((b) => b.belong === block.belong);
 
-      const position = findFreePlace(containerBlocks, popup);
+      const position = findFreePlace(containerBlocks, popup, block);
 
       if (position.length === 0) return;
 

@@ -24,14 +24,14 @@ export const useGridItem = (block: Block, id: string) => {
 
   const style: React.CSSProperties = useMemo(
     () => ({
-      height: gridSize,
+      height: gridSize * block.h,
       left: 0,
       position: 'absolute',
       top: 0,
       transform: `translate(${block.x * gridSize}px, ${block.y * gridSize}px)`,
-      width: gridSize,
+      width: gridSize * block.w,
     }),
-    [block.x, block.y, gridSize]
+    [block.h, block.w, block.x, block.y, gridSize]
   );
 
   return {

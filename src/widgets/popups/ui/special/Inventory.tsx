@@ -9,7 +9,7 @@ import { PopupWithGrid } from '../containers/PopupWithGrid';
 
 export const Inventory = React.memo(({ id }: { id: string }) => {
   const money_amount = useSelector((state: RootState) => state.player.money);
-  const weight = useSelector(selectWeightInContainer(id));
+  const weight = useSelector(selectWeightInContainer(id, true));
 
   return (
     <PopupWithGrid id={id}>

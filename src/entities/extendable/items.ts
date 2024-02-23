@@ -13,7 +13,12 @@ export const ItemRarity = {
   rare: 'rare',
 };
 
-export interface Item<Category = keyof typeof ItemCategory, Rarity = keyof typeof ItemRarity> {
+export interface ItemSizes {
+  h: number;
+  w: number;
+}
+
+export interface Item<Category = keyof typeof ItemCategory, Rarity = keyof typeof ItemRarity> extends ItemSizes {
   category: Category;
   cost: number;
   description: string;

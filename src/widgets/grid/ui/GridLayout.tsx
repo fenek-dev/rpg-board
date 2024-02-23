@@ -39,6 +39,9 @@ export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: 
     const { x, y } = adjustPosition(event, gridSize, cols, rows);
     overlay.current!.style.transform = `translate(${x * gridSize}px, ${y * gridSize}px)`;
     overlay.current!.classList.add('grid-placeholder');
+    overlay.current!.style.height = `${(window.dragging?.h || 1) * gridSize}px`;
+    overlay.current!.style.width = `${(window.dragging?.w || 1) * gridSize}px`;
+
     event.dataTransfer.dropEffect = 'move';
 
     event.preventDefault();
@@ -58,7 +61,7 @@ export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: 
       onDrop={handleDrop}
       style={{ height, width }}
     >
-      <div className="-z-10" ref={overlay} style={{ height: gridSize, width: gridSize }} />
+      <div className="-z-10" ref={overlay} />
       {children}
       <Grid size={gridSize} />
     </div>

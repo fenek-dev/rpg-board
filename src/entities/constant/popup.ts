@@ -3,9 +3,9 @@ import { asPopups } from '../extendable/popups';
 export const BASIC_POPUPS = asPopups({
   Inventory: {
     container_id: 'Inventory',
-    h: 12,
+    h: 15,
     name: 'Inventory',
-    w: 8,
+    w: 10,
   },
   Shop: {
     container_id: 'Shop',
