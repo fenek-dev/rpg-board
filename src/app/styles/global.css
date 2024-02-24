@@ -42,3 +42,31 @@ body {
   background-color: hsl(var(--primary));
   opacity: 0.15;
 }
+
+.Beach {
+  background: #c89023;
+}
+
+.Field {
+  background: #2d5e16;
+}
+
+.Forest {
+  background: #1f480c;
+}
+
+.Meadow {
+  background: #607814;
+}
+
+.Mountain {
+  background: #171b1b;
+}
+
+.Ocean {
+  background: #183b6f;
+}
+
+.Volcano {
+  background: #171b1b;
+}

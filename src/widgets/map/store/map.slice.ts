@@ -10,10 +10,10 @@ export interface MapState {
 }
 
 const initialState: MapState = {
-  height: 15,
+  height: 20,
   seed: 0,
-  terrain: getNoiseMap(0, 20, 15),
-  width: 20,
+  terrain: getNoiseMap(0, 15, 20),
+  width: 15,
 };
 
 export const mapSlice = createSlice({

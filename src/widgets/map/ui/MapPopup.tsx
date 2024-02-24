@@ -9,6 +9,7 @@ import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDragg
 
 import { generateTerrain } from '../store/map.slice';
 import { MapCell } from './MapCell';
+import { MapDetails } from './MapDetails';
 
 export const MapPopup = React.memo(() => {
   const dispatch = useDispatch();
@@ -23,14 +24,17 @@ export const MapPopup = React.memo(() => {
       <Badge className="mb-2" onClick={updateMap} variant="outline">
         Seed: {seed}
       </Badge>
-      <div className="cursor-cell text-center text-2xl">
-        {terrain.map((row, i) => (
-          <div className="flex" key={i}>
-            {row.map((cell, j) => (
-              <MapCell key={`${i}-${j}`} value={cell} />
-            ))}
-          </div>
-        ))}
+      <div className="flex">
+        <div className="cursor-cell divide-y divide-input border border-input text-center text-2xl">
+          {terrain.map((row, i) => (
+            <div className="flex divide-x divide-input" key={i}>
+              {row.map((cell, j) => (
+                <MapCell key={`${i}-${j}`} value={cell} />
+              ))}
+            </div>
+          ))}
+        </div>
+        <MapDetails />
       </div>
     </SimpleDraggablePopup>
   );
