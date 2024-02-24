@@ -13,6 +13,12 @@ export const BASIC_POPUPS = asPopups({
     name: 'Inventory',
     w: 10,
   },
+  Map: {
+    container_id: 'Map',
+    h: 0,
+    name: 'Map',
+    w: 0,
+  },
   Shop: {
     container_id: 'Shop',
     h: 7,
