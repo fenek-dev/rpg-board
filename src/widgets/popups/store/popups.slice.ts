@@ -31,12 +31,12 @@ const initialState: PopupsState = {
       x: 500,
       y: 500,
     },
-    [BASIC_POPUPS.Shop.container_id]: {
-      ...BASIC_POPUPS.Shop,
-      isCollapsed: false,
-      x: 700,
-      y: 50,
-    },
+    // [BASIC_POPUPS.Shop.container_id]: {
+    //   ...BASIC_POPUPS.Shop,
+    //   isCollapsed: false,
+    //   x: 700,
+    //   y: 50,
+    // },
     [BASIC_POPUPS.Status.container_id]: {
       ...BASIC_POPUPS.Status,
       isCollapsed: false,
