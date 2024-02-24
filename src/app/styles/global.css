@@ -70,3 +70,19 @@ body {
 .Volcano {
   background: #171b1b;
 }
+
+.ping {
+  animation: infinite ping 2000ms ease-in-out;
+}
+
+@keyframes ping {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.25;
+  }
+  100% {
+    scale: 1;
+  }
+}

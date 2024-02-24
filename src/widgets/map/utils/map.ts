@@ -5,7 +5,6 @@ import { createNoise2D } from './noise';
 
 export const getNoiseMap = (seed: number, w: number, h: number) => {
   const prng = mulberry32(seed);
-  prng();
   const a = createNoise2D(prng);
 
   const arr = new Array(h).fill(0).map(() => new Array(w).fill(0));

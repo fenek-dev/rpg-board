@@ -15,7 +15,7 @@ import { MapDetails } from './MapDetails';
 export const MapPopup = React.memo(() => {
   const gridSize = useSelector((state: RootState) => state.settings.gridSize);
   const dispatch = useDispatch();
-  const { height, seed, terrain, width } = useSelector((state: RootState) => state.map);
+  const { height, seed, selectedCell, terrain, width } = useSelector((state: RootState) => state.map);
 
   const updateMap = () => {
     dispatch(generateTerrain(random(0, 100000)));
@@ -39,7 +39,15 @@ export const MapPopup = React.memo(() => {
           {terrain.map((row, i) => (
             <div className="flex" key={i}>
               {row.map((cell, j) => (
-                <MapCell gridSize={gridSize} key={`${i}-${j}`} onCellClick={onCellClick} value={cell} x={j} y={i} />
+                <MapCell
+                  gridSize={gridSize}
+                  isSelected={j === selectedCell[0] && i === selectedCell[1]}
+                  key={`${i}-${j}`}
+                  onCellClick={onCellClick}
+                  value={cell}
+                  x={j}
+                  y={i}
+                />
               ))}
             </div>
           ))}
