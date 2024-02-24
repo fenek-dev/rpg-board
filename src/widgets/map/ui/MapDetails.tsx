@@ -9,15 +9,9 @@ import { ScrollArea } from '~/shared/components/ui/scroll-area';
 import { Separator } from '~/shared/components/ui/separator';
 import { LootItem } from '~/widgets/blocks/ui/items/loot/LootItem';
 
-import { getTerrainFromNoiseValue } from '../utils/map';
-
-interface MapDetailsProps {
-  gridSize: number;
-}
-
-export const MapDetails = React.memo(({ gridSize }: MapDetailsProps) => {
-  const { selectedCell, terrain } = useSelector((state: RootState) => state.map);
-  const cell = getTerrainFromNoiseValue(terrain[selectedCell[1]][selectedCell[0]]);
+export const MapDetails = React.memo(() => {
+  const { graph, selectedCell } = useSelector((state: RootState) => state.map);
+  const cell = graph[selectedCell[0]][selectedCell[1]];
 
   if (!cell) return null;
 

@@ -1,20 +1,23 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { random } from 'lodash-es';
 
-import { getNoiseMap } from '../utils/map';
+import { Terrain } from '~/entities/extendable/map';
+
+import { generateGraph } from '../utils/map';
 
 export interface MapState {
+  graph: Terrain[][];
   height: number;
   seed: number;
   selectedCell: [number, number];
-  terrain: number[][];
   width: number;
 }
 
 const initialState: MapState = {
+  graph: generateGraph(random(0, 10000), 6, 15),
   height: 15,
   seed: 0,
   selectedCell: [0, 0],
-  terrain: getNoiseMap(0, 15, 15),
   width: 15,
 };
 
@@ -24,17 +27,18 @@ export const mapSlice = createSlice({
   reducers: {
     generateTerrain: (state, action: PayloadAction<number>) => {
       state.seed = action.payload;
-      state.terrain = getNoiseMap(action.payload, state.width, state.height);
+      state.graph = generateGraph(action.payload, 6, 15);
     },
     selectCell: (state, action: PayloadAction<{ x: number; y: number }>) => {
       const { x, y } = action.payload;
-
       state.selectedCell = [x, y];
-      console.log(state.selectedCell);
+    },
+    unselectCell: (state) => {
+      state.selectedCell = [-1, -1];
     },
   },
 });
 
-export const { generateTerrain, selectCell } = mapSlice.actions;
+export const { generateTerrain, selectCell, unselectCell } = mapSlice.actions;
 
 export default mapSlice.reducer;
