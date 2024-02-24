@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { GearPopup } from '~/widgets/gear/ui/GearPopup';
-import { MapPopup } from '~/widgets/map/ui/Map';
+import { MapPopup } from '~/widgets/map/ui/MapPopup';
 import { Status } from '~/widgets/player/ui/Status';
 
 import { PopupWithGrid } from './containers/PopupWithGrid';

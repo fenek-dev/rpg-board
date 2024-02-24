@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
-import { Button } from '~/shared/components/ui/button';
-import { minMax } from '~/shared/utils/random';
+import { Badge } from '~/shared/components/ui/badge';
 import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDraggablePopup';
-
-import { getNoiseMap } from '../utils/map';
 
 const getIconFromNoiseValue = (value: number) => {
   if (value < -70) return '🌊';
@@ -17,16 +16,12 @@ const getIconFromNoiseValue = (value: number) => {
 };
 
 export const MapPopup = React.memo(() => {
-  const [seed, setSeed] = useState(0);
-
-  const arr = useMemo(() => getNoiseMap(seed, 20, 20), [seed]);
+  const { seed, terrain } = useSelector((state: RootState) => state.map);
   return (
     <SimpleDraggablePopup id={BASIC_POPUPS.Map.container_id}>
-      <Button onClick={() => setSeed(minMax(0, 100000))} variant="outline">
-        update seed
-      </Button>
-      <div className="text-xl">
-        {arr.map((row, i) => (
+      <Badge variant="outline">Seed: {seed}</Badge>
+      <div className="text-center text-xl">
+        {terrain.map((row, i) => (
           <div className="flex" key={i}>
             {row.map((cell, j) => {
               return (
