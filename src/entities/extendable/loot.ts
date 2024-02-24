@@ -1,7 +1,7 @@
 import { ITEMS } from '../items';
 
 export interface Loot {
-  amount: [number, number];
+  amount: [number, number] | number;
   chance: number;
   id: keyof typeof ITEMS;
 }

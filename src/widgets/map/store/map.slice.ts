@@ -11,10 +11,10 @@ export interface MapState {
 }
 
 const initialState: MapState = {
-  height: 20,
+  height: 15,
   seed: 0,
   selectedCell: [0, 0],
-  terrain: getNoiseMap(0, 15, 20),
+  terrain: getNoiseMap(0, 15, 15),
   width: 15,
 };
 
