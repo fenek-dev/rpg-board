@@ -1,5 +1,3 @@
-export const minMax = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min);
-
 // PRNG
 export function mulberry32(a: number) {
   return function () {

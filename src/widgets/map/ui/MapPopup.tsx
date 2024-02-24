@@ -1,35 +1,34 @@
+import { random } from 'lodash-es';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { Badge } from '~/shared/components/ui/badge';
 import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDraggablePopup';
 
-const getIconFromNoiseValue = (value: number) => {
-  if (value < -70) return '🌊';
-  if (value < 0) return '🌱';
-  if (value < 8) return '🌾';
-  if (value < 40) return '🌿';
-  if (value < 80) return '🌳';
-  if (value <= 100) return '⛰️';
-};
+import { generateTerrain } from '../store/map.slice';
+import { MapCell } from './MapCell';
 
 export const MapPopup = React.memo(() => {
+  const dispatch = useDispatch();
   const { seed, terrain } = useSelector((state: RootState) => state.map);
+
+  const updateMap = () => {
+    dispatch(generateTerrain(random(0, 100000)));
+  };
+
   return (
     <SimpleDraggablePopup id={BASIC_POPUPS.Map.container_id}>
-      <Badge variant="outline">Seed: {seed}</Badge>
-      <div className="text-center text-xl">
+      <Badge className="mb-2" onClick={updateMap} variant="outline">
+        Seed: {seed}
+      </Badge>
+      <div className="cursor-cell text-center text-2xl">
         {terrain.map((row, i) => (
           <div className="flex" key={i}>
-            {row.map((cell, j) => {
-              return (
-                <div className="size-8 " key={`${i}-${j}`}>
-                  {getIconFromNoiseValue(cell * 100)}
-                </div>
-              );
-            })}
+            {row.map((cell, j) => (
+              <MapCell key={`${i}-${j}`} value={cell} />
+            ))}
           </div>
         ))}
       </div>
