@@ -28,8 +28,8 @@ export const LootItem = React.memo(
             variant="outline"
           >
             {item.icon}
-            {item.subicon && <span className="absolute right-0 top-1 text-xs leading-none">{item.subicon}</span>}
-            <span className="absolute bottom-1 right-0 text-xs leading-none">
+            {item.subicon && <span className="absolute right-1 top-1 text-xs leading-none">{item.subicon}</span>}
+            <span className="absolute bottom-1 right-1 text-xs leading-none">
               {typeof loot.amount === 'number' ? loot.amount : `${loot.amount[0]}-${loot.amount[1]}`}
             </span>
           </Button>

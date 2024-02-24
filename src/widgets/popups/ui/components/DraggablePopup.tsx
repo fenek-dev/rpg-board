@@ -1,10 +1,9 @@
-import React, { Suspense, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import Draggable, { DraggableEventHandler } from 'react-draggable';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
 import { Card, CardContent, CardHeader, CardTitle } from '~/shared/components/ui/card';
-import { Skeleton } from '~/shared/components/ui/skeleton';
 import { popupContainerPositionStyle, popupHeaderStyle } from '~/shared/utils';
 
 import { selectPopupById } from '../../store/popups.selector';
@@ -44,20 +43,11 @@ export const DraggablePopup = React.memo(({ children, id }: React.PropsWithChild
         >
           <CardTitle className="block">{popup.name}</CardTitle>
         </CardHeader>
-        <Suspense
-          fallback={
-            <Skeleton
-              className="rounded-xl border border-input"
-              style={popupContainerPositionStyle(gridSize, popup.w, popup.h)}
-            />
-          }
-        >
-          {!popup.isCollapsed && (
-            <Content gridSize={gridSize} height={popup.h} width={popup.w}>
-              {children}
-            </Content>
-          )}
-        </Suspense>
+        {!popup.isCollapsed && (
+          <Content gridSize={gridSize} height={popup.h} width={popup.w}>
+            {children}
+          </Content>
+        )}
       </Card>
     </Draggable>
   );

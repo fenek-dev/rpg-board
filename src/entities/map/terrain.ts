@@ -2,7 +2,6 @@ import { asTerrainCells } from '../extendable/map';
 
 export const TERRAIN_CELLS = asTerrainCells({
   Beach: {
-    className: 'Beach',
     dangerLevel: 2,
     description: 'Beach',
     icon: '🏖️',
@@ -10,7 +9,6 @@ export const TERRAIN_CELLS = asTerrainCells({
     name: 'Beach',
   },
   Field: {
-    className: 'Field',
     dangerLevel: 1,
     description: '',
     icon: '🌿',
@@ -18,7 +16,6 @@ export const TERRAIN_CELLS = asTerrainCells({
     name: 'Field',
   },
   Forest: {
-    className: 'Forest',
     dangerLevel: 3,
     description: '',
     icon: '🌳',
@@ -26,7 +23,6 @@ export const TERRAIN_CELLS = asTerrainCells({
     name: 'Forest',
   },
   Meadow: {
-    className: 'Meadow',
     dangerLevel: 2,
     description: '',
     icon: '🌾',
@@ -34,7 +30,6 @@ export const TERRAIN_CELLS = asTerrainCells({
     name: 'Meadow',
   },
   Mountain: {
-    className: 'Mountain',
     dangerLevel: 4,
     description: '',
     icon: '⛰️',
@@ -42,15 +37,20 @@ export const TERRAIN_CELLS = asTerrainCells({
     name: 'Mountain',
   },
   Ocean: {
-    className: 'Ocean',
     dangerLevel: 3,
     description: '',
     icon: '🌊',
     id: 'Ocean',
     name: 'Ocean',
   },
+  Start: {
+    dangerLevel: 0,
+    description: 'Start',
+    icon: '🏁',
+    id: 'Start',
+    name: 'Start',
+  },
   Volcano: {
-    className: 'Volcano',
     dangerLevel: 5,
     description: '',
     icon: '🌋',

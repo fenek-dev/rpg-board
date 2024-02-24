@@ -10,13 +10,15 @@ import { PopupData } from '../../store/popups.types';
 interface PopupMenuProps {
   className?: string;
   id: string;
+  onClose?: () => void;
   popup: PopupData;
 }
 
-export const PopupMenu = ({ className, id, popup }: PopupMenuProps) => {
+export const PopupMenu = ({ className, id, onClose, popup }: PopupMenuProps) => {
   const dispatch = useDispatch();
 
-  const onClose = () => {
+  const onCloseHandler = () => {
+    if (onClose) onClose();
     dispatch(removePopup(id));
   };
 
@@ -27,18 +29,13 @@ export const PopupMenu = ({ className, id, popup }: PopupMenuProps) => {
   return (
     <div className={cn('flex flex-col gap-1 rounded-md border border-input bg-background bg-opacity-45', className)}>
       {popup.closable && (
-        <Button onClick={onClose} size="icon" variant="ghost">
+        <Button onClick={onCloseHandler} size="icon" variant="ghost">
           <Cross1Icon />
         </Button>
       )}
       <Button onClick={onCollapse} size="icon" variant="ghost">
         {popup.isCollapsed ? <ChevronUpIcon /> : <ChevronDownIcon />}
       </Button>
-      {!popup.isCollapsed && (
-        <Button size="icon" variant="ghost">
-          <TextAlignBottomIcon />
-        </Button>
-      )}
     </div>
   );
 };

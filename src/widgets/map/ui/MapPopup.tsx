@@ -8,6 +8,7 @@ import { Badge } from '~/shared/components/ui/badge';
 import { Button } from '~/shared/components/ui/button';
 import { ScrollArea } from '~/shared/components/ui/scroll-area';
 import { cn } from '~/shared/utils';
+import { addPopup } from '~/widgets/popups/store/popups.slice';
 import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDraggablePopup';
 
 import { generateTerrain, selectCell } from '../store/map.slice';
@@ -20,8 +21,16 @@ export const MapPopup = React.memo(() => {
     dispatch(generateTerrain(random(0, 100000)));
   };
 
-  const onCellClick = (x: number, y: number) => () => {
+  const onCellClick = (x: number, y: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(selectCell({ x, y }));
+    dispatch(
+      addPopup({
+        ...BASIC_POPUPS.MapDetail,
+        isCollapsed: false,
+        x: e.clientX,
+        y: e.clientY,
+      })
+    );
   };
 
   return (

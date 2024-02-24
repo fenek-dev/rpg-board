@@ -27,7 +27,7 @@ const initialState: PopupsState = {
     },
     [BASIC_POPUPS.Map.container_id]: {
       ...BASIC_POPUPS.Map,
-      isCollapsed: true,
+      isCollapsed: false,
       x: 500,
       y: 100,
     },

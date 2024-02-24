@@ -47,7 +47,7 @@ export const generateGraph = (seed: number, w: number, h: number) => {
     graph.push(row);
   });
 
-  graph.unshift([TERRAIN_CELLS.Field]);
+  graph.unshift([TERRAIN_CELLS.Start]);
   graph.push([TERRAIN_CELLS.Field]);
 
   return graph;

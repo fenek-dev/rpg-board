@@ -17,7 +17,7 @@ const initialState: MapState = {
   graph: generateGraph(random(0, 10000), 6, 15),
   height: 15,
   seed: 0,
-  selectedCell: [0, 0],
+  selectedCell: [-1, -1],
   width: 15,
 };
 

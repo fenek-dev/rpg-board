@@ -56,5 +56,6 @@ export const TERRAIN_LOOT_SETS: Record<keyof typeof TERRAIN_CELLS, Loot[]> = {
   Meadow: [],
   Mountain: [],
   Ocean: [],
+  Start: [],
   Volcano: [],
 };
