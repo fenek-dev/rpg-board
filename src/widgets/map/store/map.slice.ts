@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { random } from 'lodash-es';
 
 import { Terrain } from '~/entities/extendable/map';
 
 import { generateGraph } from '../utils/map';
 
 export interface MapState {
+  currentPosition: [number, number];
   graph: Terrain[][];
   height: number;
   seed: number;
@@ -14,7 +14,8 @@ export interface MapState {
 }
 
 const initialState: MapState = {
-  graph: generateGraph(random(0, 10000), 6, 15),
+  currentPosition: [0, 0],
+  graph: generateGraph(0, 6, 15),
   height: 15,
   seed: 0,
   selectedCell: [-1, -1],
