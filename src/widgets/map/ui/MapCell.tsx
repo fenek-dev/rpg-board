@@ -11,12 +11,13 @@ interface MapCellProps {
   isSelected: boolean;
   onClick?: (x: number, y: number, e: React.MouseEvent<HTMLButtonElement>) => void;
   onDoubleClick?: (x: number, y: number) => void;
+  subicon?: string;
   x: number;
   y: number;
 }
 
 export const MapCell = React.memo(
-  ({ disabled, icon, isCurrentPosition, isSelected, onClick, onDoubleClick, x, y }: MapCellProps) => {
+  ({ disabled, icon, isCurrentPosition, isSelected, onClick, onDoubleClick, subicon, x, y }: MapCellProps) => {
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) onClick(x, y, e);
@@ -37,6 +38,7 @@ export const MapCell = React.memo(
         size="slot"
         variant="outline"
       >
+        {subicon && <span className="absolute right-1 top-1 text-xs leading-none">{subicon}</span>}
         {isCurrentPosition && <AccessibilityIcon className="absolute left-1 top-1 size-4 text-green-700 opacity-75" />}
         {icon}
       </Button>

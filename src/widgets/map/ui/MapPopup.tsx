@@ -64,6 +64,7 @@ export const MapPopup = React.memo(() => {
                       key={`${i}-${j}`}
                       onClick={onCellClick}
                       onDoubleClick={onTravel}
+                      subicon={cell.subicon}
                       x={i}
                       y={j}
                     />
