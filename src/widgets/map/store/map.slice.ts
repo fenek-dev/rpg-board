@@ -7,19 +7,25 @@ import { generateGraph } from '../utils/map';
 
 export interface MapState {
   currentPosition: [number, number];
+  fog: number;
   graph: Terrain[][];
   height: number;
   seed: number;
   selectedCell: [number, number];
+  turn: number;
+  turnsBeforeFogMove: number;
   width: number;
 }
 
 const initialState: MapState = {
   currentPosition: [0, 0],
+  fog: 0,
   graph: generateGraph(0, 6, 15),
   height: 15,
   seed: 0,
   selectedCell: [0, 0],
+  turn: 1,
+  turnsBeforeFogMove: 3,
   width: 6,
 };
 
@@ -48,6 +54,7 @@ export const mapSlice = createSlice({
     travelTo: (state, action: PayloadAction<{ x: number; y: number }>) => {
       const { x, y } = action.payload;
       state.currentPosition = [x, y];
+      state.turn += 1;
     },
     unselectCell: (state) => {
       state.selectedCell = [-1, -1];
