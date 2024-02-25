@@ -1,5 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { loadState } from '~/app/store/actions';
+
 export interface GearState {
   arms: string | undefined;
   artefact: string | undefined;
@@ -27,6 +29,12 @@ const initialState: GearState = {
 };
 
 export const gearSlice = createSlice({
+  extraReducers: (builder) => {
+    builder.addCase(loadState, (state, action) => {
+      state = action.payload.gear;
+      return state;
+    });
+  },
   initialState,
   name: 'gear',
   reducers: {

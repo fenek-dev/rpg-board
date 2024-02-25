@@ -20,9 +20,14 @@ const rootReducer = combineReducers({
   settings: settingsSlice,
 });
 
+const save = localStorage.getItem('save');
+
+const preloadedState = save ? JSON.parse(save) : undefined;
+
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(effectsMiddleware, deathMiddleware, shopMiddleware),
+  preloadedState,
   reducer: rootReducer,
 });
 

@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { get, set, unset } from 'lodash-es';
 
+import { loadState } from '~/app/store/actions';
 import BASIC_POPUPS from '~/entities/constant/popup';
 
 import { PopupData, SerializedPopups } from './popups.types';
@@ -47,6 +48,12 @@ const initialState: PopupsState = {
 };
 
 export const popupsSlice = createSlice({
+  extraReducers: (builder) => {
+    builder.addCase(loadState, (state, action) => {
+      state = action.payload.popups;
+      return state;
+    });
+  },
   initialState,
   name: 'popups',
   reducers: {
