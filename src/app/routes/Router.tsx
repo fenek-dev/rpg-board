@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Fallback } from '../layout/ui/Fallback';
 
-const App = React.lazy(() => import('~/pages/App'));
+const MainMenu = React.lazy(() => import('~/pages/MainMenu'));
 
 export const Router = () => {
   return (
@@ -11,7 +11,7 @@ export const Router = () => {
       <Route
         element={
           <Suspense fallback={<Fallback />}>
-            <App />
+            <MainMenu />
           </Suspense>
         }
         path="/"
