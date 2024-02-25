@@ -8,13 +8,18 @@ import { Badge } from '~/shared/components/ui/badge';
 import { ScrollArea } from '~/shared/components/ui/scroll-area';
 import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDraggablePopup';
 
-import { generateTerrain, selectCell } from '../store/map.slice';
+import { generateTerrain, selectCell, travelTo } from '../store/map.slice';
+import { getTurnsUntilFog } from '../utils/map';
+import { Fog } from './Fog';
 import { MapCell } from './MapCell';
 import { MapDetails } from './MapDetails';
 
 export const MapPopup = React.memo(() => {
   const dispatch = useDispatch();
-  const { currentPosition, graph, seed, selectedCell } = useSelector((state: RootState) => state.map);
+  const { currentPosition, fog, graph, seed, selectedCell, turn, turnsBeforeFogMove } = useSelector(
+    (state: RootState) => state.map
+  );
+  const untilFog = getTurnsUntilFog(turn, turnsBeforeFogMove);
 
   const updateMap = () => {
     dispatch(generateTerrain(random(0, 100000)));
@@ -24,16 +29,30 @@ export const MapPopup = React.memo(() => {
     dispatch(selectCell({ x, y }));
   }, []);
 
+  const onTravel = useCallback((x: number, y: number) => {
+    dispatch(
+      travelTo({
+        x,
+        y,
+      })
+    );
+  }, []);
+
   return (
     <SimpleDraggablePopup id={BASIC_POPUPS.Map.container_id}>
-      <Badge onClick={updateMap} variant="outline">
-        Seed: {seed}
-      </Badge>
+      <div className="flex gap-2">
+        <Badge onClick={updateMap} variant="outline">
+          Seed: {seed}
+        </Badge>
+        <Badge variant="outline">Turn: {turn}</Badge>
+        <Badge variant="outline">Next fog in: {untilFog} turns</Badge>
+      </div>
       <div className="flex h-[26rem] gap-4">
         <ScrollArea className="my-4 h-96">
-          <div className="flex flex-col gap-4 py-2">
+          <div className="relative flex flex-col gap-4 py-2">
+            <Fog step={fog} />
             {graph.map((row, i) => {
-              const disabled = Math.abs(i - currentPosition[0]) > 1;
+              const disabled = Math.abs(i - currentPosition[0]) > 1 || fog - 1 === i;
               return (
                 <div className="flex justify-around gap-2" key={i}>
                   {row.map((cell, j) => (
@@ -44,6 +63,8 @@ export const MapPopup = React.memo(() => {
                       isSelected={selectedCell[0] === i && selectedCell[1] === j}
                       key={`${i}-${j}`}
                       onClick={onCellClick}
+                      onDoubleClick={onTravel}
+                      subicon={cell.subicon}
                       x={i}
                       y={j}
                     />

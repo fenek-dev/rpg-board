@@ -38,12 +38,17 @@ export const MapDetails = React.memo(() => {
       </Badge>
       <p className="text-sm text-muted-foreground">{cell.description}</p>
       <Separator />
-      <h4 className="my-2 text-xl">Available loot</h4>
-      <ScrollArea className="h-48 w-full border border-input">
-        <div className="grid grid-cols-3 items-center justify-center gap-4 p-1">
-          {loot?.sort((a, b) => b.chance - a.chance).map((l, i) => <LootItem key={i} loot={l} />)}
-        </div>
-      </ScrollArea>
+      {loot.length > 0 && (
+        <>
+          <h4 className="my-2 text-xl">Available loot</h4>
+          <ScrollArea className="h-48 w-full border border-input">
+            <div className="grid grid-cols-3 items-center justify-center gap-4 p-1">
+              {loot?.sort((a, b) => b.chance - a.chance).map((l, i) => <LootItem key={i} loot={l} />)}
+            </div>
+          </ScrollArea>
+        </>
+      )}
+
       <Button className="mt-auto" onClick={onTravel} variant="outline">
         Travel
       </Button>

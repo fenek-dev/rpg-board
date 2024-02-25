@@ -2,6 +2,7 @@ import { Loot } from '../extendable/loot';
 import { TERRAIN_CELLS } from './terrain';
 
 export const TERRAIN_LOOT_SETS: Record<keyof typeof TERRAIN_CELLS, Loot[]> = {
+  BanditCamp: [],
   Beach: [
     {
       amount: 1,
@@ -19,6 +20,7 @@ export const TERRAIN_LOOT_SETS: Record<keyof typeof TERRAIN_CELLS, Loot[]> = {
       id: 'Oyster',
     },
   ],
+  Desert: [],
   Field: [
     {
       amount: 1,
@@ -53,9 +55,12 @@ export const TERRAIN_LOOT_SETS: Record<keyof typeof TERRAIN_CELLS, Loot[]> = {
       id: 'Peanut',
     },
   ],
+  Graveyard: [],
   Meadow: [],
   Mountain: [],
-  Ocean: [],
+  Ruins: [],
+  SpiderForest: [],
   Start: [],
+  Village: [],
   Volcano: [],
 };

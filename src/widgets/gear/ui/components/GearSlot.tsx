@@ -21,7 +21,7 @@ export const GearSlot = React.memo(({ allowed, defaultIcon, name }: GearSlotProp
 
   const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
     e.dataTransfer.dropEffect = 'none';
-    if (window.dragging?.category === allowed) {
+    if (window.dragging?.category === allowed && window.dragging?.type === name) {
       e.dataTransfer.dropEffect = 'copy';
     }
     e.preventDefault();
