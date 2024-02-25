@@ -1,18 +1,16 @@
-import { AccessibilityIcon } from '@radix-ui/react-icons';
 import { random } from 'lodash-es';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { Badge } from '~/shared/components/ui/badge';
-import { Button } from '~/shared/components/ui/button';
 import { ScrollArea } from '~/shared/components/ui/scroll-area';
-import { cn } from '~/shared/utils';
 import { addPopup } from '~/widgets/popups/store/popups.slice';
 import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDraggablePopup';
 
 import { generateTerrain, selectCell } from '../store/map.slice';
+import { MapCell } from './MapCell';
 
 export const MapPopup = React.memo(() => {
   const dispatch = useDispatch();
@@ -22,7 +20,7 @@ export const MapPopup = React.memo(() => {
     dispatch(generateTerrain(random(0, 100000)));
   };
 
-  const onCellClick = (x: number, y: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onCellClick = useCallback((x: number, y: number, e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(selectCell({ x, y }));
     dispatch(
       addPopup({
@@ -32,7 +30,7 @@ export const MapPopup = React.memo(() => {
         y: e.clientY,
       })
     );
-  };
+  }, []);
 
   return (
     <SimpleDraggablePopup id={BASIC_POPUPS.Map.container_id}>
@@ -46,21 +44,16 @@ export const MapPopup = React.memo(() => {
             return (
               <div className="flex justify-around gap-2" key={i}>
                 {row.map((cell, j) => (
-                  <Button
-                    className={cn('relative', {
-                      'ping border-primary': selectedCell[0] === i && selectedCell[1] === j,
-                    })}
+                  <MapCell
                     disabled={disabled}
-                    key={j}
-                    onClick={onCellClick(i, j)}
-                    size="slot"
-                    variant="outline"
-                  >
-                    {currentPosition[0] === i && currentPosition[1] === j && (
-                      <AccessibilityIcon className="absolute left-1 top-1 size-4 text-green-700 opacity-75" />
-                    )}
-                    {cell.icon}
-                  </Button>
+                    icon={cell.icon}
+                    isCurrentPosition={currentPosition[0] === i && currentPosition[1] === j}
+                    isSelected={selectedCell[0] === i && selectedCell[1] === j}
+                    key={`${i}-${j}`}
+                    onClick={onCellClick}
+                    x={i}
+                    y={j}
+                  />
                 ))}
               </div>
             );

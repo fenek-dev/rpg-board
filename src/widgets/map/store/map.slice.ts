@@ -19,7 +19,7 @@ const initialState: MapState = {
   height: 15,
   seed: 0,
   selectedCell: [-1, -1],
-  width: 15,
+  width: 6,
 };
 
 export const mapSlice = createSlice({
@@ -28,7 +28,7 @@ export const mapSlice = createSlice({
   reducers: {
     generateTerrain: (state, action: PayloadAction<number>) => {
       state.seed = action.payload;
-      state.graph = generateGraph(action.payload, 6, 15);
+      state.graph = generateGraph(action.payload, state.width, state.height);
     },
     selectCell: (state, action: PayloadAction<{ x: number; y: number }>) => {
       const { x, y } = action.payload;
