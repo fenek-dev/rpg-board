@@ -54,10 +54,10 @@ export const MainMenu = () => {
         <Separator orientation="vertical" />
         <div className="ml-2 flex w-64 flex-col">
           <h1 className="text-center text-2xl font-bold">RPG Board</h1>
-          <h3 className="mb-1 mt-2 text-lg text-muted-foreground">Changelog</h3>
+          <h2 className="mb-1 mt-2 text-lg text-muted-foreground">Changelog</h2>
           <ScrollArea className="mt-2 h-48">
             <div>
-              <h4 className="">0.0.1v</h4>
+              <h3 className="">0.0.1v</h3>
               <p className="text-sm text-muted-foreground">Game still in development</p>
             </div>
           </ScrollArea>
@@ -65,7 +65,7 @@ export const MainMenu = () => {
             <Separator />
             <div className="mt-2 flex">
               <Button size="icon" title="Github" variant="ghost">
-                <a href={EXTERNAL_LINKS.GitHub} rel="noopener noreferrer" target="_blank">
+                <a href={EXTERNAL_LINKS.GitHub} rel="noopener noreferrer" target="_blank" title="Github">
                   <GitHubLogoIcon />
                 </a>
               </Button>
