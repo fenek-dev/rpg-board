@@ -1,3 +1,6 @@
+import { toast } from 'sonner';
+
+import { store } from '~/app/store';
 import {
   Menubar,
   MenubarContent,
@@ -8,6 +11,11 @@ import {
 } from '~/shared/components/ui/menubar';
 
 export const Menu = () => {
+  const saveGame = () => {
+    localStorage.setItem('save', JSON.stringify(store.getState()));
+    toast.success('Game saved');
+  };
+
   return (
     <Menubar className="fixed left-1/2 top-1 z-50 -translate-x-1/2">
       <MenubarMenu>
@@ -36,6 +44,13 @@ export const Menu = () => {
         <MenubarTrigger>Preferences</MenubarTrigger>
         <MenubarContent>
           <MenubarItem>Settings</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>Save</MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem onClick={saveGame}>Save game</MenubarItem>
+          <MenubarItem>Load Save</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
