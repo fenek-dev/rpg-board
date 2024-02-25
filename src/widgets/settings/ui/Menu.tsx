@@ -1,6 +1,8 @@
+import { useDispatch } from 'react-redux';
 import { toast } from 'sonner';
 
-import { store } from '~/app/store';
+import { RootState, store } from '~/app/store';
+import { loadState } from '~/app/store/actions';
 import {
   Menubar,
   MenubarContent,
@@ -11,9 +13,21 @@ import {
 } from '~/shared/components/ui/menubar';
 
 export const Menu = () => {
+  const dispatch = useDispatch();
   const saveGame = () => {
     localStorage.setItem('save', JSON.stringify(store.getState()));
     toast.success('Game saved');
+  };
+
+  const loadGame = () => {
+    const save = localStorage.getItem('save');
+    if (save) {
+      const state = JSON.parse(save) as RootState;
+      dispatch(loadState(state));
+      toast.success('Game loaded');
+    } else {
+      toast.error('No save found');
+    }
   };
 
   return (
@@ -22,14 +36,7 @@ export const Menu = () => {
         <MenubarTrigger>Game</MenubarTrigger>
         <MenubarContent>
           <MenubarItem>New Game</MenubarItem>
-          <MenubarItem>Load Save</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger>Edit</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>Undo</MenubarItem>
-          <MenubarItem>Redo</MenubarItem>
+          <MenubarItem>Exit to menu</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
@@ -50,7 +57,7 @@ export const Menu = () => {
         <MenubarTrigger>Save</MenubarTrigger>
         <MenubarContent>
           <MenubarItem onClick={saveGame}>Save game</MenubarItem>
-          <MenubarItem>Load Save</MenubarItem>
+          <MenubarItem onClick={loadGame}>Load Save</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>

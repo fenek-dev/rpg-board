@@ -2,6 +2,8 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { createSlice } from '@reduxjs/toolkit';
 
+import { loadState } from '~/app/store/actions';
+
 export interface SettingsState {
   gridSize: number;
   height: number;
@@ -17,6 +19,12 @@ const initialState: SettingsState = {
 };
 
 export const settingsSlice = createSlice({
+  extraReducers: (builder) => {
+    builder.addCase(loadState, (state, action) => {
+      state = action.payload.settings;
+      return state;
+    });
+  },
   initialState,
   name: 'settings',
   reducers: {

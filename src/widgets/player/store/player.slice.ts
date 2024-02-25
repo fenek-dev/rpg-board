@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { random } from 'lodash-es';
 import { toast } from 'sonner';
 
+import { loadState } from '~/app/store/actions';
 import { Dice } from '~/entities/extendable/dices';
 
 import { START_MAX_HP, START_MAX_MANA } from './player.enum';
@@ -25,6 +26,12 @@ const initialState: PlayerState = {
 };
 
 export const playerSlice = createSlice({
+  extraReducers: (builder) => {
+    builder.addCase(loadState, (state, action) => {
+      state = action.payload.player;
+      return state;
+    });
+  },
   initialState,
   name: 'player',
   reducers: {
