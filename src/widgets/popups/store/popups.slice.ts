@@ -25,12 +25,18 @@ const initialState: PopupsState = {
       x: 50,
       y: 50,
     },
-    [BASIC_POPUPS.Shop.container_id]: {
-      ...BASIC_POPUPS.Shop,
+    [BASIC_POPUPS.Map.container_id]: {
+      ...BASIC_POPUPS.Map,
       isCollapsed: false,
-      x: 700,
-      y: 50,
+      x: 500,
+      y: 100,
     },
+    // [BASIC_POPUPS.Shop.container_id]: {
+    //   ...BASIC_POPUPS.Shop,
+    //   isCollapsed: false,
+    //   x: 700,
+    //   y: 50,
+    // },
     [BASIC_POPUPS.Status.container_id]: {
       ...BASIC_POPUPS.Status,
       isCollapsed: false,

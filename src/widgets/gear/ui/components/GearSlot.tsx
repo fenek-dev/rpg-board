@@ -1,3 +1,4 @@
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ItemCategory } from '~/entities/extendable/items';
@@ -14,7 +15,7 @@ interface GearSlotProps {
   name: keyof GearState;
 }
 
-export const GearSlot = ({ allowed, defaultIcon, name }: GearSlotProps) => {
+export const GearSlot = React.memo(({ allowed, defaultIcon, name }: GearSlotProps) => {
   const dispatch = useDispatch();
   const [id, gear] = useSelector(selectGear(name));
 
@@ -70,4 +71,4 @@ export const GearSlot = ({ allowed, defaultIcon, name }: GearSlotProps) => {
       <span className="opacity-20">{defaultIcon}</span>
     </Button>
   );
-};
+});

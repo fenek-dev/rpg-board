@@ -112,7 +112,7 @@ export const shopMiddleware: Middleware<unknown, RootState> = (storeApi) => (nex
 
     const block = get(storeApi.getState().blocks.blocks, a.payload.container_id);
 
-    if (block.belong === BASIC_POPUPS.Shop.container_id) return;
+    if (block?.belong === BASIC_POPUPS.Shop.container_id) return;
   }
 
   next(action);

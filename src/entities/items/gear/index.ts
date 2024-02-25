@@ -1,5 +1,3 @@
 import { MELEE } from './melee';
 
-export const GEAR = {
-  MELEE,
-};
+export const GEAR = Object.assign({}, MELEE);

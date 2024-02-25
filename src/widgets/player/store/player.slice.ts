@@ -1,10 +1,10 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { createSlice } from '@reduxjs/toolkit';
+import { random } from 'lodash-es';
 import { toast } from 'sonner';
 
 import { Dice } from '~/entities/extendable/dices';
-import { minMax } from '~/shared/utils/random';
 
 import { START_MAX_HP, START_MAX_MANA } from './player.enum';
 
@@ -37,7 +37,7 @@ export const playerSlice = createSlice({
     heal: (state, action: PayloadAction<Dice[]>) => {
       let total = 0;
       action.payload.forEach((d) => {
-        const amount = minMax(d.min, d.max);
+        const amount = random(d.min, d.max);
         total += amount;
         state.hp += amount;
         if (state.hp > state.max_hp) state.hp = state.max_hp;
@@ -49,7 +49,7 @@ export const playerSlice = createSlice({
     restoreMana: (state, action: PayloadAction<Dice[]>) => {
       let total = 0;
       action.payload.forEach((d) => {
-        const amount = minMax(d.min, d.max);
+        const amount = random(d.min, d.max);
         total += amount;
         state.mana += amount;
         if (state.mana > state.max_mana) state.mana = state.max_mana;
