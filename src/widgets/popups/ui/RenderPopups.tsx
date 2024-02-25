@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { GearPopup } from '~/widgets/gear/ui/GearPopup';
-import { MapDetails } from '~/widgets/map/ui/MapDetails';
 import { MapPopup } from '~/widgets/map/ui/MapPopup';
 import { Status } from '~/widgets/player/ui/Status';
 
@@ -30,10 +29,6 @@ export const RenderPopups = () => {
 
         if (id === BASIC_POPUPS.Map.container_id) {
           return <MapPopup key={id} />;
-        }
-
-        if (id === BASIC_POPUPS.MapDetail.container_id) {
-          return <MapDetails key={id} />;
         }
 
         return <PopupWithGrid id={id} key={id} />;

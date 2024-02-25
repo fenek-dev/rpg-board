@@ -1,4 +1,4 @@
-import { ChevronDownIcon, ChevronUpIcon, Cross1Icon, TextAlignBottomIcon } from '@radix-ui/react-icons';
+import { ChevronDownIcon, ChevronUpIcon, Cross1Icon } from '@radix-ui/react-icons';
 import { useDispatch } from 'react-redux';
 
 import { Button } from '~/shared/components/ui/button';
