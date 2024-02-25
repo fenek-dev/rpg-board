@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { loadState, resetState } from '~/app/store/actions';
 import { Terrain } from '~/entities/extendable/map';
 
-import { generateGraph } from '../utils/map';
+import { generateGraph, getTurnsUntilFog } from '../utils/map';
 
 export interface MapState {
   currentPosition: [number, number];
@@ -53,8 +53,12 @@ export const mapSlice = createSlice({
     },
     travelTo: (state, action: PayloadAction<{ x: number; y: number }>) => {
       const { x, y } = action.payload;
+      if (state.currentPosition[0] === x && state.currentPosition[1] === y) return;
       state.currentPosition = [x, y];
       state.turn += 1;
+      if (getTurnsUntilFog(state.turn, state.turnsBeforeFogMove) === state.turnsBeforeFogMove) {
+        state.fog += 1;
+      }
     },
     unselectCell: (state) => {
       state.selectedCell = [-1, -1];

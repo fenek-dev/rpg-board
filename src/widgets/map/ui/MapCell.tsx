@@ -21,11 +21,11 @@ export const MapCell = React.memo(
       (e: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) onClick(x, y, e);
       },
-      [x, y]
+      [onClick, x, y]
     );
     const handleDoubleClick = useCallback(() => {
       if (onDoubleClick) onDoubleClick(x, y);
-    }, [x, y]);
+    }, [onDoubleClick, x, y]);
     return (
       <Button
         className={cn('relative', {

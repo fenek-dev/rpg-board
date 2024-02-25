@@ -4,22 +4,6 @@ import { Terrain } from '~/entities/extendable/map';
 import { TERRAIN_CELLS } from '~/entities/map/terrain';
 import { mulberry32 } from '~/shared/utils/random';
 
-// import { createNoise2D } from './noise';
-
-// export const getNoiseMap = (seed: number, w: number, h: number) => {
-//   const prng = mulberry32(seed);
-//   const a = createNoise2D(prng);
-
-//   const arr = new Array(h).fill(0).map(() => new Array(w).fill(0));
-//   for (let i = 0; i < h; i++) {
-//     for (let j = 0; j < w; j++) {
-//       arr[i][j] = a(i / 10, j / 10);
-//     }
-//   }
-
-//   return arr;
-// };
-
 export const getTerrainFromNoiseValue = (noiseValue: number) => {
   const value = noiseValue * 100;
   if (value < 15) return TERRAIN_CELLS.Beach;
@@ -52,3 +36,5 @@ export const generateGraph = (seed: number, w: number, h: number) => {
 
   return graph;
 };
+
+export const getTurnsUntilFog = (turn: number, fogEvery: number) => fogEvery - (turn % fogEvery);
