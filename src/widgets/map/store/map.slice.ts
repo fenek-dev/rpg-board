@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { loadState } from '~/app/store/actions';
+import { loadState, resetState } from '~/app/store/actions';
 import { Terrain } from '~/entities/extendable/map';
 
 import { generateGraph } from '../utils/map';
@@ -25,12 +25,14 @@ const initialState: MapState = {
 
 export const mapSlice = createSlice({
   extraReducers: (builder) => {
-    builder.addCase(loadState, (state, action) => {
-      console.log('hello');
+    builder
+      .addCase(loadState, (state, action) => {
+        console.log('hello');
 
-      state = action.payload.map;
-      return state;
-    });
+        state = action.payload.map;
+        return state;
+      })
+      .addCase(resetState, () => initialState);
   },
   initialState,
   name: 'map',

@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import { Background } from '~/app/layout/ui/Background';
-import { LINKS } from '~/app/routes/links';
+import { EXTERNAL_LINKS, LINKS } from '~/app/routes/links';
 import { RootState } from '~/app/store';
-import { loadState } from '~/app/store/actions';
+import { loadState, resetState } from '~/app/store/actions';
 import { Badge } from '~/shared/components/ui/badge';
 import { Button } from '~/shared/components/ui/button';
 import { ScrollArea } from '~/shared/components/ui/scroll-area';
@@ -29,6 +29,12 @@ export const MainMenu = () => {
     }
   };
 
+  const onNewGame = () => {
+    dispatch(resetState());
+    navigate(LINKS.Game);
+    localStorage.removeItem('save');
+  };
+
   return (
     <>
       <main className="fixed left-1/2 top-1/2 flex h-96 -translate-x-1/2 -translate-y-1/2 gap-2 rounded-md border border-input bg-background p-4">
@@ -36,7 +42,9 @@ export const MainMenu = () => {
           <Button disabled={hasSave} onClick={onLoadGame} variant="outline">
             Load game
           </Button>
-          <Button variant="outline">New game</Button>
+          <Button onClick={onNewGame} variant="outline">
+            New game
+          </Button>
           <Button variant="outline">Settings</Button>
           <Button variant="outline">About</Button>
           <Badge className="mt-auto self-center" variant="outline">
@@ -57,7 +65,7 @@ export const MainMenu = () => {
             <Separator />
             <div className="mt-2 flex">
               <Button size="icon" title="Github" variant="ghost">
-                <a href="https://github.com/fenek-dev/rpg-board" rel="noopener noreferrer" target="_blank">
+                <a href={EXTERNAL_LINKS.GitHub} rel="noopener noreferrer" target="_blank">
                   <GitHubLogoIcon />
                 </a>
               </Button>
