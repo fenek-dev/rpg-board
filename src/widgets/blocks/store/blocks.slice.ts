@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { cloneDeep, get, set, unset } from 'lodash-es';
 import { toast } from 'sonner';
 
-import { loadState } from '~/app/store/actions';
+import { loadState, resetState } from '~/app/store/actions';
 import { Container } from '~/entities/extendable/containers';
 import { Popup } from '~/entities/extendable/popups';
 
@@ -23,10 +23,12 @@ const initialState: BlocksState = {
 
 export const blocksSlice = createSlice({
   extraReducers: (builder) => {
-    builder.addCase(loadState, (state, action) => {
-      state = action.payload.blocks;
-      return state;
-    });
+    builder
+      .addCase(loadState, (state, action) => {
+        state = action.payload.blocks;
+        return state;
+      })
+      .addCase(resetState, () => initialState);
   },
   initialState,
   name: 'blocks',

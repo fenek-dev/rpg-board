@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import { store } from '~/app/store';
 import '~/app/styles/global.css';
-import App from '~/pages/App';
 
+import { Router } from './app/routes/Router';
 import { Block } from './widgets/blocks/store';
 declare global {
   interface Window {
@@ -16,8 +17,10 @@ declare global {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <Router />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
