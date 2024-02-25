@@ -1,17 +1,41 @@
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 import { Background } from '~/app/layout/ui/Background';
+import { LINKS } from '~/app/routes/links';
+import { RootState } from '~/app/store';
+import { loadState } from '~/app/store/actions';
 import { Badge } from '~/shared/components/ui/badge';
 import { Button } from '~/shared/components/ui/button';
 import { ScrollArea } from '~/shared/components/ui/scroll-area';
 import { Separator } from '~/shared/components/ui/separator';
 
 export const MainMenu = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const hasSave = useMemo(() => localStorage.getItem('save') === null, []);
+
+  const onLoadGame = () => {
+    const save = localStorage.getItem('save');
+    if (save) {
+      const state = JSON.parse(save) as RootState;
+      dispatch(loadState(state));
+      navigate(LINKS.Game);
+    } else {
+      console.error('Save not found');
+    }
+  };
+
   return (
     <>
       <main className="fixed left-1/2 top-1/2 flex h-96 -translate-x-1/2 -translate-y-1/2 gap-2 rounded-md border border-input bg-background p-4">
         <div className="flex w-48 flex-col gap-2">
-          <Button variant="outline">Load game</Button>
+          <Button disabled={hasSave} onClick={onLoadGame} variant="outline">
+            Load game
+          </Button>
           <Button variant="outline">New game</Button>
           <Button variant="outline">Settings</Button>
           <Button variant="outline">About</Button>

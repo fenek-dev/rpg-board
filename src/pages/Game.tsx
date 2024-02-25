@@ -3,7 +3,7 @@ import { Toaster } from '~/shared/components/ui/sonner';
 import { RenderPopups } from '~/widgets/popups/ui/RenderPopups';
 import { Menu } from '~/widgets/settings/ui/Menu';
 
-function App() {
+function Game() {
   return (
     <main>
       <Menu />
@@ -14,4 +14,4 @@ function App() {
   );
 }
 
-export default App;
+export default Game;
