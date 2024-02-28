@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import blocksSlice from '~/widgets/blocks/store/blocks.slice';
+import combatSlice from '~/widgets/combat/store/combat.slice';
 import equipmentSlice from '~/widgets/equipment/store/equipment.slice';
 import mapSlice from '~/widgets/map/store/map.slice';
 import playerSlice from '~/widgets/player/store/player.slice';
@@ -14,6 +15,7 @@ import { shopMiddleware } from './middlewares/shop';
 
 const rootReducer = combineReducers({
   blocks: blocksSlice,
+  combat: combatSlice,
   equipment: equipmentSlice,
   map: mapSlice,
   player: playerSlice,
