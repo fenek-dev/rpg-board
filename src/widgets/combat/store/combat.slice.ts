@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { loadState, resetState } from '~/app/store/actions';
-
-import { Attack } from './combat.types';
+import { Attack } from '~/entities/extendable/attacks';
 
 export interface CombatState {
   attacks: Attack[];

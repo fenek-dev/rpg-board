@@ -16,3 +16,5 @@ export interface Attack {
   recharge_time: number;
   type: AttackTypes;
 }
+
+export const asAttacks = <T>(et: { [K in keyof T]: Attack }) => et;

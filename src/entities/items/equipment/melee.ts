@@ -77,6 +77,7 @@ export const MELEE = asEquipments({
     w: 1,
   },
   WoodenSword: {
+    attacks: [],
     basicStats: [{ amount: 1, name: 'attack', type: 'flat' }],
     category: 'equipment',
     cost: 1,
