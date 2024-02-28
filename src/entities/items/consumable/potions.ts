@@ -23,7 +23,6 @@ export const POTIONS = asItems({
     subicon: '❤️',
     type: 'item',
     w: 1,
-    weight: 100,
   },
   ManaPotion: {
     category: 'consumable',
@@ -44,6 +43,5 @@ export const POTIONS = asItems({
     subicon: '🔹',
     type: 'item',
     w: 1,
-    weight: 100,
   },
 });

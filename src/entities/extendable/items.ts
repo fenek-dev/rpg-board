@@ -31,7 +31,6 @@ export interface Item<Category = keyof typeof ItemCategory, Rarity = keyof typeo
   stackable: boolean;
   subicon?: string;
   type: 'item';
-  weight: number;
 }
 
 export const asItems = <T>(et: { [K in keyof T]: Item }) => et;

@@ -15,7 +15,6 @@ export const MELEE = asGears({
     subicon: '🦴',
     type: 'weapon',
     w: 1,
-    weight: 1000,
   },
   FireSword: {
     basicStats: [{ amount: 1, name: 'attack' }],
@@ -31,7 +30,6 @@ export const MELEE = asGears({
     subicon: '🔥',
     type: 'weapon',
     w: 1,
-    weight: 1000,
   },
   IceSword: {
     basicStats: [{ amount: 1, name: 'attack' }],
@@ -47,7 +45,6 @@ export const MELEE = asGears({
     subicon: '🧊',
     type: 'weapon',
     w: 1,
-    weight: 1000,
   },
   SwordOfTime: {
     basicStats: [{ amount: 1, name: 'attack' }],
@@ -63,7 +60,6 @@ export const MELEE = asGears({
     subicon: '⏳',
     type: 'weapon',
     w: 1,
-    weight: 1000,
   },
   WoodenStaff: {
     basicStats: [{ amount: 1, name: 'attack' }],
@@ -79,7 +75,6 @@ export const MELEE = asGears({
     subicon: '🪵',
     type: 'weapon',
     w: 1,
-    weight: 1000,
   },
   WoodenSword: {
     basicStats: [{ amount: 1, name: 'attack' }],
@@ -95,6 +90,5 @@ export const MELEE = asGears({
     subicon: '🪵',
     type: 'weapon',
     w: 1,
-    weight: 1000,
   },
 });

@@ -7,7 +7,6 @@ import { Badge } from '~/shared/components/ui/badge';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/shared/components/ui/hover-card';
 import { Separator } from '~/shared/components/ui/separator';
 import { getMinMaxFromDices } from '~/shared/utils/dices';
-import { abbreviateWeight } from '~/shared/utils/number';
 
 interface LootDetailsProps {
   loot: Loot;
@@ -76,8 +75,6 @@ export const LootDetails = ({ children, loot }: React.PropsWithChildren<LootDeta
             )}
             <Separator />
             <div className="flex justify-between p-1 text-xs text-muted-foreground">
-              <span title="Weight">⚖️ {abbreviateWeight(item.weight)}</span>
-              <Separator orientation="vertical" />
               <span title="Cost">🪙 {item.cost}</span>
             </div>
           </div>

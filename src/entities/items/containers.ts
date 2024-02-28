@@ -18,6 +18,5 @@ export const CONTAINERS = asContainers({
     rarity: 'rare',
     type: 'container',
     w: 2,
-    weight: 20,
   },
 });

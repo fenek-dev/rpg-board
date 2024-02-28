@@ -15,7 +15,6 @@ export const RANGE = asGears({
     subicon: '🦴',
     type: 'weapon',
     w: 2,
-    weight: 1000,
   },
   Bow: {
     basicStats: [{ amount: 1, name: 'attack' }],
@@ -30,7 +29,6 @@ export const RANGE = asGears({
     stats: [],
     type: 'weapon',
     w: 2,
-    weight: 1000,
   },
   BowOfTime: {
     basicStats: [{ amount: 1, name: 'attack' }],
@@ -46,7 +44,6 @@ export const RANGE = asGears({
     subicon: '⏳',
     type: 'weapon',
     w: 2,
-    weight: 1000,
   },
   FireBow: {
     basicStats: [{ amount: 1, name: 'attack' }],
@@ -62,7 +59,6 @@ export const RANGE = asGears({
     subicon: '🔥',
     type: 'weapon',
     w: 1,
-    weight: 1000,
   },
   IceBow: {
     basicStats: [{ amount: 1, name: 'attack' }],
@@ -78,6 +74,5 @@ export const RANGE = asGears({
     subicon: '🧊',
     type: 'weapon',
     w: 1,
-    weight: 1000,
   },
 });

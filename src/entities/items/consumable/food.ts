@@ -22,7 +22,6 @@ export const FOOD = asItems({
     stackable: true,
     type: 'item',
     w: 1,
-    weight: 100,
   },
   Berry: {
     category: 'consumable',
@@ -42,7 +41,6 @@ export const FOOD = asItems({
     stackable: true,
     type: 'item',
     w: 1,
-    weight: 10,
   },
   Coconut: {
     category: 'consumable',
@@ -62,7 +60,6 @@ export const FOOD = asItems({
     stackable: true,
     type: 'item',
     w: 2,
-    weight: 500,
   },
   HeavenFruit: {
     category: 'consumable',
@@ -83,7 +80,6 @@ export const FOOD = asItems({
     subicon: '✨',
     type: 'item',
     w: 2,
-    weight: 770,
   },
   Loaf: {
     category: 'consumable',
@@ -103,7 +99,6 @@ export const FOOD = asItems({
     stackable: true,
     type: 'item',
     w: 2,
-    weight: 500,
   },
   Oyster: {
     category: 'consumable',
@@ -123,7 +118,6 @@ export const FOOD = asItems({
     stackable: true,
     type: 'item',
     w: 2,
-    weight: 500,
   },
   Peanut: {
     category: 'consumable',
@@ -143,6 +137,5 @@ export const FOOD = asItems({
     stackable: true,
     type: 'item',
     w: 1,
-    weight: 50,
   },
 });

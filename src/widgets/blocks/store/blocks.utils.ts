@@ -27,17 +27,6 @@ export const findItemsInsideContainer = (
   );
 };
 
-export const countWeightInContainer = (blocks: SerializedBlocks, container_id: string): number => {
-  const selected_blocks = Object.fromEntries(Object.entries(blocks).filter(([, b]) => b.belong === container_id));
-  return Object.entries(selected_blocks).reduce((prev, [id, block]) => {
-    if (block.type === 'container') {
-      return prev + countWeightInContainer(blocks, id) + block.weight;
-    } else {
-      return prev + block.weight * block.amount;
-    }
-  }, 0);
-};
-
 export const countCostInContainer = (blocks: SerializedBlocks, container_id: string): number => {
   const selected_blocks = Object.fromEntries(Object.entries(blocks).filter(([, b]) => b.belong === container_id));
   return Object.entries(selected_blocks).reduce((prev, [id, block]) => {
