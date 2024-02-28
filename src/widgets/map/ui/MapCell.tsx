@@ -29,7 +29,7 @@ export const MapCell = React.memo(
     }, [onDoubleClick, x, y]);
     return (
       <Button
-        className={cn('relative', {
+        className={cn('relative text-2xl', {
           'border-primary': isSelected,
         })}
         disabled={disabled}
