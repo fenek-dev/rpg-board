@@ -31,8 +31,6 @@ export const mapSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loadState, (state, action) => {
-        console.log('hello');
-
         state = action.payload.map;
         return state;
       })

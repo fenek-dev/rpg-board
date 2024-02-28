@@ -15,6 +15,7 @@ export interface DraggablePopupProps {
 
 export const SimpleDraggablePopup = React.memo(
   ({ children, id, onClose }: React.PropsWithChildren<DraggablePopupProps>) => {
+    const nodeRef = React.useRef(null);
     const popup = useSelector(selectPopupById(id));
     const dispatch = useDispatch();
 
@@ -32,8 +33,8 @@ export const SimpleDraggablePopup = React.memo(
     );
 
     return (
-      <Draggable onStop={handleStop} position={popup}>
-        <Card className="absolute z-10 flex cursor-move select-none flex-col items-center" id={id}>
+      <Draggable nodeRef={nodeRef} onStop={handleStop} position={popup}>
+        <Card className="absolute z-10 flex cursor-move select-none flex-col items-center" id={id} ref={nodeRef}>
           <CardHeader className="flex w-full flex-row items-center justify-between gap-1">
             <CardTitle className="block">{popup.name}</CardTitle>
           </CardHeader>

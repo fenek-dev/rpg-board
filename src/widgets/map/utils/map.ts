@@ -40,7 +40,6 @@ export const generateGraph = (seed: number, w: number, h: number, min_level: num
     });
     graph.push(row);
   });
-  console.log(graph);
 
   graph.unshift([TERRAIN_CELLS.Start]);
   graph.push([TERRAIN_CELLS.Field]);
