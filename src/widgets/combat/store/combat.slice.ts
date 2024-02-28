@@ -5,10 +5,12 @@ import { Attack } from '~/entities/extendable/attacks';
 
 export interface CombatState {
   attacks: Attack[];
+  started: boolean;
 }
 
 const initialState: CombatState = {
   attacks: [],
+  started: false,
 };
 
 export const combatSlice = createSlice({
@@ -24,9 +26,15 @@ export const combatSlice = createSlice({
   name: 'combat',
   reducers: {
     addAttacks: (state, action) => {},
+    endCombat: (state) => {
+      state.started = false;
+    },
+    startCombat: (state) => {
+      state.started = true;
+    },
   },
 });
 
-export const { addAttacks } = combatSlice.actions;
+export const { addAttacks, endCombat, startCombat } = combatSlice.actions;
 
 export default combatSlice.reducer;

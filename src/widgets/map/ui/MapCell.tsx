@@ -1,6 +1,8 @@
 import { AccessibilityIcon } from '@radix-ui/react-icons';
 import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '~/app/store';
 import { Button } from '~/shared/components/ui/button';
 import { cn } from '~/shared/utils';
 
@@ -18,6 +20,7 @@ interface MapCellProps {
 
 export const MapCell = React.memo(
   ({ disabled, icon, isCurrentPosition, isSelected, onClick, onDoubleClick, subicon, x, y }: MapCellProps) => {
+    const inCombat = useSelector((state: RootState) => state.combat.started);
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) onClick(x, y, e);
@@ -32,7 +35,7 @@ export const MapCell = React.memo(
         className={cn('relative text-2xl', {
           'border-primary': isSelected,
         })}
-        disabled={disabled}
+        disabled={disabled || inCombat}
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}
         size="slot"

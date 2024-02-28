@@ -2,15 +2,19 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
+import BASIC_POPUPS from '~/entities/constant/popup';
 import { Badge } from '~/shared/components/ui/badge';
 import { Button } from '~/shared/components/ui/button';
 import { Separator } from '~/shared/components/ui/separator';
+import { startCombat } from '~/widgets/combat/store/combat.slice';
+import { addPopup } from '~/widgets/popups/store/popups.slice';
 
 import { travelTo } from '../store/map.slice';
 
 export const MapDetails = React.memo(() => {
   const dispatch = useDispatch();
   const { currentPosition, graph, selectedCell } = useSelector((state: RootState) => state.map);
+  const inCombat = useSelector((state: RootState) => state.combat.started);
   const cell = graph[selectedCell[0]][selectedCell[1]];
 
   const isTheSameCell = selectedCell[0] === currentPosition[0] && selectedCell[1] === currentPosition[1];
@@ -24,6 +28,18 @@ export const MapDetails = React.memo(() => {
     );
   };
 
+  const onCombat = () => {
+    dispatch(
+      addPopup({
+        ...BASIC_POPUPS.Combat,
+        isCollapsed: false,
+        x: 750,
+        y: 500,
+      })
+    );
+    dispatch(startCombat());
+  };
+
   if (!cell) return null;
 
   return (
@@ -34,9 +50,14 @@ export const MapDetails = React.memo(() => {
       </Badge>
       <p className="text-sm text-muted-foreground">{cell.description}</p>
       <Separator />
-      <Button className="mt-auto" disabled={isTheSameCell} onClick={onTravel} variant="outline">
-        Travel
-      </Button>
+      <div className="mt-auto flex gap-2">
+        <Button className="w-full" disabled={inCombat} onClick={onCombat} variant="outline">
+          Combat
+        </Button>
+        <Button className="w-full" disabled={isTheSameCell || inCombat} onClick={onTravel} variant="outline">
+          Travel
+        </Button>
+      </div>
     </div>
   );
 });
