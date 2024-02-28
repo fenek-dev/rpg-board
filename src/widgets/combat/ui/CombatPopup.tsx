@@ -14,10 +14,10 @@ export const CombatPopup = () => {
       <div>
         <div className="flex gap-4">
           <div className="relative h-48 w-64 rounded-md border border-input">
-            <Grid size={gridSize} />
+            <Grid />
           </div>
           <div className="relative h-48 w-64 rounded-md border border-input">
-            <Grid size={gridSize} />
+            <Grid />
           </div>
         </div>
         <AttackPanel />

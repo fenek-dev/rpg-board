@@ -68,7 +68,7 @@ export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: 
     >
       <div className="-z-10" ref={overlay} />
       {children}
-      <Grid size={gridSize} />
+      <Grid />
     </div>
   );
 };
