@@ -30,7 +30,7 @@ export const MapCell = React.memo(
     return (
       <Button
         className={cn('relative', {
-          'ping border-primary': isSelected,
+          'border-primary': isSelected,
         })}
         disabled={disabled}
         onClick={handleClick}
