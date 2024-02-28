@@ -15,6 +15,7 @@ export const BASIC_EQUIPMENT_LEVEL_COST = 100;
 export interface EquipmentStat {
   amount: number;
   name: keyof PlayerState['stats'];
+  type: 'flat' | 'percent';
 }
 
 export interface Equipment extends Omit<Item, 'effects' | 'stackable' | 'type'> {

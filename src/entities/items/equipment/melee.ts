@@ -2,7 +2,7 @@ import { asEquipments } from '../../extendable/equipment';
 
 export const MELEE = asEquipments({
   BoneSword: {
-    basicStats: [{ amount: 1, name: 'attack' }],
+    basicStats: [{ amount: 1, name: 'attack', type: 'flat' }],
     category: 'equipment',
     cost: 1,
     description: '',
@@ -17,7 +17,7 @@ export const MELEE = asEquipments({
     w: 1,
   },
   FireSword: {
-    basicStats: [{ amount: 1, name: 'attack' }],
+    basicStats: [{ amount: 1, name: 'attack', type: 'flat' }],
     category: 'equipment',
     cost: 1,
     description: 'Simple wooden sword',
@@ -32,7 +32,7 @@ export const MELEE = asEquipments({
     w: 1,
   },
   IceSword: {
-    basicStats: [{ amount: 1, name: 'attack' }],
+    basicStats: [{ amount: 1, name: 'attack', type: 'flat' }],
     category: 'equipment',
     cost: 1,
     description: 'Simple wooden sword',
@@ -47,7 +47,7 @@ export const MELEE = asEquipments({
     w: 1,
   },
   SwordOfTime: {
-    basicStats: [{ amount: 1, name: 'attack' }],
+    basicStats: [{ amount: 1, name: 'attack', type: 'flat' }],
     category: 'equipment',
     cost: 1,
     description: '',
@@ -62,7 +62,7 @@ export const MELEE = asEquipments({
     w: 1,
   },
   WoodenStaff: {
-    basicStats: [{ amount: 1, name: 'attack' }],
+    basicStats: [{ amount: 1, name: 'attack', type: 'flat' }],
     category: 'equipment',
     cost: 1,
     description: '',
@@ -77,7 +77,7 @@ export const MELEE = asEquipments({
     w: 1,
   },
   WoodenSword: {
-    basicStats: [{ amount: 1, name: 'attack' }],
+    basicStats: [{ amount: 1, name: 'attack', type: 'flat' }],
     category: 'equipment',
     cost: 1,
     description: 'Simple wooden sword',
