@@ -6,6 +6,7 @@ export type Block<T = Container | Gear | Item> = T & {
   amount: number;
   belong: string;
   equipped?: boolean;
+  exp: number;
   x: number;
   y: number;
 };

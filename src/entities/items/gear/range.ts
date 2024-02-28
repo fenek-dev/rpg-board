@@ -2,6 +2,7 @@ import { asGears } from '../../extendable/gear';
 
 export const RANGE = asGears({
   BoneBow: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 2,
     description: '',
@@ -17,6 +18,7 @@ export const RANGE = asGears({
     weight: 1000,
   },
   Bow: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 1,
     description: 'Simple wooden sword',
@@ -31,6 +33,7 @@ export const RANGE = asGears({
     weight: 1000,
   },
   BowOfTime: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 1,
     description: 'Simple wooden sword',
@@ -46,6 +49,7 @@ export const RANGE = asGears({
     weight: 1000,
   },
   FireBow: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 1,
     description: 'Simple wooden sword',
@@ -61,6 +65,7 @@ export const RANGE = asGears({
     weight: 1000,
   },
   IceBow: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 1,
     description: 'Simple wooden sword',

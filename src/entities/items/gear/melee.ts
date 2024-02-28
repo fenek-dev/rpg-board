@@ -2,6 +2,7 @@ import { asGears } from '../../extendable/gear';
 
 export const MELEE = asGears({
   BoneSword: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 1,
     description: '',
@@ -17,6 +18,7 @@ export const MELEE = asGears({
     weight: 1000,
   },
   FireSword: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 1,
     description: 'Simple wooden sword',
@@ -32,6 +34,7 @@ export const MELEE = asGears({
     weight: 1000,
   },
   IceSword: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 1,
     description: 'Simple wooden sword',
@@ -47,6 +50,7 @@ export const MELEE = asGears({
     weight: 1000,
   },
   SwordOfTime: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 1,
     description: '',
@@ -62,6 +66,7 @@ export const MELEE = asGears({
     weight: 1000,
   },
   WoodenStaff: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 1,
     description: '',
@@ -77,6 +82,7 @@ export const MELEE = asGears({
     weight: 1000,
   },
   WoodenSword: {
+    basicStats: [{ amount: 1, name: 'attack' }],
     category: 'gear',
     cost: 1,
     description: 'Simple wooden sword',
