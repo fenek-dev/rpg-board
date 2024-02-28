@@ -15,13 +15,17 @@ export interface PlayerState {
   stats: {
     attack: number;
     crit_chance: number;
-    crit_damage: number;
+    crit_dmg: number;
     defense: number;
+    elemental_dmg_bonus: number;
     energy: number;
     energy_regen: number;
+    healing_bonus: number;
     hp: number;
     max_energy: number;
     max_hp: number;
+    physical_dmg_bonus: number;
+    reaction_bonus: number;
   };
 }
 
@@ -31,13 +35,17 @@ const initialState: PlayerState = {
   stats: {
     attack: 100,
     crit_chance: 5,
-    crit_damage: 150,
+    crit_dmg: 150,
     defense: 100,
+    elemental_dmg_bonus: 0,
     energy: 6,
     energy_regen: 100,
+    healing_bonus: 0,
     hp: 6,
     max_energy: START_MAX_ENERGY,
     max_hp: START_MAX_HP,
+    physical_dmg_bonus: 0,
+    reaction_bonus: 0,
   },
 };
 
