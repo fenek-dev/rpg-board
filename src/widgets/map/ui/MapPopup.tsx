@@ -47,20 +47,24 @@ export const MapPopup = React.memo(() => {
               const disabled = Math.abs(i - currentPosition[0]) > 1 || currentPosition[0] >= i;
               return (
                 <div className="flex justify-around gap-2" key={i}>
-                  {row.map((cell, j) => (
-                    <MapCell
-                      disabled={disabled}
-                      icon={cell.icon}
-                      isCurrentPosition={currentPosition[0] === i && currentPosition[1] === j}
-                      isSelected={selectedCell[0] === i && selectedCell[1] === j}
-                      key={`${i}-${j}`}
-                      onClick={onCellClick}
-                      onDoubleClick={onTravel}
-                      subicon={cell.subicon}
-                      x={i}
-                      y={j}
-                    />
-                  ))}
+                  {row.map((cell, j) => {
+                    const isSelected = selectedCell[0] === i && selectedCell[1] === j;
+                    const isCurrentPosition = currentPosition[0] === i && currentPosition[1] === j;
+                    return (
+                      <MapCell
+                        disabled={disabled && !isCurrentPosition}
+                        icon={cell.icon}
+                        isCurrentPosition={isCurrentPosition}
+                        isSelected={isSelected}
+                        key={`${i}-${j}`}
+                        onClick={onCellClick}
+                        onDoubleClick={onTravel}
+                        subicon={cell.subicon}
+                        x={i}
+                        y={j}
+                      />
+                    );
+                  })}
                 </div>
               );
             })}
