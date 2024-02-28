@@ -25,8 +25,8 @@ export const MapCell = React.memo(
       [onClick, x, y]
     );
     const handleDoubleClick = useCallback(() => {
-      if (onDoubleClick) onDoubleClick(x, y);
-    }, [onDoubleClick, x, y]);
+      if (onDoubleClick && !isCurrentPosition) onDoubleClick(x, y);
+    }, [onDoubleClick, x, y, isCurrentPosition]);
     return (
       <Button
         className={cn('relative text-2xl', {
