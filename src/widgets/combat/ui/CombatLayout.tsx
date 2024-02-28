@@ -9,15 +9,13 @@ import { adjustPosition } from '~/widgets/grid/utils/position';
 import { CombatEntity } from '../store/combat.types';
 
 interface CombatLayoutProps {
-  belongs: string;
   className?: string;
   cols: number;
-  onItemDrop?: (x: number, y: number, item: CombatEntity, element_id: string, id: string) => void;
+  onItemDrop?: (x: number, y: number, item: CombatEntity, element_id: string) => void;
   rows: number;
 }
 
 export const CombatLayout = ({
-  belongs,
   children,
   className,
   cols,
@@ -38,8 +36,7 @@ export const CombatLayout = ({
 
     const entity = JSON.parse(droppedElement) as CombatEntity;
 
-    if (onItemDrop && entity.w + x <= cols && entity.h + y <= rows && entity.belong === belongs)
-      onItemDrop(x, y, entity, element_id, belongs);
+    if (onItemDrop && entity.w + x <= cols && entity.h + y <= rows) onItemDrop(x, y, entity, element_id);
     overlay.current!.classList.remove('grid-placeholder');
 
     event.preventDefault();
@@ -50,7 +47,7 @@ export const CombatLayout = ({
 
     const entity = window.entity;
 
-    if (entity?.w + x > cols || entity?.h + y > rows || entity.belong !== belongs) return handleDragLeave();
+    if (entity?.w + x > cols || entity?.h + y > rows) return handleDragLeave();
 
     overlay.current!.style.transform = `translate(${x * gridSize}px, ${y * gridSize}px)`;
     overlay.current!.classList.add('grid-placeholder');

@@ -18,7 +18,7 @@ export const Entity = ({ disabled, entity }: EntityProps) => {
       onDragStart={disabled ? undefined : onDragStart}
       onMouseDown={(e) => e.stopPropagation()}
       style={style}
-      variant="outline"
+      variant={disabled ? 'destructive' : 'default'}
     >
       {entity.icon}
     </Button>

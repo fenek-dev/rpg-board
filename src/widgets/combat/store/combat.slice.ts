@@ -30,7 +30,7 @@ const initialState: CombatState = {
       name: 'Player',
       w: 1,
       x: 5,
-      y: 3,
+      y: 9,
     },
     {
       belong: CombatBelongs.ENEMY,
@@ -40,8 +40,8 @@ const initialState: CombatState = {
     },
   ],
   fieldSizes: {
-    h: 6,
-    w: 10,
+    h: 11,
+    w: 11,
   },
   started: false,
 };
