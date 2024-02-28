@@ -7,11 +7,10 @@ import { toast } from 'sonner';
 import { loadState, resetState } from '~/app/store/actions';
 import { Dice } from '~/entities/extendable/dices';
 
-import { LEVEL_PROGRESSION, START_MAX_ENERGY, START_MAX_HP } from './player.enum';
+import { START_MAX_ENERGY, START_MAX_HP } from './player.enum';
 
 export interface PlayerState {
   exp: number;
-  level: number;
   money: number;
   stats: {
     attack: number;
@@ -28,7 +27,6 @@ export interface PlayerState {
 
 const initialState: PlayerState = {
   exp: 0,
-  level: 1,
   money: 10,
   stats: {
     attack: 100,
@@ -55,14 +53,6 @@ export const playerSlice = createSlice({
   initialState,
   name: 'player',
   reducers: {
-    gainExp: (state, action: PayloadAction<number>) => {
-      state.exp += action.payload;
-      const nextLevel = LEVEL_PROGRESSION[state.level + 1];
-      if (nextLevel && state.exp >= nextLevel) {
-        state.exp -= nextLevel;
-        state.level += 1;
-      }
-    },
     gainMoney: (state, action: PayloadAction<number>) => {
       state.money += action.payload;
       toast.success(`You gained ${action.payload} coins`, {
