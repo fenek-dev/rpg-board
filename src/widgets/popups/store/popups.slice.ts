@@ -14,6 +14,12 @@ export interface PopupsState {
 
 const initialState: PopupsState = {
   popups: {
+    [BASIC_POPUPS.Combat.container_id]: {
+      ...BASIC_POPUPS.Combat,
+      isCollapsed: false,
+      x: 750,
+      y: 500,
+    },
     [BASIC_POPUPS.Equipment.container_id]: {
       ...BASIC_POPUPS.Equipment,
       isCollapsed: false,

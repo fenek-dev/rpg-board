@@ -1,6 +1,12 @@
 import { asPopups } from '../extendable/popups';
 
 export const BASIC_POPUPS = asPopups({
+  Combat: {
+    container_id: 'Combat',
+    h: 0,
+    name: 'Combat',
+    w: 0,
+  },
   Equipment: {
     container_id: 'Equipment',
     h: 3,
