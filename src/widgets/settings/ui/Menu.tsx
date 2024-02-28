@@ -48,6 +48,14 @@ export const Menu = () => {
     });
   };
 
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      document.documentElement.requestFullscreen();
+    }
+  };
+
   return (
     <Menubar className="fixed left-1/2 top-1 z-50 -translate-x-1/2">
       <MenubarMenu>
@@ -64,7 +72,7 @@ export const Menu = () => {
         <MenubarContent>
           <MenubarItem>Reset all windows</MenubarItem>
           <MenubarSeparator />
-          <MenubarItem>Toggle Fullscreen</MenubarItem>
+          <MenubarItem onClick={toggleFullscreen}>Toggle Fullscreen</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
