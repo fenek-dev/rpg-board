@@ -64,8 +64,8 @@ export const ContainerItem = React.memo(
     };
 
     return (
-      <Details block={container} id={props.id!}>
-        <ContainerMenu block={container} id={props.id!}>
+      <ContainerMenu block={container} id={props.id!}>
+        <Details block={container} id={props.id!}>
           <Button
             className="cursor-grab text-3xl transition-transform"
             draggable={true}
@@ -90,8 +90,8 @@ export const ContainerItem = React.memo(
               <OpenInNewWindowIcon className="h-3 w-3" />
             </span>
           </Button>
-        </ContainerMenu>
-      </Details>
+        </Details>
+      </ContainerMenu>
     );
   })
 );

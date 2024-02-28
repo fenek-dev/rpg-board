@@ -5,7 +5,9 @@ import { TERRAIN_CELLS } from '~/entities/map/terrain';
 import { mulberry32 } from '~/shared/utils/random';
 
 export const getTerrainFromNoiseValue = (noiseValue: number, min_level: number, max_level: number) => {
-  const cells = Object.values(TERRAIN_CELLS).filter((t) => t.dangerLevel >= min_level && t.dangerLevel <= max_level);
+  const cells = Object.values(TERRAIN_CELLS).filter(
+    (t) => t.dangerLevel === 0 || (t.dangerLevel >= min_level && t.dangerLevel <= max_level)
+  );
   const sum = cells.reduce((p, t) => p + t.chance, 0);
   const value = noiseValue * sum;
 
