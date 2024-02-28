@@ -8,10 +8,12 @@ import '~/app/styles/global.css';
 
 import { Router } from './app/routes/Router';
 import { Block } from './widgets/blocks/store';
+import { CombatEntity } from './widgets/combat/store/combat.types';
 declare global {
   interface Window {
     dragId: string;
     dragging: Block;
+    entity: CombatEntity;
   }
 }
 
