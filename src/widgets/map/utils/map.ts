@@ -43,5 +43,3 @@ export const generateGraph = (seed: number, w: number, h: number) => {
 
   return graph;
 };
-
-export const getTurnsUntilFog = (turn: number, fogEvery: number) => fogEvery - (turn % fogEvery);

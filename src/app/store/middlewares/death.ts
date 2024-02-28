@@ -6,7 +6,7 @@ export const deathMiddleware: Middleware<unknown, RootState> = (storeApi) => (ne
   next(action);
 
   const { player } = storeApi.getState();
-  if (player.hp <= 0) {
+  if (player.stats.hp <= 0) {
     console.log('Oh, you are dead');
   }
 };
