@@ -1,5 +1,5 @@
 export interface Effect {
-  description: string;
+  description?: string;
   icon: string;
   id: string;
   name: string;

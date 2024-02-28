@@ -61,14 +61,11 @@ export const Details = ({ block, children, id }: React.PropsWithChildren<Details
             {'effects' in block && block.effects && (
               <>
                 <Separator />
-                <h4 className="text-lg text-muted-foreground">Effects</h4>
+                <h4 className="text-base text-muted-foreground">On use:</h4>
                 {block.effects.map((eff) => (
-                  <div className="rounded-md border border-input p-1" key={eff.id}>
-                    <h5 className="text-sm">
-                      <span className="text-xl">{eff.icon}</span> {eff.name} ({eff.amount})
-                    </h5>
-                    <p className="text-xs text-muted-foreground">{eff.description}</p>
-                  </div>
+                  <h5 className="text-sm font-bold text-green-600/50">
+                    {eff.icon} {eff.name} ({eff.amount})
+                  </h5>
                 ))}
               </>
             )}
