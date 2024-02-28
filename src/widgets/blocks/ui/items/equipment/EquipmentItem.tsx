@@ -9,7 +9,7 @@ import { abbreviateAmount } from '~/shared/utils/number';
 import { useGridItem } from '~/widgets/grid/hooks/useGridItem';
 
 import { Block } from '../../../store';
-import { Details } from '../../common/Details';
+import { EquipmentDetails } from './EquipmentDetails';
 import { EquipmentMenu } from './EquipmentMenu';
 
 export const EquipmentItem = React.memo(
@@ -19,7 +19,7 @@ export const EquipmentItem = React.memo(
 
     return (
       <EquipmentMenu block={item} id={props.id!}>
-        <Details block={item} id={props.id!}>
+        <EquipmentDetails id={props.id!} item={item}>
           <Button
             className="cursor-grab text-3xl transition-transform"
             draggable={true}
@@ -44,7 +44,7 @@ export const EquipmentItem = React.memo(
               <span className="absolute bottom-1 right-1 text-xs leading-none">{abbreviateAmount(item.amount)}</span>
             )}
           </Button>
-        </Details>
+        </EquipmentDetails>
       </EquipmentMenu>
     );
   })
