@@ -39,7 +39,9 @@ export const MapCell = React.memo(
         variant="outline"
       >
         {subicon && <span className="absolute right-1 top-1 text-xs leading-none">{subicon}</span>}
-        {isCurrentPosition && <AccessibilityIcon className="absolute left-1 top-1 size-4 text-green-700 opacity-75" />}
+        {isCurrentPosition && (
+          <AccessibilityIcon className="absolute -left-2 -top-2 size-4 text-green-700 opacity-75" />
+        )}
         {icon}
       </Button>
     );
