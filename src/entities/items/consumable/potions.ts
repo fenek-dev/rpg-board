@@ -31,7 +31,7 @@ export const POTIONS = asItems({
     description: 'Some kind of flask with blue fluid inside',
     effects: [
       {
-        ...EFFECTS.RestoreMana,
+        ...EFFECTS.RestoreEnergy,
         dices: [DICES.d4, DICES.d2],
       },
     ],

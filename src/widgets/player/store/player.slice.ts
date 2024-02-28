@@ -7,21 +7,21 @@ import { toast } from 'sonner';
 import { loadState, resetState } from '~/app/store/actions';
 import { Dice } from '~/entities/extendable/dices';
 
-import { START_MAX_HP, START_MAX_MANA } from './player.enum';
+import { START_MAX_ENERGY, START_MAX_HP } from './player.enum';
 
 export interface PlayerState {
+  energy: number;
   hp: number;
-  mana: number;
+  max_energy: number;
   max_hp: number;
-  max_mana: number;
   money: number;
 }
 
 const initialState: PlayerState = {
+  energy: 6,
   hp: 6,
-  mana: 6,
+  max_energy: START_MAX_ENERGY,
   max_hp: START_MAX_HP,
-  max_mana: START_MAX_MANA,
   money: 10,
 };
 
@@ -55,15 +55,15 @@ export const playerSlice = createSlice({
         icon: '❤️‍🩹',
       });
     },
-    restoreMana: (state, action: PayloadAction<Dice[]>) => {
+    restoreEnergy: (state, action: PayloadAction<Dice[]>) => {
       let total = 0;
       action.payload.forEach((d) => {
         const amount = random(d.min, d.max);
         total += amount;
-        state.mana += amount;
-        if (state.mana > state.max_mana) state.mana = state.max_mana;
+        state.energy += amount;
+        if (state.energy > state.max_energy) state.energy = state.max_energy;
       });
-      toast.success(`You restored ${total} mana`, {
+      toast.success(`You restored ${total} energy`, {
         icon: '🔹',
       });
     },
@@ -84,6 +84,6 @@ export const playerSlice = createSlice({
   },
 });
 
-export const { gainMoney, heal, restoreMana, spendMoney } = playerSlice.actions;
+export const { gainMoney, heal, restoreEnergy, spendMoney } = playerSlice.actions;
 
 export default playerSlice.reducer;

@@ -6,7 +6,7 @@ import { Progress } from '~/shared/components/ui/progress';
 import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDraggablePopup';
 
 export const Status = () => {
-  const { hp, mana, max_hp, max_mana } = useSelector((state: RootState) => state.player);
+  const { energy, hp, max_energy, max_hp } = useSelector((state: RootState) => state.player);
   const gridSize = useSelector((state: RootState) => state.settings.gridSize);
 
   return (
@@ -26,14 +26,14 @@ export const Status = () => {
         </Progress>
         <Progress
           indicatorClassName="bg-blue-700"
-          max={max_mana}
+          max={max_energy}
           style={{
             height: gridSize / 2.5,
           }}
-          value={mana}
+          value={energy}
         >
           <span className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-sm leading-none text-muted-foreground">
-            {mana} / {max_mana}
+            {energy} / {max_energy}
           </span>
         </Progress>
       </div>

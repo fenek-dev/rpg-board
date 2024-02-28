@@ -13,10 +13,10 @@ export const EFFECTS = asEffects({
     id: 'Heal',
     name: 'Heal',
   },
-  RestoreMana: {
-    description: 'Restore mana',
+  RestoreEnergy: {
+    description: 'Restore energy',
     icon: '🔹',
-    id: 'RestoreMana',
-    name: 'Restore mana',
+    id: 'RestoreEnergy',
+    name: 'Restore energy',
   },
 });

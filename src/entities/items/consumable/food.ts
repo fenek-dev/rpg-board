@@ -50,7 +50,7 @@ export const FOOD = asItems({
     description: 'Coconut',
     effects: [
       {
-        ...EFFECTS.RestoreMana,
+        ...EFFECTS.RestoreEnergy,
         dices: [DICES.d10, DICES.d2],
       },
     ],

@@ -3,7 +3,7 @@ import { get } from 'lodash-es';
 
 import { EFFECTS } from '~/entities/items/effects';
 import { effectBlock } from '~/widgets/blocks/store';
-import { heal, restoreMana } from '~/widgets/player/store';
+import { heal, restoreEnergy } from '~/widgets/player/store';
 
 import { RootState } from '../store';
 
@@ -18,8 +18,8 @@ export const effectsMiddleware: Middleware<unknown, RootState> = (storeApi) => (
           case EFFECTS.Heal.id:
             next(heal(eff.dices));
             break;
-          case EFFECTS.RestoreMana.id:
-            next(restoreMana(eff.dices));
+          case EFFECTS.RestoreEnergy.id:
+            next(restoreEnergy(eff.dices));
             break;
           default:
             break;
