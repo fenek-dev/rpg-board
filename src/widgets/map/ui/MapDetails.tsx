@@ -33,8 +33,8 @@ export const MapDetails = React.memo(() => {
       addPopup({
         ...BASIC_POPUPS.Combat,
         isCollapsed: false,
-        x: 750,
-        y: 500,
+        x: window.innerWidth / 4,
+        y: window.innerHeight / 4,
       })
     );
     dispatch(startCombat());

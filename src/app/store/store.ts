@@ -8,6 +8,7 @@ import playerSlice from '~/widgets/player/store/player.slice';
 import popupsSlice from '~/widgets/popups/store/popups.slice';
 import settingsSlice from '~/widgets/settings/store/settings.slice';
 
+import { combatMiddleware } from './middlewares/combat';
 import { deathMiddleware } from './middlewares/death';
 import { effectsMiddleware } from './middlewares/effect';
 import { equipmentMiddleware } from './middlewares/equipment';
@@ -29,7 +30,13 @@ const preloadedState = save ? JSON.parse(save) : undefined;
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(effectsMiddleware, deathMiddleware, shopMiddleware, equipmentMiddleware),
+    getDefaultMiddleware().concat(
+      effectsMiddleware,
+      deathMiddleware,
+      shopMiddleware,
+      equipmentMiddleware,
+      combatMiddleware
+    ),
   preloadedState,
   reducer: rootReducer,
 });

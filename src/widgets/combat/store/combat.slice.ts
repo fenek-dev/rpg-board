@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { loadState, resetState } from '~/app/store/actions';
 import { Attack } from '~/entities/extendable/attacks';
@@ -25,7 +25,9 @@ export const combatSlice = createSlice({
   initialState,
   name: 'combat',
   reducers: {
-    addAttacks: (state, action) => {},
+    addAttacks: (state, action: PayloadAction<Attack[]>) => {
+      state.attacks = action.payload;
+    },
     endCombat: (state) => {
       state.started = false;
     },
