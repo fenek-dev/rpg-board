@@ -3,7 +3,7 @@ import { asTerrainCells } from '../extendable/map';
 export const TERRAIN_CELLS = asTerrainCells({
   BanditCamp: {
     chance: 10,
-    dangerLevel: 4,
+    dangerLevel: 3,
     description: '',
     icon: '🏕️',
     id: 'BanditCamp',
@@ -35,7 +35,7 @@ export const TERRAIN_CELLS = asTerrainCells({
   },
   Forest: {
     chance: 30,
-    dangerLevel: 3,
+    dangerLevel: 2,
     description: '',
     icon: '🌳',
     id: 'Forest',
@@ -43,7 +43,7 @@ export const TERRAIN_CELLS = asTerrainCells({
   },
   Graveyard: {
     chance: 5,
-    dangerLevel: 6,
+    dangerLevel: 4,
     description: '',
     icon: '🪦',
     id: 'Graveyard',
@@ -52,7 +52,7 @@ export const TERRAIN_CELLS = asTerrainCells({
   },
   Meadow: {
     chance: 20,
-    dangerLevel: 2,
+    dangerLevel: 1,
     description: '',
     icon: '🌾',
     id: 'Meadow',
@@ -60,7 +60,7 @@ export const TERRAIN_CELLS = asTerrainCells({
   },
   Mountain: {
     chance: 15,
-    dangerLevel: 4,
+    dangerLevel: 3,
     description: '',
     icon: '⛰️',
     id: 'Mountain',
@@ -68,7 +68,7 @@ export const TERRAIN_CELLS = asTerrainCells({
   },
   Ruins: {
     chance: 2,
-    dangerLevel: 5,
+    dangerLevel: 4,
     description: '',
     icon: '🏚️',
     id: 'Ruins',

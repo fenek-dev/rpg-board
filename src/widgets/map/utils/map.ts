@@ -4,13 +4,14 @@ import { Terrain } from '~/entities/extendable/map';
 import { TERRAIN_CELLS } from '~/entities/map/terrain';
 import { mulberry32 } from '~/shared/utils/random';
 
-export const getTerrainFromNoiseValue = (noiseValue: number) => {
-  const sum = Object.values(TERRAIN_CELLS).reduce((p, t) => p + t.chance, 0);
+export const getTerrainFromNoiseValue = (noiseValue: number, min_level: number, max_level: number) => {
+  const cells = Object.values(TERRAIN_CELLS).filter((t) => t.dangerLevel >= min_level && t.dangerLevel <= max_level);
+  const sum = cells.reduce((p, t) => p + t.chance, 0);
   const value = noiseValue * sum;
 
   let terrain: Terrain | undefined = undefined;
   let prevSum = 0;
-  Object.values(TERRAIN_CELLS).forEach((t) => {
+  cells.forEach((t) => {
     if (t.chance + prevSum >= value && !terrain) {
       terrain = t;
       prevSum += t.chance;
@@ -22,7 +23,7 @@ export const getTerrainFromNoiseValue = (noiseValue: number) => {
   return terrain!;
 };
 
-export const generateGraph = (seed: number, w: number, h: number) => {
+export const generateGraph = (seed: number, w: number, h: number, min_level: number, max_level: number) => {
   const prng = mulberry32(seed);
 
   const graph: Terrain[][] = [];
@@ -32,11 +33,12 @@ export const generateGraph = (seed: number, w: number, h: number) => {
     const width = Math.max(2, range(1, w + 1)[Math.floor(chance * w)]);
     const row: Terrain[] = [];
     range(width).forEach(() => {
-      const item = getTerrainFromNoiseValue(prng());
+      const item = getTerrainFromNoiseValue(prng(), min_level, max_level);
       row.push(item);
     });
     graph.push(row);
   });
+  console.log(graph);
 
   graph.unshift([TERRAIN_CELLS.Start]);
   graph.push([TERRAIN_CELLS.Field]);
