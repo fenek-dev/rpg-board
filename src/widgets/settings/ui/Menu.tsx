@@ -39,12 +39,10 @@ export const Menu = () => {
   const exitToMenu = () => {
     openDialog({
       action: () => {
-        saveGame();
         navigate(LINKS.MainMenu);
       },
-      cancel: () => navigate(LINKS.MainMenu),
-      description: 'All unsaved progress will be lost',
-      title: 'Do you want to save before exiting?',
+      description: 'Make sure that you saved before exit',
+      title: 'All unsaved progress will be lost!',
     });
   };
 
