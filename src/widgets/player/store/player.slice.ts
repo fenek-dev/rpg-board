@@ -1,11 +1,9 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { random } from 'lodash-es';
 import { toast } from 'sonner';
 
 import { loadState, resetState } from '~/app/store/actions';
-import { Dice } from '~/entities/extendable/dices';
 
 import { START_MAX_ENERGY, START_MAX_HP } from './player.enum';
 
@@ -67,27 +65,18 @@ export const playerSlice = createSlice({
         icon: '🪙',
       });
     },
-    heal: (state, action: PayloadAction<Dice[]>) => {
-      let total = 0;
-      action.payload.forEach((d) => {
-        const amount = random(d.min, d.max);
-        total += amount;
-        state.stats.hp += amount;
-        if (state.stats.hp > state.stats.max_hp) state.stats.hp = state.stats.max_hp;
-      });
-      toast.success(`You healed ${total} hp`, {
+    heal: (state, action: PayloadAction<number>) => {
+      state.stats.hp += action.payload;
+      if (state.stats.hp > state.stats.max_hp) state.stats.hp = state.stats.max_hp;
+
+      toast.success(`You healed ${action.payload} hp`, {
         icon: '❤️‍🩹',
       });
     },
-    restoreEnergy: (state, action: PayloadAction<Dice[]>) => {
-      let total = 0;
-      action.payload.forEach((d) => {
-        const amount = random(d.min, d.max);
-        total += amount;
-        state.stats.energy += amount;
-        if (state.stats.energy > state.stats.max_energy) state.stats.energy = state.stats.max_energy;
-      });
-      toast.success(`You restored ${total} energy`, {
+    restoreEnergy: (state, action: PayloadAction<number>) => {
+      state.stats.energy += action.payload;
+      if (state.stats.energy > state.stats.max_energy) state.stats.energy = state.stats.max_energy;
+      toast.success(`You restored ${action.payload} energy`, {
         icon: '🔹',
       });
     },

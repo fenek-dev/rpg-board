@@ -1,6 +1,5 @@
 import { asItems } from '~/entities/extendable/items';
 
-import { DICES } from '../dices';
 import { EFFECTS } from '../effects';
 
 export const FOOD = asItems({
@@ -11,7 +10,7 @@ export const FOOD = asItems({
     effects: [
       {
         ...EFFECTS.Heal,
-        dices: [DICES.d2, DICES.d2],
+        amount: 3,
       },
     ],
     h: 1,
@@ -30,7 +29,7 @@ export const FOOD = asItems({
     effects: [
       {
         ...EFFECTS.Heal,
-        dices: [DICES.d2],
+        amount: 1,
       },
     ],
     h: 1,
@@ -49,7 +48,7 @@ export const FOOD = asItems({
     effects: [
       {
         ...EFFECTS.RestoreEnergy,
-        dices: [DICES.d10, DICES.d2],
+        amount: 4,
       },
     ],
     h: 2,
@@ -68,7 +67,7 @@ export const FOOD = asItems({
     effects: [
       {
         ...EFFECTS.Heal,
-        dices: [DICES.d100],
+        amount: 50,
       },
     ],
     h: 2,
@@ -88,7 +87,7 @@ export const FOOD = asItems({
     effects: [
       {
         ...EFFECTS.Heal,
-        dices: [DICES.d2, DICES.d2],
+        amount: 5,
       },
     ],
     h: 1,
@@ -107,7 +106,7 @@ export const FOOD = asItems({
     effects: [
       {
         ...EFFECTS.Heal,
-        dices: [DICES.d12],
+        amount: 6,
       },
     ],
     h: 1,
@@ -126,7 +125,7 @@ export const FOOD = asItems({
     effects: [
       {
         ...EFFECTS.Heal,
-        dices: [DICES.d8, DICES.d2],
+        amount: 2,
       },
     ],
     h: 1,
