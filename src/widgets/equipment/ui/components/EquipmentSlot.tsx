@@ -6,18 +6,18 @@ import { Button } from '~/shared/components/ui/button';
 import { equipBlock, unequipBlock } from '~/widgets/blocks/store';
 import { Details } from '~/widgets/blocks/ui/common/Details';
 
-import { selectGear } from '../../store/gear.selector';
-import { GearState, equipGear, unequipGear } from '../../store/gear.slice';
+import { selectEquipment } from '../../store/equipment.selector';
+import { EquipmentState, equipItem, unequipItem } from '../../store/equipment.slice';
 
-interface GearSlotProps {
-  allowed?: keyof Pick<typeof ItemCategory, 'gear'>;
+interface EquipmentSlotProps {
+  allowed?: keyof Pick<typeof ItemCategory, 'equipment'>;
   defaultIcon: string;
-  name: keyof GearState;
+  name: keyof EquipmentState;
 }
 
-export const GearSlot = React.memo(({ allowed, defaultIcon, name }: GearSlotProps) => {
+export const EquipmentSlot = React.memo(({ allowed, defaultIcon, name }: EquipmentSlotProps) => {
   const dispatch = useDispatch();
-  const [id, gear] = useSelector(selectGear(name));
+  const [id, Equipment] = useSelector(selectEquipment(name));
 
   const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
     e.dataTransfer.dropEffect = 'none';
@@ -32,7 +32,7 @@ export const GearSlot = React.memo(({ allowed, defaultIcon, name }: GearSlotProp
     const id = e.dataTransfer.getData('id');
     if (window.dragging?.category === allowed && name === window.dragging?.type) {
       dispatch(
-        equipGear({
+        equipItem({
           id,
           name,
         })
@@ -44,26 +44,26 @@ export const GearSlot = React.memo(({ allowed, defaultIcon, name }: GearSlotProp
   };
 
   const onUnequip = () => {
-    if (gear) {
+    if (Equipment) {
       dispatch(unequipBlock(id));
-      dispatch(unequipGear(name));
+      dispatch(unequipItem(name));
     }
   };
 
-  return gear ? (
-    <Details block={gear} id={gear.id}>
+  return Equipment ? (
+    <Details block={Equipment} id={Equipment.id}>
       <Button
         className="relative text-3xl"
         onDoubleClick={onUnequip}
         onDragOver={onDragOver}
         onDrop={onEquip}
-        rarity={gear.rarity}
+        rarity={Equipment.rarity}
         size="slot"
         title={name}
         variant="outline"
       >
-        {gear.subicon && <span className="absolute right-1 top-1 text-xs leading-none">{gear.subicon}</span>}
-        {gear.icon}
+        {Equipment.subicon && <span className="absolute right-1 top-1 text-xs leading-none">{Equipment.subicon}</span>}
+        {Equipment.icon}
       </Button>
     </Details>
   ) : (

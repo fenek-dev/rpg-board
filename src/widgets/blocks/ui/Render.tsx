@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectBlocksByBelong } from '~/widgets/blocks/store';
 
 import { ContainerItem } from './items/container/ContainerItem';
-import { GearItem } from './items/gear/GearItem';
+import { EquipmentItem } from './items/equipment/EquipmentItem';
 import { BasicItem } from './items/item/BasicItem';
 
 interface RenderProps {
@@ -23,8 +23,8 @@ export const Render = React.memo(({ container_id }: RenderProps) => {
         if (block.type === 'item') {
           return <BasicItem id={id} key={id} />;
         }
-        if (block.category === 'gear') {
-          return <GearItem id={id} key={id} />;
+        if (block.category === 'equipment') {
+          return <EquipmentItem id={id} key={id} />;
         }
         return null;
       })}

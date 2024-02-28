@@ -3,22 +3,22 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
-import { Gear } from '~/entities/extendable/gear';
+import { Equipment } from '~/entities/extendable/equipment';
 import { Button, ButtonProps } from '~/shared/components/ui/button';
 import { abbreviateAmount } from '~/shared/utils/number';
 import { useGridItem } from '~/widgets/grid/hooks/useGridItem';
 
 import { Block } from '../../../store';
 import { Details } from '../../common/Details';
-import { GearMenu } from './GearMenu';
+import { EquipmentMenu } from './EquipmentMenu';
 
-export const GearItem = React.memo(
+export const EquipmentItem = React.memo(
   React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-    const item = useSelector((state: RootState) => state.blocks.blocks[props.id!]) as Block<Gear>;
+    const item = useSelector((state: RootState) => state.blocks.blocks[props.id!]) as Block<Equipment>;
     const { onDragEnd, onDragStart, style } = useGridItem(item, props.id!);
 
     return (
-      <GearMenu block={item} id={props.id!}>
+      <EquipmentMenu block={item} id={props.id!}>
         <Details block={item} id={props.id!}>
           <Button
             className="cursor-grab text-3xl transition-transform"
@@ -45,9 +45,9 @@ export const GearItem = React.memo(
             )}
           </Button>
         </Details>
-      </GearMenu>
+      </EquipmentMenu>
     );
   })
 );
 
-GearItem.displayName = 'GearItem';
+EquipmentItem.displayName = 'EquipmentItem';

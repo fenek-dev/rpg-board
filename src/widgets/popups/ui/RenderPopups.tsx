@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
-import { GearPopup } from '~/widgets/gear/ui/GearPopup';
+import { EquipmentPopup } from '~/widgets/equipment/ui/EquipmentPopup';
 import { MapPopup } from '~/widgets/map/ui/MapPopup';
 import { Status } from '~/widgets/player/ui/Status';
 
@@ -23,8 +23,8 @@ export const RenderPopups = () => {
           return <Inventory id={id} key={id} />;
         }
 
-        if (id === BASIC_POPUPS.Gear.container_id) {
-          return <GearPopup key={id} />;
+        if (id === BASIC_POPUPS.Equipment.container_id) {
+          return <EquipmentPopup key={id} />;
         }
 
         if (id === BASIC_POPUPS.Map.container_id) {

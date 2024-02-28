@@ -1,8 +1,8 @@
 import { Container } from '~/entities/extendable/containers';
-import { Gear } from '~/entities/extendable/gear';
+import { Equipment } from '~/entities/extendable/equipment';
 import { Item } from '~/entities/extendable/items';
 
-export type Block<T = Container | Gear | Item> = T & {
+export type Block<T = Container | Equipment | Item> = T & {
   amount: number;
   belong: string;
   equipped?: boolean;

@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { POPUPS_WITHOUT_ITEM_ACTIVATION } from '~/entities/constant/popup';
-import { Gear } from '~/entities/extendable/gear';
+import { Equipment } from '~/entities/extendable/equipment';
 import {
   ContextMenu,
   ContextMenuContent,
@@ -12,17 +12,17 @@ import {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from '~/shared/components/ui/context-menu';
-import { equipGear, unequipGear } from '~/widgets/gear/store/gear.slice';
+import { equipItem, unequipItem } from '~/widgets/equipment/store/equipment.slice';
 import { selectPopupById } from '~/widgets/popups/store/popups.selector';
 
 import { Block, equipBlock, removeBlock, unequipBlock } from '../../../store';
 
 interface ItemMenu {
-  block: Block<Gear>;
+  block: Block<Equipment>;
   id: string;
 }
 
-export const GearMenu = ({ block, children, id }: React.PropsWithChildren<ItemMenu>) => {
+export const EquipmentMenu = ({ block, children, id }: React.PropsWithChildren<ItemMenu>) => {
   const dispatch = useDispatch();
   const popup = useSelector(selectPopupById(block.belong));
 
@@ -30,11 +30,11 @@ export const GearMenu = ({ block, children, id }: React.PropsWithChildren<ItemMe
 
   const equip = () => {
     if (block.equipped) {
-      dispatch(unequipGear(block.type));
+      dispatch(unequipItem(block.type));
       dispatch(unequipBlock(id));
     } else {
       dispatch(
-        equipGear({
+        equipItem({
           id,
           name: block.type,
         })

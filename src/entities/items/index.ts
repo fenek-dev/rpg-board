@@ -1,5 +1,5 @@
 import { CONSUMABLES } from './consumable';
 import { CONTAINERS } from './containers';
-import { GEAR } from './gear';
+import { EQUIPMENT } from './equipment';
 
-export const ITEMS = Object.assign({}, CONSUMABLES, CONTAINERS, GEAR);
+export const ITEMS = Object.assign({}, CONSUMABLES, CONTAINERS, EQUIPMENT);

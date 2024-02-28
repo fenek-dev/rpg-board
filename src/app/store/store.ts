@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import blocksSlice from '~/widgets/blocks/store/blocks.slice';
-import gearSlice from '~/widgets/gear/store/gear.slice';
+import equipmentSlice from '~/widgets/equipment/store/equipment.slice';
 import mapSlice from '~/widgets/map/store/map.slice';
 import playerSlice from '~/widgets/player/store/player.slice';
 import popupsSlice from '~/widgets/popups/store/popups.slice';
@@ -13,7 +13,7 @@ import { shopMiddleware } from './middlewares/shop';
 
 const rootReducer = combineReducers({
   blocks: blocksSlice,
-  gear: gearSlice,
+  equipment: equipmentSlice,
   map: mapSlice,
   player: playerSlice,
   popups: popupsSlice,

@@ -1,9 +1,9 @@
-import { asGears } from '../../extendable/gear';
+import { asEquipments } from '../../extendable/equipment';
 
-export const RANGE = asGears({
+export const RANGE = asEquipments({
   BoneBow: {
     basicStats: [{ amount: 1, name: 'attack' }],
-    category: 'gear',
+    category: 'equipment',
     cost: 2,
     description: '',
     h: 3,
@@ -18,7 +18,7 @@ export const RANGE = asGears({
   },
   Bow: {
     basicStats: [{ amount: 1, name: 'attack' }],
-    category: 'gear',
+    category: 'equipment',
     cost: 1,
     description: 'Simple wooden sword',
     h: 3,
@@ -32,7 +32,7 @@ export const RANGE = asGears({
   },
   BowOfTime: {
     basicStats: [{ amount: 1, name: 'attack' }],
-    category: 'gear',
+    category: 'equipment',
     cost: 1,
     description: 'Simple wooden sword',
     h: 3,
@@ -47,7 +47,7 @@ export const RANGE = asGears({
   },
   FireBow: {
     basicStats: [{ amount: 1, name: 'attack' }],
-    category: 'gear',
+    category: 'equipment',
     cost: 1,
     description: 'Simple wooden sword',
     h: 4,
@@ -62,7 +62,7 @@ export const RANGE = asGears({
   },
   IceBow: {
     basicStats: [{ amount: 1, name: 'attack' }],
-    category: 'gear',
+    category: 'equipment',
     cost: 1,
     description: 'Simple wooden sword',
     h: 4,

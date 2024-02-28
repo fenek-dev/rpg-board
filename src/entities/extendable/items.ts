@@ -3,7 +3,7 @@ import { EffectWithData } from './effects';
 export const ItemCategory = {
   consumable: 'consumable',
   container: 'container',
-  gear: 'gear',
+  equipment: 'equipment',
   money: 'money',
   resource: 'resource',
 };
