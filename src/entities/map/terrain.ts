@@ -86,7 +86,7 @@ export const TERRAIN_CELLS = asTerrainCells({
   Start: {
     chance: 0,
     dangerLevel: 0,
-    description: 'Start',
+    description: 'This is your starting point',
     icon: '🏁',
     id: 'Start',
     name: 'Start',

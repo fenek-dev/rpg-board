@@ -10,8 +10,10 @@ import { travelTo } from '../store/map.slice';
 
 export const MapDetails = React.memo(() => {
   const dispatch = useDispatch();
-  const { graph, selectedCell } = useSelector((state: RootState) => state.map);
+  const { currentPosition, graph, selectedCell } = useSelector((state: RootState) => state.map);
   const cell = graph[selectedCell[0]][selectedCell[1]];
+
+  const isTheSameCell = selectedCell[0] === currentPosition[0] && selectedCell[1] === currentPosition[1];
 
   const onTravel = () => {
     dispatch(
@@ -32,8 +34,7 @@ export const MapDetails = React.memo(() => {
       </Badge>
       <p className="text-sm text-muted-foreground">{cell.description}</p>
       <Separator />
-
-      <Button className="mt-auto" onClick={onTravel} variant="outline">
+      <Button className="mt-auto" disabled={isTheSameCell} onClick={onTravel} variant="outline">
         Travel
       </Button>
     </div>
