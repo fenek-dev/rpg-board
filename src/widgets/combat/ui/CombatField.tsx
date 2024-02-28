@@ -7,6 +7,7 @@ import { boardPositionStyle } from '~/shared/utils';
 
 import { selectCombatEntitiesByBelongs } from '../store/combat.selectors';
 import { CombatBelongs } from '../store/combat.types';
+import { Entity } from './Entity';
 
 interface CombatFieldProps {
   belongs: CombatBelongs;
@@ -18,6 +19,9 @@ export const CombatField = ({ belongs }: CombatFieldProps) => {
   const entities = useSelector(selectCombatEntitiesByBelongs(belongs));
   return (
     <div className="relative rounded-md border border-input" style={boardPositionStyle(gridSize, w, h)}>
+      {entities.map((entity) => (
+        <Entity entity={entity} key={entity.id} />
+      ))}
       <Grid />
     </div>
   );

@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { loadState, resetState } from '~/app/store/actions';
 import { Attack } from '~/entities/extendable/attacks';
 
-import { CombatEntity } from './combat.types';
+import { CombatBelongs, CombatEntity } from './combat.types';
 
 export interface CombatState {
   attacks: Attack[];
@@ -17,7 +17,17 @@ export interface CombatState {
 
 const initialState: CombatState = {
   attacks: [],
-  entities: [],
+  entities: [
+    {
+      belong: CombatBelongs.PLAYER,
+      h: 1,
+      icon: '👤',
+      id: 'player',
+      w: 1,
+      x: 5,
+      y: 3,
+    },
+  ],
   fieldSizes: {
     h: 6,
     w: 10,
