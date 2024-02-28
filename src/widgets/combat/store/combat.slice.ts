@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { loadState, resetState } from '~/app/store/actions';
+import { ENEMIES } from '~/entities/combat/enemies';
 import { Attack } from '~/entities/extendable/attacks';
 
 import { CombatBelongs, CombatEntity } from './combat.types';
@@ -19,11 +20,21 @@ const initialState: CombatState = {
   attacks: [],
   entities: [
     {
+      attack: 1,
       belong: CombatBelongs.PLAYER,
+      defense: 1,
       h: 1,
+      hp: 10,
       icon: '👤',
       id: 'player',
+      name: 'Player',
       w: 1,
+      x: 5,
+      y: 3,
+    },
+    {
+      belong: CombatBelongs.ENEMY,
+      ...ENEMIES.troll,
       x: 5,
       y: 3,
     },

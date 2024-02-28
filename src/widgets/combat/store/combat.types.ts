@@ -1,14 +1,12 @@
+import { Entity } from '~/entities/extendable/entity';
+
 export enum CombatBelongs {
   ENEMY = 'enemy',
   PLAYER = 'player',
 }
 
-export interface CombatEntity {
+export interface CombatEntity extends Entity {
   belong: CombatBelongs;
-  h: number;
-  icon: string;
-  id: string;
-  w: number;
   x: number;
   y: number;
 }
