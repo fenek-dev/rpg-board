@@ -1,24 +1,17 @@
-import { useSelector } from 'react-redux';
-
-import { Grid } from '~/app/layout';
-import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDraggablePopup';
 
+import { CombatBelongs } from '../store/combat.types';
 import { AttackPanel } from './AttackPanel';
+import { CombatField } from './CombatField';
 
 export const CombatPopup = () => {
-  const gridSize = useSelector((state: RootState) => state.settings.gridSize);
   return (
     <SimpleDraggablePopup id={BASIC_POPUPS.Combat.container_id}>
       <div>
         <div className="flex gap-4">
-          <div className="relative h-48 w-64 rounded-md border border-input">
-            <Grid />
-          </div>
-          <div className="relative h-48 w-64 rounded-md border border-input">
-            <Grid />
-          </div>
+          <CombatField belongs={CombatBelongs.PLAYER} />
+          <CombatField belongs={CombatBelongs.ENEMY} />
         </div>
         <AttackPanel />
       </div>
