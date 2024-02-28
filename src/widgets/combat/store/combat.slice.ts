@@ -35,8 +35,8 @@ const initialState: CombatState = {
     {
       belong: CombatBelongs.ENEMY,
       ...ENEMIES.troll,
-      x: 5,
-      y: 3,
+      x: 4,
+      y: 2,
     },
   ],
   fieldSizes: {

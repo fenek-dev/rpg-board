@@ -9,18 +9,18 @@ import { adjustPosition } from '~/widgets/grid/utils/position';
 import { CombatEntity } from '../store/combat.types';
 
 interface CombatLayoutProps {
+  belongs: string;
   className?: string;
   cols: number;
-  id: string;
   onItemDrop?: (x: number, y: number, item: CombatEntity, element_id: string, id: string) => void;
   rows: number;
 }
 
 export const CombatLayout = ({
+  belongs,
   children,
   className,
   cols,
-  id,
   onItemDrop,
   rows,
 }: React.PropsWithChildren<CombatLayoutProps>) => {
@@ -38,7 +38,8 @@ export const CombatLayout = ({
 
     const entity = JSON.parse(droppedElement) as CombatEntity;
 
-    if (onItemDrop && entity.w + x <= cols && entity.h + y <= rows) onItemDrop(x, y, entity, element_id, id);
+    if (onItemDrop && entity.w + x <= cols && entity.h + y <= rows && entity.belong === belongs)
+      onItemDrop(x, y, entity, element_id, belongs);
     overlay.current!.classList.remove('grid-placeholder');
 
     event.preventDefault();
@@ -47,12 +48,14 @@ export const CombatLayout = ({
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     const { x, y } = adjustPosition(event, gridSize, cols, rows);
 
-    if (window.entity?.w + x > cols || window.entity?.h + y > rows) return handleDragLeave();
+    const entity = window.entity;
+
+    if (entity?.w + x > cols || entity?.h + y > rows || entity.belong !== belongs) return handleDragLeave();
 
     overlay.current!.style.transform = `translate(${x * gridSize}px, ${y * gridSize}px)`;
     overlay.current!.classList.add('grid-placeholder');
-    overlay.current!.style.height = `${(window.entity?.h || 1) * gridSize}px`;
-    overlay.current!.style.width = `${(window.entity?.w || 1) * gridSize}px`;
+    overlay.current!.style.height = `${(entity?.h || 1) * gridSize}px`;
+    overlay.current!.style.width = `${(entity?.w || 1) * gridSize}px`;
 
     event.dataTransfer.dropEffect = 'move';
 

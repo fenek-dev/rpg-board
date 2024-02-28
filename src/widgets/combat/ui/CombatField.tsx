@@ -17,9 +17,9 @@ export const CombatField = ({ belongs }: CombatFieldProps) => {
   const { h, w } = useSelector((state: RootState) => state.combat.fieldSizes);
   const entities = useSelector(selectCombatEntitiesByBelongs(belongs));
   return (
-    <CombatLayout className="relative rounded-md border border-input" cols={w} id={belongs} rows={h}>
+    <CombatLayout belongs={belongs} className="relative rounded-md border border-input" cols={w} rows={h}>
       {entities.map((entity) => (
-        <Entity entity={entity} key={entity.id} />
+        <Entity disabled={entity.belong === CombatBelongs.ENEMY} entity={entity} key={entity.id} />
       ))}
       <Grid />
     </CombatLayout>
