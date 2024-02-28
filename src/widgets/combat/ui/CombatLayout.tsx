@@ -7,6 +7,7 @@ import { cn } from '~/shared/utils';
 import { adjustPosition } from '~/widgets/grid/utils/position';
 
 import { CombatBelongs, CombatEntity } from '../store/combat.types';
+import { Distance } from './Distance';
 
 interface CombatLayoutProps {
   className?: string;
@@ -29,13 +30,18 @@ export const CombatLayout = ({
   const height = gridSize * rows + 1;
 
   const overlay = useRef<HTMLDivElement>(null);
+  const distanceRef = useRef<HTMLDivElement>(null);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     const droppedElement = event.dataTransfer.getData('entity');
-
+    if (distanceRef.current) {
+      distanceRef.current.style.opacity = '0';
+    }
     const { x, y } = adjustPosition(event, gridSize, cols, rows);
 
     const entity = JSON.parse(droppedElement) as CombatEntity;
+
+    const distance = Math.abs(x - player?.x) + Math.abs(y - player?.y);
 
     if (
       onPlayerMove &&
@@ -43,8 +49,7 @@ export const CombatLayout = ({
       entity.h + y <= rows &&
       entity.belong === CombatBelongs.PLAYER &&
       player &&
-      Math.abs(x - player?.x) <= walkDistance &&
-      Math.abs(y - player?.y) <= walkDistance
+      distance <= walkDistance
     )
       onPlayerMove(x, y);
     overlay.current!.classList.remove('grid-placeholder');
@@ -59,8 +64,15 @@ export const CombatLayout = ({
 
     const distance = Math.abs(x - player?.x) + Math.abs(y - player?.y);
 
+    if (player && distanceRef.current) {
+      distanceRef.current.style.transform = `translate(${player.x * gridSize}px, ${player.y * gridSize}px)`;
+      distanceRef.current.style.opacity = '1';
+    } else if (distanceRef.current) {
+      distanceRef.current.style.opacity = '0';
+    }
+
     if (!entity || !player || entity?.w + x > cols || entity?.h + y > rows || distance > walkDistance)
-      return handleDragLeave();
+      return overlay.current!.classList.remove('grid-placeholder');
 
     overlay.current!.style.transform = `translate(${x * gridSize}px, ${y * gridSize}px)`;
     overlay.current!.classList.add('grid-placeholder');
@@ -75,6 +87,9 @@ export const CombatLayout = ({
 
   const handleDragLeave = () => {
     overlay.current!.classList.remove('grid-placeholder');
+    if (distanceRef.current) {
+      distanceRef.current.style.opacity = '0';
+    }
   };
 
   return (
@@ -89,6 +104,7 @@ export const CombatLayout = ({
       <div className="-z-10" ref={overlay} />
       {children}
       <Grid />
+      <Distance className="absolute left-0 top-0" distance={walkDistance + 1} ref={distanceRef} />
     </div>
   );
 };

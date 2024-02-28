@@ -6,6 +6,7 @@ import { RootState } from '~/app/store';
 import { movePlayer } from '../store/combat.slice';
 import { CombatBelongs } from '../store/combat.types';
 import { CombatLayout } from './CombatLayout';
+import { Distance } from './Distance';
 import { Entity } from './Entity';
 import { PlayerEntity } from './PlayerEntity';
 
@@ -20,7 +21,12 @@ export const CombatField = () => {
   };
 
   return (
-    <CombatLayout className="relative rounded-md border border-input" cols={w} onPlayerMove={onPlayerMove} rows={h}>
+    <CombatLayout
+      className="relative overflow-hidden rounded-md border border-input"
+      cols={w}
+      onPlayerMove={onPlayerMove}
+      rows={h}
+    >
       {entities.map((entity) => (
         <Entity disabled={entity.belong === CombatBelongs.ENEMY} entity={entity} key={entity.id} />
       ))}
