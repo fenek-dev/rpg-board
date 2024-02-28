@@ -1,8 +1,12 @@
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
+import { useDialog } from '~/app/providers/dialog';
+import { LINKS } from '~/app/routes/links';
 import { RootState, store } from '~/app/store';
 import { loadState } from '~/app/store/actions';
+import { AlertDialogTrigger } from '~/shared/components/ui/alert-dialog';
 import {
   Menubar,
   MenubarContent,
@@ -14,6 +18,8 @@ import {
 
 export const Menu = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { openDialog } = useDialog();
   const saveGame = () => {
     localStorage.setItem('save', JSON.stringify(store.getState()));
     toast.success('Game saved');
@@ -30,13 +36,27 @@ export const Menu = () => {
     }
   };
 
+  const exitToMenu = () => {
+    openDialog({
+      action: () => {
+        saveGame();
+        navigate(LINKS.MainMenu);
+      },
+      cancel: () => navigate(LINKS.MainMenu),
+      description: 'All unsaved progress will be lost',
+      title: 'Do you want to save before exiting?',
+    });
+  };
+
   return (
     <Menubar className="fixed left-1/2 top-1 z-50 -translate-x-1/2">
       <MenubarMenu>
         <MenubarTrigger>Game</MenubarTrigger>
         <MenubarContent>
           <MenubarItem>New Game</MenubarItem>
-          <MenubarItem>Exit to menu</MenubarItem>
+          <AlertDialogTrigger asChild onClick={exitToMenu}>
+            <MenubarItem>Exit to menu</MenubarItem>
+          </AlertDialogTrigger>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>

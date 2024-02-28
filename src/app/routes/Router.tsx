@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { Fallback } from '../layout/ui/Fallback';
+import { Providers } from '../providers';
 import { LINKS } from './links';
 
 const MainMenu = React.lazy(() => import('~/pages/MainMenu'));
@@ -21,7 +22,9 @@ export const Router = () => {
       <Route
         element={
           <Suspense fallback={<Fallback />}>
-            <Game />
+            <Providers>
+              <Game />
+            </Providers>
           </Suspense>
         }
         path={LINKS.Game}
