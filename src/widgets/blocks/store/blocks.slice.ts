@@ -153,8 +153,10 @@ export const blocksSlice = createSlice({
     unequipBlock: (state, action: PayloadAction<string>) => {
       const block = get(state.blocks, action.payload);
 
-      block.equipped = false;
-      set(state.blocks, action.payload, block);
+      if (block) {
+        block.equipped = false;
+        set(state.blocks, action.payload, block);
+      }
     },
   },
 });
