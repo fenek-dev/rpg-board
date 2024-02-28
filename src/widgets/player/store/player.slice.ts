@@ -24,6 +24,7 @@ export interface PlayerState {
     max_hp: number;
     physical_dmg_bonus: number;
     reaction_bonus: number;
+    walk_distance: number;
   };
 }
 
@@ -44,6 +45,7 @@ const initialState: PlayerState = {
     max_hp: START_MAX_HP,
     physical_dmg_bonus: 0,
     reaction_bonus: 0,
+    walk_distance: 3,
   },
 };
 

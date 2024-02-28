@@ -13,6 +13,7 @@ export const Entity = ({ disabled, entity }: EntityProps) => {
 
   return (
     <Button
+      className="transition-transform"
       draggable={!disabled}
       onDragEnd={disabled ? undefined : onDragEnd}
       onDragStart={disabled ? undefined : onDragStart}

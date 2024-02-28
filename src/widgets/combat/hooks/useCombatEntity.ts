@@ -22,6 +22,7 @@ export const useCombatEntity = (entity: CombatEntity, id: string) => {
 
   const onDragEnd = (event: React.DragEvent<HTMLElement>) => {
     isDragging.current = false;
+    window.entity = undefined;
     event.currentTarget.classList.remove('opacity-60');
   };
 

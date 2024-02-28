@@ -13,7 +13,7 @@ declare global {
   interface Window {
     dragId: string;
     dragging: Block;
-    entity: CombatEntity;
+    entity: CombatEntity | undefined;
   }
 }
 

@@ -13,25 +13,16 @@ export interface CombatState {
     h: number;
     w: number;
   };
+  player: {
+    x: number;
+    y: number;
+  };
   started: boolean;
 }
 
 const initialState: CombatState = {
   attacks: [],
   entities: [
-    {
-      attack: 1,
-      belong: CombatBelongs.PLAYER,
-      defense: 1,
-      h: 1,
-      hp: 10,
-      icon: '👤',
-      id: 'player',
-      name: 'Player',
-      w: 1,
-      x: 5,
-      y: 9,
-    },
     {
       belong: CombatBelongs.ENEMY,
       ...ENEMIES.troll,
@@ -42,6 +33,10 @@ const initialState: CombatState = {
   fieldSizes: {
     h: 11,
     w: 11,
+  },
+  player: {
+    x: 5,
+    y: 9,
   },
   started: false,
 };
@@ -64,12 +59,15 @@ export const combatSlice = createSlice({
     endCombat: (state) => {
       state.started = false;
     },
+    movePlayer: (state, action: PayloadAction<{ x: number; y: number }>) => {
+      state.player = action.payload;
+    },
     startCombat: (state) => {
       state.started = true;
     },
   },
 });
 
-export const { addAttacks, endCombat, startCombat } = combatSlice.actions;
+export const { addAttacks, endCombat, movePlayer, startCombat } = combatSlice.actions;
 
 export default combatSlice.reducer;
