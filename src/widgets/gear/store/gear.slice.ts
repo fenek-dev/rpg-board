@@ -3,29 +3,29 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { loadState, resetState } from '~/app/store/actions';
 
 export interface GearState {
+  additional: string | undefined;
   arms: string | undefined;
   artefact: string | undefined;
   chest: string | undefined;
   foot: string | undefined;
   gloves: string | undefined;
   head: string | undefined;
-  melee: string | undefined;
   necklace: string | undefined;
-  range: string | undefined;
   ring: string | undefined;
+  weapon: string | undefined;
 }
 
 const initialState: GearState = {
+  additional: undefined,
   arms: undefined,
   artefact: undefined,
   chest: undefined,
   foot: undefined,
   gloves: undefined,
   head: undefined,
-  melee: undefined,
   necklace: undefined,
-  range: undefined,
   ring: undefined,
+  weapon: undefined,
 };
 
 export const gearSlice = createSlice({
