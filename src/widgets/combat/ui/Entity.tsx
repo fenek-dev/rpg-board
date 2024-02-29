@@ -4,19 +4,20 @@ import { Attack } from '~/entities/extendable/attacks';
 import { Entity } from '~/entities/extendable/entity';
 import { Button } from '~/shared/components/ui/button';
 
-import { castAttack } from '../store/combat.slice';
+import { castAttackOnEnemy } from '../store/combat.slice';
 
 interface EntityProps {
   entity: Entity;
+  id: string;
 }
 
-export const EntityIcon = ({ entity }: EntityProps) => {
+export const EntityIcon = ({ entity, id }: EntityProps) => {
   const dispatch = useDispatch();
 
   const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
     if (window.attack?.target === 'enemy') {
       const attack = JSON.parse(e.dataTransfer.getData('attack')) as Attack;
-      dispatch(castAttack(attack));
+      dispatch(castAttackOnEnemy({ attack: attack.id, enemy: id }));
     }
   };
 

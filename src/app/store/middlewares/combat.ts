@@ -2,7 +2,7 @@ import { Middleware, PayloadAction } from '@reduxjs/toolkit';
 import { get } from 'lodash-es';
 
 import { Attack } from '~/entities/extendable/attacks';
-import { addAttacks, startCombat } from '~/widgets/combat/store/combat.slice';
+import { addAttacks, castAttackOnEnemy, dealDamageToEnemy, startCombat } from '~/widgets/combat/store/combat.slice';
 
 import { RootState } from '../store';
 
@@ -21,6 +21,20 @@ export const combatMiddleware: Middleware<unknown, RootState> = (storeApi) => (n
     });
 
     next(addAttacks(attacks));
+  }
+
+  if ('type' in action && action.type === castAttackOnEnemy.type) {
+    const a = action as unknown as PayloadAction<{ attack: string; enemy: string }>;
+
+    // TODO: Damage calculation
+    const amount = get(storeApi.getState().combat.attacks, a.payload.attack).damage_multiplier;
+
+    next(
+      dealDamageToEnemy({
+        amount,
+        enemy: a.payload.enemy,
+      })
+    );
   }
   next(action);
 };

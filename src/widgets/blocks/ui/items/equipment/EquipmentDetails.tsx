@@ -62,7 +62,7 @@ export const EquipmentDetails = ({ children, id, item }: React.PropsWithChildren
                 <h4 className="text-base text-muted-foreground">Attacks</h4>
                 {item.attacks.map((attack) => (
                   <h5 className="text-sm font-bold">
-                    {attack.icon} {attack.name} ({attack.damage} {attack.type})
+                    {attack.icon} {attack.name} ({attack.damage_multiplier} {attack.type})
                   </h5>
                 ))}
               </>

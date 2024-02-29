@@ -1,5 +1,4 @@
 export enum AttackTypes {
-  earth = 'earth',
   fire = 'fire',
   ice = 'ice',
   lightning = 'lightning',
@@ -9,7 +8,8 @@ export enum AttackTypes {
 }
 
 export interface Attack {
-  damage: number;
+  base: 'attack' | 'defense' | 'hp';
+  damage_multiplier: number;
   energy_cost?: number;
   icon: string;
   id: string;

@@ -17,8 +17,8 @@ export const CombatField = () => {
       </div>
       <Separator orientation="vertical" />
       <div className="flex flex-wrap gap-4">
-        {entities.map((entity, idx) => (
-          <EntityIcon entity={entity} key={idx} />
+        {Object.entries(entities).map(([id, entity]) => (
+          <EntityIcon entity={entity} id={id} key={id} />
         ))}
       </div>
     </div>

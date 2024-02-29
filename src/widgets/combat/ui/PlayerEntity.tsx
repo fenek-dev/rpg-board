@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Attack } from '~/entities/extendable/attacks';
 import { Button } from '~/shared/components/ui/button';
 
-import { castAttack } from '../store/combat.slice';
+import { castAttackOnSelf } from '../store/combat.slice';
 
 export const PlayerEntity = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,8 @@ export const PlayerEntity = () => {
   const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
     if (window.attack?.target === 'self') {
       const attack = JSON.parse(e.dataTransfer.getData('attack')) as Attack;
-      dispatch(castAttack(attack));
+      const id = e.dataTransfer.getData('attack_id');
+      dispatch(castAttackOnSelf(id));
     }
   };
 

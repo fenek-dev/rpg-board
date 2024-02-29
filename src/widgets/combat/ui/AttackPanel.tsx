@@ -8,9 +8,10 @@ import { Button } from '~/shared/components/ui/button';
 export const AttackPanel = () => {
   const attacks = useSelector((state: RootState) => state.combat.attacks);
 
-  const onDragStart = (attack: Attack) => (event: React.DragEvent<HTMLElement>) => {
+  const onDragStart = (attack: Attack, id: string) => (event: React.DragEvent<HTMLElement>) => {
     event.currentTarget.classList.add('opacity-60');
     event.dataTransfer.setData('attack', JSON.stringify(attack));
+    event.dataTransfer.setData('attack_id', JSON.stringify(id));
     event.dataTransfer.effectAllowed = 'all';
     window.attack = attack;
     event.dataTransfer.setDragImage(event.currentTarget, 0, -1);
@@ -22,17 +23,17 @@ export const AttackPanel = () => {
 
   return (
     <div className="mb-2 mt-4 flex flex-wrap gap-2">
-      {Object.values(attacks).map((a) => (
+      {Object.entries(attacks).map(([id, attack]) => (
         <Button
           draggable={true}
-          key={a.name}
+          key={id}
           onDragEnd={onDragEnd}
-          onDragStart={onDragStart(a)}
+          onDragStart={onDragStart(attack, id)}
           onMouseDown={(e) => e.stopPropagation()}
           size="slot"
           variant="outline"
         >
-          {a.icon}
+          {attack.icon}
         </Button>
       ))}
     </div>

@@ -2,7 +2,8 @@ import { AttackTypes, asAttacks } from '../extendable/attacks';
 
 export const ATTACKS = asAttacks({
   BasicAttack: {
-    damage: 1,
+    base: 'attack',
+    damage_multiplier: 1,
     icon: '🗡️',
     id: 'BasicAttack',
     name: 'Basic Attack',
@@ -11,7 +12,8 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.physical,
   },
   Fireball: {
-    damage: 3,
+    base: 'attack',
+    damage_multiplier: 1,
     energy_cost: 2,
     icon: '🔥',
     id: 'Fireball',
@@ -21,7 +23,8 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.fire,
   },
   IceShard: {
-    damage: 2,
+    base: 'attack',
+    damage_multiplier: 1,
     energy_cost: 1,
     icon: '❄️',
     id: 'IceShard',
@@ -31,7 +34,8 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.ice,
   },
   LightningBolt: {
-    damage: 4,
+    base: 'attack',
+    damage_multiplier: 1,
     energy_cost: 3,
     icon: '⚡',
     id: 'LightningBolt',
@@ -41,7 +45,8 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.lightning,
   },
   WaterBlast: {
-    damage: 2,
+    base: 'attack',
+    damage_multiplier: 1,
     energy_cost: 1,
     icon: '💧',
     id: 'WaterBlast',
@@ -51,7 +56,8 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.water,
   },
   WindSlash: {
-    damage: 3,
+    base: 'attack',
+    damage_multiplier: 1,
     energy_cost: 2,
     icon: '💨',
     id: 'WindSlash',

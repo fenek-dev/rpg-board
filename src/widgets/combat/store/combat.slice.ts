@@ -8,13 +8,13 @@ import { Entity } from '~/entities/extendable/entity';
 
 export interface CombatState {
   attacks: Record<string, Attack>;
-  entities: Entity[];
+  entities: Record<string, Entity>;
   started: boolean;
 }
 
 const initialState: CombatState = {
   attacks: {},
-  entities: [ENEMIES.goblin, ENEMIES.goblin, ENEMIES.goblin, ENEMIES.goblin, ENEMIES.troll],
+  entities: { goblin: ENEMIES.goblin },
   started: false,
 };
 
@@ -35,12 +35,30 @@ export const combatSlice = createSlice({
         state.attacks[attack.id] = attack;
       });
     },
-    castAttack: (state, action: PayloadAction<Attack>) => {
-      const attack = get(state.attacks, action.payload.id);
+    castAttackOnEnemy: (state, action: PayloadAction<{ attack: string; enemy: string }>) => {
+      const attack = get(state.attacks, action.payload.attack);
 
       // set recharge
 
-      set(state.attacks, action.payload.id, attack);
+      set(state.attacks, action.payload.attack, attack);
+    },
+    castAttackOnSelf: (state, action: PayloadAction<string>) => {
+      const attack = get(state.attacks, action.payload);
+
+      // set recharge
+
+      set(state.attacks, action.payload, attack);
+    },
+    dealDamageToEnemy: (state, action: PayloadAction<{ amount: number; enemy: string }>) => {
+      const enemy = get(state.entities, action.payload.enemy);
+
+      enemy.hp -= action.payload.amount;
+
+      if (enemy.hp <= 0) {
+        delete state.entities[action.payload.enemy];
+      } else {
+        set(state.entities, action.payload.enemy, enemy);
+      }
     },
     endCombat: (state) => {
       state.started = false;
@@ -51,6 +69,7 @@ export const combatSlice = createSlice({
   },
 });
 
-export const { addAttacks, castAttack, endCombat, startCombat } = combatSlice.actions;
+export const { addAttacks, castAttackOnEnemy, castAttackOnSelf, dealDamageToEnemy, endCombat, startCombat } =
+  combatSlice.actions;
 
 export default combatSlice.reducer;
