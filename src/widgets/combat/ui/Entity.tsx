@@ -1,25 +1,17 @@
+import { Entity } from '~/entities/extendable/entity';
 import { Button } from '~/shared/components/ui/button';
 
-import { useCombatEntity } from '../hooks/useCombatEntity';
-import { CombatEntity } from '../store/combat.types';
-
 interface EntityProps {
-  disabled?: boolean;
-  entity: CombatEntity;
+  entity: Entity;
 }
 
-export const Entity = ({ disabled, entity }: EntityProps) => {
-  const { onDragEnd, onDragStart, style } = useCombatEntity(entity, entity.id);
-
+export const EntityIcon = ({ entity }: EntityProps) => {
   return (
     <Button
-      className="transition-transform"
-      draggable={!disabled}
-      onDragEnd={disabled ? undefined : onDragEnd}
-      onDragStart={disabled ? undefined : onDragStart}
+      className="text-3xl transition-transform"
       onMouseDown={(e) => e.stopPropagation()}
-      style={style}
-      variant={disabled ? 'destructive' : 'default'}
+      size="big"
+      variant="destructive"
     >
       {entity.icon}
     </Button>

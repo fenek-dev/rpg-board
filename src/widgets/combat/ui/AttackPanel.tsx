@@ -8,9 +8,9 @@ export const AttackPanel = () => {
   const attacks = useSelector((state: RootState) => state.combat.attacks);
 
   return (
-    <div className="mt-4 flex gap-2">
+    <div className="mb-2 mt-4 flex flex-wrap gap-2">
       {attacks.map((a) => (
-        <Button key={a.name} size="icon" variant="outline">
+        <Button draggable key={a.name} onMouseDown={(e) => e.stopPropagation()} size="slot" variant="outline">
           {a.icon}
         </Button>
       ))}

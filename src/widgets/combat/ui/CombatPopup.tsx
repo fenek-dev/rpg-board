@@ -7,10 +7,8 @@ import { CombatField } from './CombatField';
 export const CombatPopup = () => {
   return (
     <SimpleDraggablePopup id={BASIC_POPUPS.Combat.container_id}>
-      <div>
-        <div className="flex gap-4">
-          <CombatField />
-        </div>
+      <div className="grid max-w-[28rem] grid-cols-1">
+        <CombatField />
         <AttackPanel />
       </div>
     </SimpleDraggablePopup>

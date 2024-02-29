@@ -1,37 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Grid } from '~/app/layout';
 import { RootState } from '~/app/store';
+import { Separator } from '~/shared/components/ui/separator';
 
-import { movePlayer } from '../store/combat.slice';
-import { CombatBelongs } from '../store/combat.types';
-import { CombatLayout } from './CombatLayout';
-import { Distance } from './Distance';
-import { Entity } from './Entity';
+import { EntityIcon } from './Entity';
 import { PlayerEntity } from './PlayerEntity';
 
 export const CombatField = () => {
   const dispatch = useDispatch();
-
-  const { h, w } = useSelector((state: RootState) => state.combat.fieldSizes);
   const entities = useSelector((state: RootState) => state.combat.entities);
 
-  const onPlayerMove = (x: number, y: number) => {
-    dispatch(movePlayer({ x, y }));
-  };
-
   return (
-    <CombatLayout
-      className="relative overflow-hidden rounded-md border border-input"
-      cols={w}
-      onPlayerMove={onPlayerMove}
-      rows={h}
-    >
-      {entities.map((entity) => (
-        <Entity disabled={entity.belong === CombatBelongs.ENEMY} entity={entity} key={entity.id} />
-      ))}
-      <PlayerEntity />
-      <Grid />
-    </CombatLayout>
+    <div className="relative flex w-full items-center gap-10 rounded-md border border-input p-4 px-8">
+      <div>
+        <PlayerEntity />
+      </div>
+      <Separator orientation="vertical" />
+      <div className="flex flex-wrap gap-4">
+        {entities.map((entity, idx) => (
+          <EntityIcon entity={entity} key={idx} />
+        ))}
+      </div>
+    </div>
   );
 };

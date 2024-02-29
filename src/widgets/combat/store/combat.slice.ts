@@ -3,41 +3,17 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { loadState, resetState } from '~/app/store/actions';
 import { ENEMIES } from '~/entities/combat/enemies';
 import { Attack } from '~/entities/extendable/attacks';
-
-import { CombatBelongs, CombatEntity } from './combat.types';
+import { Entity } from '~/entities/extendable/entity';
 
 export interface CombatState {
   attacks: Attack[];
-  entities: CombatEntity[];
-  fieldSizes: {
-    h: number;
-    w: number;
-  };
-  player: {
-    x: number;
-    y: number;
-  };
+  entities: Entity[];
   started: boolean;
 }
 
 const initialState: CombatState = {
   attacks: [],
-  entities: [
-    {
-      belong: CombatBelongs.ENEMY,
-      ...ENEMIES.troll,
-      x: 4,
-      y: 2,
-    },
-  ],
-  fieldSizes: {
-    h: 11,
-    w: 11,
-  },
-  player: {
-    x: 5,
-    y: 9,
-  },
+  entities: [ENEMIES.goblin, ENEMIES.goblin, ENEMIES.goblin, ENEMIES.goblin, ENEMIES.troll],
   started: false,
 };
 
@@ -59,15 +35,12 @@ export const combatSlice = createSlice({
     endCombat: (state) => {
       state.started = false;
     },
-    movePlayer: (state, action: PayloadAction<{ x: number; y: number }>) => {
-      state.player = action.payload;
-    },
     startCombat: (state) => {
       state.started = true;
     },
   },
 });
 
-export const { addAttacks, endCombat, movePlayer, startCombat } = combatSlice.actions;
+export const { addAttacks, endCombat, startCombat } = combatSlice.actions;
 
 export default combatSlice.reducer;
