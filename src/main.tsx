@@ -7,13 +7,13 @@ import { store } from '~/app/store';
 import '~/app/styles/global.css';
 
 import { Router } from './app/routes/Router';
+import { Attack } from './entities/extendable/attacks';
 import { Block } from './widgets/blocks/store';
-import { CombatEntity } from './widgets/combat/store/combat.types';
 declare global {
   interface Window {
+    attack: Attack;
     dragId: string;
     dragging: Block;
-    entity: CombatEntity | undefined;
   }
 }
 

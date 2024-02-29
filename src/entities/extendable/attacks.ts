@@ -12,8 +12,10 @@ export interface Attack {
   damage: number;
   energy_cost?: number;
   icon: string;
+  id: string;
   name: string;
   recharge_time: number;
+  target: 'enemy' | 'self';
   type: AttackTypes;
 }
 
