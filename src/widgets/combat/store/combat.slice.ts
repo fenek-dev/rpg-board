@@ -53,9 +53,9 @@ export const combatSlice = createSlice({
     dealDamageToEnemy: (state, action: PayloadAction<{ amount: number; enemy: string }>) => {
       const enemy = get(state.entities, action.payload.enemy);
 
-      enemy.hp -= action.payload.amount;
+      enemy.stats.hp -= action.payload.amount;
 
-      if (enemy.hp <= 0) {
+      if (enemy.stats.hp <= 0) {
         delete state.entities[action.payload.enemy];
       } else {
         set(state.entities, action.payload.enemy, enemy);

@@ -16,6 +16,8 @@ interface EntityProps {
 export const EntityIcon = ({ entity, id }: EntityProps) => {
   const dispatch = useDispatch();
 
+  const isFriendly = entity.belongs === EntityBelongs.FRIENDLY;
+
   const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
     if (window.attack?.target === entity.belongs) {
       const attack = JSON.parse(e.dataTransfer.getData('attack')) as Attack;
@@ -39,10 +41,10 @@ export const EntityIcon = ({ entity, id }: EntityProps) => {
       onDrop={onDrop}
       onMouseDown={(e) => e.stopPropagation()}
       size="entity"
-      variant={entity.belongs === EntityBelongs.FRIENDLY ? 'outline' : 'destructive'}
+      variant={isFriendly ? 'outline' : 'destructive'}
     >
       {entity.icon}
-      <EntityBar max={entity.hp} value={1} />
+      <EntityBar color={isFriendly ? 'bg-lime-900' : 'bg-red-900'} max={entity.stats.max_hp} value={entity.stats.hp} />
     </Button>
   );
 };
