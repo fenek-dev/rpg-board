@@ -31,7 +31,7 @@ export const MapScreen = React.memo(() => {
   }, []);
 
   return (
-    <div className=" w-full overflow-scroll">
+    <div className="w-full overflow-scroll">
       <div className="flex gap-2">
         <Badge onClick={updateMap} variant="outline">
           Seed: {seed}

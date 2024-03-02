@@ -4,13 +4,11 @@ import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDragg
 import { AttackPanel } from './AttackPanel';
 import { CombatField } from './CombatField';
 
-export const CombatPopup = () => {
+export const CombatScreen = () => {
   return (
-    <SimpleDraggablePopup id={BASIC_POPUPS.Combat.container_id}>
-      <div className="grid max-w-[28rem] grid-cols-1">
-        <CombatField />
-        <AttackPanel />
-      </div>
-    </SimpleDraggablePopup>
+    <div className="h-full w-full p-14 pb-24">
+      <CombatField />
+      <AttackPanel />
+    </div>
   );
 };

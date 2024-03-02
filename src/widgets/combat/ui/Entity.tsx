@@ -31,11 +31,11 @@ export const EntityIcon = ({ entity, id }: EntityProps) => {
 
   return (
     <Button
-      className="text-3xl transition-transform"
+      className="text-5xl transition-transform"
       onDragOver={onDragOver}
       onDrop={onDrop}
       onMouseDown={(e) => e.stopPropagation()}
-      size="big"
+      size="entity"
       variant="destructive"
     >
       {entity.icon}

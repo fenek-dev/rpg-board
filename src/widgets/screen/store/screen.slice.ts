@@ -11,7 +11,7 @@ export interface ScreenState {
 }
 
 const initialState: ScreenState = {
-  current_screen: 'map',
+  current_screen: 'combat',
 };
 
 export const screenSlice = createSlice({

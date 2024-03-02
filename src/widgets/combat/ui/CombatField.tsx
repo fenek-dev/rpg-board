@@ -11,11 +11,10 @@ export const CombatField = () => {
   const entities = useSelector((state: RootState) => state.combat.entities);
 
   return (
-    <div className="relative flex w-full items-center gap-10 rounded-md border border-input p-4 px-8">
+    <div className="relative flex h-full w-full items-end justify-between gap-10 p-4 px-8">
       <div>
         <PlayerEntity />
       </div>
-      <Separator orientation="vertical" />
       <div className="flex flex-wrap gap-4">
         {Object.entries(entities).map(([id, entity]) => (
           <EntityIcon entity={entity} id={id} key={id} />

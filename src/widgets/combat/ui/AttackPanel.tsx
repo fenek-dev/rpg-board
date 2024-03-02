@@ -22,9 +22,10 @@ export const AttackPanel = () => {
   };
 
   return (
-    <div className="mb-2 mt-4 flex flex-wrap gap-2">
+    <div className="fixed bottom-4 left-1/4 right-1/4 flex min-h-10 flex-wrap gap-2 rounded-md border border-input bg-background p-2">
       {Object.entries(attacks).map(([id, attack]) => (
         <Button
+          className="text-xl"
           draggable={true}
           key={id}
           onDragEnd={onDragEnd}

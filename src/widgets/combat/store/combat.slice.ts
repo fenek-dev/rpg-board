@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { get, set } from 'lodash-es';
 
 import { loadState, resetState } from '~/app/store/actions';
+import { ATTACKS } from '~/entities/combat/attacks';
 import { ENEMIES } from '~/entities/combat/enemies';
 import { Attack } from '~/entities/extendable/attacks';
 import { Entity } from '~/entities/extendable/entity';
@@ -13,7 +14,9 @@ export interface CombatState {
 }
 
 const initialState: CombatState = {
-  attacks: {},
+  attacks: {
+    1: ATTACKS.BasicAttack,
+  },
   entities: { goblin: ENEMIES.goblin },
   started: false,
 };

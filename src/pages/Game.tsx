@@ -8,7 +8,7 @@ import { Header } from '~/widgets/settings/ui/Header';
 
 function Game() {
   return (
-    <main className="flex flex-col">
+    <main className="flex h-full flex-col">
       <Dialog>
         <Header />
         <ScreenPage />
