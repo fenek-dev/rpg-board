@@ -14,30 +14,16 @@ export interface PopupsState {
 
 const initialState: PopupsState = {
   popups: {
-    [BASIC_POPUPS.Equipment.container_id]: {
-      ...BASIC_POPUPS.Equipment,
-      isCollapsed: false,
-      x: 500,
-      y: 500,
-    },
-    [BASIC_POPUPS.Inventory.container_id]: {
-      ...BASIC_POPUPS.Inventory,
-      isCollapsed: false,
-      x: 50,
-      y: 50,
-    },
-    // [BASIC_POPUPS.Shop.container_id]: {
-    //   ...BASIC_POPUPS.Shop,
-    //   isCollapsed: false,
-    //   x: 700,
-    //   y: 50,
+    // [BASIC_POPUPS.Equipment.container_id]: {
+    //   ...BASIC_POPUPS.Equipment,
+    //   x: 500,
+    //   y: 500,
     // },
-    [BASIC_POPUPS.Status.container_id]: {
-      ...BASIC_POPUPS.Status,
-      isCollapsed: false,
-      x: 50,
-      y: 700,
-    },
+    // [BASIC_POPUPS.Status.container_id]: {
+    //   ...BASIC_POPUPS.Status,
+    //   x: 50,
+    //   y: 700,
+    // },
   },
 };
 
@@ -66,17 +52,12 @@ export const popupsSlice = createSlice({
 
       set(state.popups, id, popup);
     },
-    collapsePopup: (state, action: PayloadAction<string>) => {
-      const popup = get(state.popups, action.payload);
-      popup.isCollapsed = !popup.isCollapsed;
-      set(state.popups, action.payload, popup);
-    },
     removePopup: (state, action: PayloadAction<string>) => {
       unset(state.popups, action.payload);
     },
   },
 });
 
-export const { addPopup, changePopupPosition, collapsePopup, removePopup } = popupsSlice.actions;
+export const { addPopup, changePopupPosition, removePopup } = popupsSlice.actions;
 
 export default popupsSlice.reducer;

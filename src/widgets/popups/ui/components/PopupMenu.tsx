@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Button } from '~/shared/components/ui/button';
 import { cn } from '~/shared/utils';
 
-import { collapsePopup, removePopup } from '../../store/popups.slice';
+import { removePopup } from '../../store/popups.slice';
 import { PopupData } from '../../store/popups.types';
 
 interface PopupMenuProps {
@@ -22,19 +22,10 @@ export const PopupMenu = ({ className, id, onClose, popup }: PopupMenuProps) => 
     dispatch(removePopup(id));
   };
 
-  const onCollapse = () => {
-    dispatch(collapsePopup(id));
-  };
-
   return (
     <div className={cn('flex flex-col gap-1 rounded-md border border-input bg-background bg-opacity-45', className)}>
-      {popup.closable && (
-        <Button onClick={onCloseHandler} size="icon" variant="ghost">
-          <Cross1Icon />
-        </Button>
-      )}
-      <Button onClick={onCollapse} size="icon" variant="ghost">
-        {popup.isCollapsed ? <ChevronUpIcon /> : <ChevronDownIcon />}
+      <Button onClick={onCloseHandler} size="icon" variant="ghost">
+        <Cross1Icon />
       </Button>
     </div>
   );

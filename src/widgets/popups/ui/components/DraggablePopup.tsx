@@ -36,7 +36,7 @@ export const DraggablePopup = React.memo(({ children, id }: React.PropsWithChild
   return (
     <Draggable nodeRef={nodeRef} onStop={handleStop} position={popup}>
       <Card className="absolute z-10 flex cursor-move flex-col items-center" id={id} ref={nodeRef}>
-        {!popup.static && <PopupMenu className="absolute -right-1 top-0 translate-x-full" id={id} popup={popup} />}
+        <PopupMenu className="absolute -right-1 top-0 translate-x-full" id={id} popup={popup} />
 
         <CardHeader
           className="flex w-full select-none flex-row items-center justify-between gap-1"
@@ -44,11 +44,9 @@ export const DraggablePopup = React.memo(({ children, id }: React.PropsWithChild
         >
           <CardTitle className="block">{popup.name}</CardTitle>
         </CardHeader>
-        {!popup.isCollapsed && (
-          <Content gridSize={gridSize} height={popup.h} width={popup.w}>
-            {children}
-          </Content>
-        )}
+        <Content gridSize={gridSize} height={popup.h} width={popup.w}>
+          {children}
+        </Content>
       </Card>
     </Draggable>
   );

@@ -3,12 +3,7 @@ export interface PopupSizes {
   w: number;
 }
 
-export interface PopupOptions {
-  closable?: boolean;
-  static?: boolean;
-}
-
-export interface Popup extends PopupSizes, PopupOptions {
+export interface Popup extends PopupSizes {
   container_id: string;
   name: string;
 }
