@@ -2,9 +2,10 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { get, set, shuffle, unset } from 'lodash-es';
 
 import { loadState, resetState } from '~/app/store/actions';
-import { ATTACKS } from '~/entities/combat/attacks';
 import { ENEMIES } from '~/entities/combat/enemies';
+import { Attack } from '~/entities/extendable/attacks';
 import { EntityBelongs } from '~/entities/extendable/entity';
+import { PlayerState } from '~/widgets/player/store';
 
 import { CombatEntity } from './combat.types';
 
@@ -19,17 +20,11 @@ export interface CombatState {
 const initialState: CombatState = {
   cooldown: {},
   entities: {
-    player: { ...ENEMIES.troll, attacks: [ATTACKS.BasicAttack, ATTACKS.IceShard], belongs: EntityBelongs.FRIENDLY },
-    player2: {
-      ...ENEMIES.troll,
-      attacks: [ATTACKS.LightningBolt, ATTACKS.WaterBlast],
-      belongs: EntityBelongs.FRIENDLY,
-    },
-    // sdf: { ...ENEMIES.dragon, belongs: EntityBelongs.ENEMY },
-    // sgsd: { ...ENEMIES.orc, belongs: EntityBelongs.ENEMY },
+    sdf: { ...ENEMIES.dragon, belongs: EntityBelongs.ENEMY },
+    sgsd: { ...ENEMIES.orc, belongs: EntityBelongs.ENEMY },
     ws: { ...ENEMIES.goblin, belongs: EntityBelongs.ENEMY },
   },
-  queue: ['player', 'ws', 'player2'],
+  queue: [],
   started: false,
   turn: 0,
 };
@@ -46,6 +41,19 @@ export const combatSlice = createSlice({
   initialState,
   name: 'combat',
   reducers: {
+    // TODO: Add more playable characters
+    addPlayers: (state, action: PayloadAction<{ attacks: Attack[]; player: PlayerState }>) => {
+      const { attacks, player } = action.payload;
+      state.entities.player = {
+        attacks,
+        belongs: EntityBelongs.FRIENDLY,
+        ...player,
+        icon: '🧙‍♂️',
+        id: 'player',
+        name: 'Player',
+      };
+      combatSlice.caseReducers.formQueue(state);
+    },
     castAttack: (state, action: PayloadAction<{ attack: string; enemy: string }>) => {
       const attacker_id = state.queue[state.turn % state.queue.length];
       const attacker = get(state.entities, attacker_id);
@@ -100,6 +108,7 @@ export const combatSlice = createSlice({
   },
 });
 
-export const { castAttack, dealDamageToEnemy, endCombat, formQueue, nextTurn, startCombat } = combatSlice.actions;
+export const { addPlayers, castAttack, dealDamageToEnemy, endCombat, formQueue, nextTurn, startCombat } =
+  combatSlice.actions;
 
 export default combatSlice.reducer;

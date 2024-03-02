@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
 import { Badge } from '~/shared/components/ui/badge';
+import { startCombat } from '~/widgets/combat/store/combat.slice';
+import { changeCurrentScreen } from '~/widgets/screen/store/screen.slice';
 
 import { generateTerrain, selectCell, travelTo } from '../store/map.slice';
 import { MapCell } from './MapCell';
@@ -27,6 +29,8 @@ export const MapScreen = React.memo(() => {
         y,
       })
     );
+    dispatch(startCombat());
+    dispatch(changeCurrentScreen('combat'));
   }, []);
 
   return (

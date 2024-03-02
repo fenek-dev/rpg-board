@@ -10,6 +10,8 @@ export const Queue = () => {
   const queue = useSelector(selectQueue);
   const current_id = useSelector(selectCurrentEntityId);
 
+  console.log(queue, current_id);
+
   return (
     <div className="absolute left-1/2 top-0 -translate-x-1/2">
       <div className="flex items-center gap-1">

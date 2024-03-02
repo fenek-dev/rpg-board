@@ -1,18 +1,12 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectEntitiesByBelongs } from '../store/combat.selectors';
-import { formQueue } from '../store/combat.slice';
 import { EntityIcon } from './Entity/Entity';
 import { Queue } from './Parts/Queue';
 
 export const CombatField = () => {
   const dispatch = useDispatch();
   const { enemies, friendly } = useSelector(selectEntitiesByBelongs);
-
-  useEffect(() => {
-    dispatch(formQueue());
-  }, []);
 
   return (
     <div className="relative flex h-full w-full items-end justify-between gap-10 p-4 px-8">
