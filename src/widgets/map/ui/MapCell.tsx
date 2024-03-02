@@ -1,4 +1,3 @@
-import { AccessibilityIcon } from '@radix-ui/react-icons';
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -34,6 +33,7 @@ export const MapCell = React.memo(
       <Button
         className={cn('relative text-2xl', {
           'border-primary': isSelected,
+          ping: !isCurrentPosition && !disabled,
         })}
         disabled={disabled || inCombat}
         onClick={handleClick}
@@ -42,9 +42,6 @@ export const MapCell = React.memo(
         variant="outline"
       >
         {subicon && <span className="absolute right-1 top-1 text-xs leading-none">{subicon}</span>}
-        {isCurrentPosition && (
-          <AccessibilityIcon className="absolute -left-2 -top-2 size-4 text-green-700 opacity-75" />
-        )}
         {icon}
       </Button>
     );

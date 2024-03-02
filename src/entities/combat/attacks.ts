@@ -45,6 +45,16 @@ export const ATTACKS = asAttacks({
     target: EntityBelongs.ENEMY,
     type: AttackTypes.lightning,
   },
+  Punch: {
+    base: 'attack',
+    cooldown: 1,
+    damage_multiplier: 0.5,
+    icon: '👊',
+    id: 'Punch',
+    name: 'Punch',
+    target: EntityBelongs.ENEMY,
+    type: AttackTypes.physical,
+  },
   WaterBlast: {
     base: 'attack',
     cooldown: 2,

@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { get, set, shuffle, unset } from 'lodash-es';
 
 import { loadState, resetState } from '~/app/store/actions';
+import { ATTACKS } from '~/entities/combat/attacks';
 import { ENEMIES } from '~/entities/combat/enemies';
 import { Attack } from '~/entities/extendable/attacks';
 import { EntityBelongs } from '~/entities/extendable/entity';
@@ -44,6 +45,7 @@ export const combatSlice = createSlice({
     // TODO: Add more playable characters
     addPlayers: (state, action: PayloadAction<{ attacks: Attack[]; player: PlayerState }>) => {
       const { attacks, player } = action.payload;
+      if (attacks.length === 0) attacks.push(ATTACKS.Punch);
       state.entities.player = {
         attacks,
         belongs: EntityBelongs.FRIENDLY,

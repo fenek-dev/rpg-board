@@ -42,3 +42,18 @@ body {
   background-color: hsl(var(--primary));
   opacity: 0.15;
 }
+
+.ping {
+  animation: infinite ping 1500ms ease-in-out;
+}
+@keyframes ping {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.15;
+  }
+  100% {
+    scale: 1;
+  }
+}

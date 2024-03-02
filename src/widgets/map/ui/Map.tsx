@@ -18,10 +18,6 @@ export const MapScreen = React.memo(() => {
     dispatch(generateTerrain(random(0, 100000)));
   };
 
-  const onCellClick = useCallback((x: number, y: number) => {
-    dispatch(selectCell({ x, y }));
-  }, []);
-
   const onTravel = useCallback((x: number, y: number) => {
     dispatch(
       travelTo({
@@ -31,10 +27,11 @@ export const MapScreen = React.memo(() => {
     );
     dispatch(startCombat());
     dispatch(changeCurrentScreen('combat'));
+    dispatch(selectCell({ x, y }));
   }, []);
 
   return (
-    <div className="w-full overflow-scroll">
+    <div className="w-full overflow-scroll py-10">
       <div className="flex gap-2">
         <Badge onClick={updateMap} variant="outline">
           Seed: {seed}
@@ -56,8 +53,7 @@ export const MapScreen = React.memo(() => {
                     isCurrentPosition={isCurrentPosition}
                     isSelected={isSelected}
                     key={`${i}-${j}`}
-                    onClick={onCellClick}
-                    onDoubleClick={onTravel}
+                    onClick={onTravel}
                     subicon={cell.subicon}
                     x={i}
                     y={j}
