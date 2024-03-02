@@ -8,7 +8,7 @@ export const ENEMIES = asEntities({
     stats: {
       attack: 5,
       crit_chance: 5,
-      crit_dmg: 150,
+      crit_dmg: 50,
       defense: 5,
       elemental_dmg_bonuses: {
         fire: 0,
@@ -40,10 +40,10 @@ export const ENEMIES = asEntities({
     id: 'goblin',
     name: 'Goblin',
     stats: {
-      attack: 1,
+      attack: 10,
       crit_chance: 5,
-      crit_dmg: 150,
-      defense: 1,
+      crit_dmg: 50,
+      defense: 10,
       elemental_dmg_bonuses: {
         fire: 0,
         ice: 0,
@@ -55,9 +55,9 @@ export const ENEMIES = asEntities({
       energy: 10,
       energy_regen: 1,
       healing_bonus: 0,
-      hp: 5,
+      hp: 500,
       max_energy: 10,
-      max_hp: 5,
+      max_hp: 500,
       reaction_bonus: 0,
       resistances: {
         fire: 0,
@@ -76,7 +76,7 @@ export const ENEMIES = asEntities({
     stats: {
       attack: 5,
       crit_chance: 5,
-      crit_dmg: 150,
+      crit_dmg: 50,
       defense: 5,
       elemental_dmg_bonuses: {
         fire: 0,
@@ -108,10 +108,10 @@ export const ENEMIES = asEntities({
     id: 'troll',
     name: 'Troll',
     stats: {
-      attack: 5,
-      crit_chance: 5,
-      crit_dmg: 150,
-      defense: 5,
+      attack: 50,
+      crit_chance: 50,
+      crit_dmg: 50,
+      defense: 100,
       elemental_dmg_bonuses: {
         fire: 0,
         ice: 0,

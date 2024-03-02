@@ -21,7 +21,7 @@ const initialState: CombatState = {
   },
   entities: {
     goblin: { ...ENEMIES.goblin, belongs: EntityBelongs.ENEMY },
-    player: { ...ENEMIES.goblin, belongs: EntityBelongs.FRIENDLY },
+    player: { ...ENEMIES.troll, belongs: EntityBelongs.FRIENDLY },
   },
   started: false,
 };
@@ -43,7 +43,7 @@ export const combatSlice = createSlice({
         state.attacks[attack.id] = attack;
       });
     },
-    castAttack: (state, action: PayloadAction<{ attack: string; enemy: string }>) => {
+    castAttack: (state, action: PayloadAction<{ attack: string; attacker: string; enemy: string }>) => {
       const attack = get(state.attacks, action.payload.attack);
 
       // set recharge

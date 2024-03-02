@@ -22,7 +22,8 @@ export const EntityIcon = ({ entity, id }: EntityProps) => {
     if (window.attack?.target === entity.belongs) {
       const attack = JSON.parse(e.dataTransfer.getData('attack')) as Attack;
       const attack_id = e.dataTransfer.getData('attack_id');
-      dispatch(castAttack({ attack: attack_id, enemy: id }));
+      // TODO: Replace attacker
+      dispatch(castAttack({ attack: attack_id, attacker: 'player', enemy: id }));
     }
   };
 
