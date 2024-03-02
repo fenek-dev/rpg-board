@@ -4,7 +4,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { get, set, unset } from 'lodash-es';
 
 import { loadState, resetState } from '~/app/store/actions';
-import BASIC_POPUPS from '~/entities/constant/popup';
 
 import { PopupData, SerializedPopups } from './popups.types';
 
@@ -13,18 +12,7 @@ export interface PopupsState {
 }
 
 const initialState: PopupsState = {
-  popups: {
-    // [BASIC_POPUPS.Equipment.container_id]: {
-    //   ...BASIC_POPUPS.Equipment,
-    //   x: 500,
-    //   y: 500,
-    // },
-    // [BASIC_POPUPS.Status.container_id]: {
-    //   ...BASIC_POPUPS.Status,
-    //   x: 50,
-    //   y: 700,
-    // },
-  },
+  popups: {},
 };
 
 export const popupsSlice = createSlice({

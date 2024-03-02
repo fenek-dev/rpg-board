@@ -35,7 +35,7 @@ export const DraggablePopup = React.memo(({ children, id }: React.PropsWithChild
 
   return (
     <Draggable nodeRef={nodeRef} onStop={handleStop} position={popup}>
-      <Card className="absolute z-10 flex cursor-move flex-col items-center" id={id} ref={nodeRef}>
+      <Card className="fixed z-10 flex cursor-move flex-col items-center" id={id} ref={nodeRef}>
         <PopupMenu className="absolute -right-1 top-0 translate-x-full" id={id} popup={popup} />
 
         <CardHeader
