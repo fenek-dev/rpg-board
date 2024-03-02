@@ -1,13 +1,14 @@
 import { useDispatch } from 'react-redux';
 
 import { Attack } from '~/entities/extendable/attacks';
-import { Entity } from '~/entities/extendable/entity';
+import { EntityBelongs } from '~/entities/extendable/entity';
 import { Button } from '~/shared/components/ui/button';
 
-import { castAttackOnEnemy } from '../store/combat.slice';
+import { castAttack } from '../store/combat.slice';
+import { CombatEntity } from '../store/combat.types';
 
 interface EntityProps {
-  entity: Entity;
+  entity: CombatEntity;
   id: string;
 }
 
@@ -15,14 +16,15 @@ export const EntityIcon = ({ entity, id }: EntityProps) => {
   const dispatch = useDispatch();
 
   const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
-    if (window.attack?.target === 'enemy') {
+    if (window.attack?.target === entity.belongs) {
       const attack = JSON.parse(e.dataTransfer.getData('attack')) as Attack;
-      dispatch(castAttackOnEnemy({ attack: attack.id, enemy: id }));
+      const attack_id = e.dataTransfer.getData('attack_id');
+      dispatch(castAttack({ attack: attack_id, enemy: id }));
     }
   };
 
   const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
-    if (window.attack?.target === 'enemy') {
+    if (window.attack?.target === entity.belongs) {
       e.dataTransfer.dropEffect = 'copy';
       e.preventDefault();
       e.stopPropagation();
@@ -36,7 +38,7 @@ export const EntityIcon = ({ entity, id }: EntityProps) => {
       onDrop={onDrop}
       onMouseDown={(e) => e.stopPropagation()}
       size="entity"
-      variant="destructive"
+      variant={entity.belongs === EntityBelongs.FRIENDLY ? 'default' : 'destructive'}
     >
       {entity.icon}
     </Button>

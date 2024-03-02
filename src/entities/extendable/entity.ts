@@ -1,3 +1,8 @@
+export enum EntityBelongs {
+  ENEMY = 'ENEMY',
+  FRIENDLY = 'FRIENDLY',
+}
+
 export interface Entity {
   attack: number;
   defense: number;

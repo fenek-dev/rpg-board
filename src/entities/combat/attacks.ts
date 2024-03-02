@@ -1,4 +1,5 @@
 import { AttackTypes, asAttacks } from '../extendable/attacks';
+import { EntityBelongs } from '../extendable/entity';
 
 export const ATTACKS = asAttacks({
   BasicAttack: {
@@ -8,7 +9,7 @@ export const ATTACKS = asAttacks({
     id: 'BasicAttack',
     name: 'Basic Attack',
     recharge_time: 1,
-    target: 'enemy',
+    target: EntityBelongs.ENEMY,
     type: AttackTypes.physical,
   },
   Fireball: {
@@ -19,7 +20,7 @@ export const ATTACKS = asAttacks({
     id: 'Fireball',
     name: 'Fireball',
     recharge_time: 3,
-    target: 'enemy',
+    target: EntityBelongs.ENEMY,
     type: AttackTypes.fire,
   },
   IceShard: {
@@ -30,7 +31,7 @@ export const ATTACKS = asAttacks({
     id: 'IceShard',
     name: 'Ice Shard',
     recharge_time: 2,
-    target: 'enemy',
+    target: EntityBelongs.ENEMY,
     type: AttackTypes.ice,
   },
   LightningBolt: {
@@ -41,7 +42,7 @@ export const ATTACKS = asAttacks({
     id: 'LightningBolt',
     name: 'Lightning Bolt',
     recharge_time: 4,
-    target: 'enemy',
+    target: EntityBelongs.ENEMY,
     type: AttackTypes.lightning,
   },
   WaterBlast: {
@@ -52,7 +53,7 @@ export const ATTACKS = asAttacks({
     id: 'WaterBlast',
     name: 'Water Blast',
     recharge_time: 2,
-    target: 'enemy',
+    target: EntityBelongs.ENEMY,
     type: AttackTypes.water,
   },
   WindSlash: {
@@ -63,7 +64,7 @@ export const ATTACKS = asAttacks({
     id: 'WindSlash',
     name: 'Wind Slash',
     recharge_time: 3,
-    target: 'enemy',
+    target: EntityBelongs.ENEMY,
     type: AttackTypes.wind,
   },
 });

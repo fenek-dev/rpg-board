@@ -1,3 +1,5 @@
+import { EntityBelongs } from './entity';
+
 export enum AttackTypes {
   fire = 'fire',
   ice = 'ice',
@@ -15,7 +17,7 @@ export interface Attack {
   id: string;
   name: string;
   recharge_time: number;
-  target: 'enemy' | 'self';
+  target: EntityBelongs;
   type: AttackTypes;
 }
 

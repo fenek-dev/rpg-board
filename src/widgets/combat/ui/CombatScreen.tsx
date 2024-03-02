@@ -1,6 +1,3 @@
-import BASIC_POPUPS from '~/entities/constant/popup';
-import { SimpleDraggablePopup } from '~/widgets/popups/ui/components/SimpleDraggablePopup';
-
 import { AttackPanel } from './AttackPanel';
 import { CombatField } from './CombatField';
 

@@ -11,7 +11,7 @@ export const AttackPanel = () => {
   const onDragStart = (attack: Attack, id: string) => (event: React.DragEvent<HTMLElement>) => {
     event.currentTarget.classList.add('opacity-60');
     event.dataTransfer.setData('attack', JSON.stringify(attack));
-    event.dataTransfer.setData('attack_id', JSON.stringify(id));
+    event.dataTransfer.setData('attack_id', id);
     event.dataTransfer.effectAllowed = 'all';
     window.attack = attack;
     event.dataTransfer.setDragImage(event.currentTarget, 0, -1);

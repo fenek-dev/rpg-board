@@ -5,19 +5,24 @@ import { loadState, resetState } from '~/app/store/actions';
 import { ATTACKS } from '~/entities/combat/attacks';
 import { ENEMIES } from '~/entities/combat/enemies';
 import { Attack } from '~/entities/extendable/attacks';
-import { Entity } from '~/entities/extendable/entity';
+import { EntityBelongs } from '~/entities/extendable/entity';
+
+import { CombatEntity } from './combat.types';
 
 export interface CombatState {
   attacks: Record<string, Attack>;
-  entities: Record<string, Entity>;
+  entities: Record<string, CombatEntity>;
   started: boolean;
 }
 
 const initialState: CombatState = {
   attacks: {
-    1: ATTACKS.BasicAttack,
+    attack: ATTACKS.BasicAttack,
   },
-  entities: { goblin: ENEMIES.goblin },
+  entities: {
+    goblin: { ...ENEMIES.goblin, belongs: EntityBelongs.ENEMY },
+    player: { ...ENEMIES.goblin, belongs: EntityBelongs.FRIENDLY },
+  },
   started: false,
 };
 
@@ -38,19 +43,12 @@ export const combatSlice = createSlice({
         state.attacks[attack.id] = attack;
       });
     },
-    castAttackOnEnemy: (state, action: PayloadAction<{ attack: string; enemy: string }>) => {
+    castAttack: (state, action: PayloadAction<{ attack: string; enemy: string }>) => {
       const attack = get(state.attacks, action.payload.attack);
 
       // set recharge
 
       set(state.attacks, action.payload.attack, attack);
-    },
-    castAttackOnSelf: (state, action: PayloadAction<string>) => {
-      const attack = get(state.attacks, action.payload);
-
-      // set recharge
-
-      set(state.attacks, action.payload, attack);
     },
     dealDamageToEnemy: (state, action: PayloadAction<{ amount: number; enemy: string }>) => {
       const enemy = get(state.entities, action.payload.enemy);
@@ -72,7 +70,6 @@ export const combatSlice = createSlice({
   },
 });
 
-export const { addAttacks, castAttackOnEnemy, castAttackOnSelf, dealDamageToEnemy, endCombat, startCombat } =
-  combatSlice.actions;
+export const { addAttacks, castAttack, dealDamageToEnemy, endCombat, startCombat } = combatSlice.actions;
 
 export default combatSlice.reducer;
