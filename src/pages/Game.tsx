@@ -2,13 +2,13 @@ import { Background } from '~/app/layout/ui/Background';
 import { Toaster } from '~/shared/components/ui/sonner';
 import { Dialog } from '~/widgets/dialog/ui/Dialog';
 import { RenderPopups } from '~/widgets/popups/ui/RenderPopups';
-import { Menu } from '~/widgets/settings/ui/Menu';
+import { Header } from '~/widgets/settings/ui/Header';
 
 function Game() {
   return (
     <main>
       <Dialog>
-        <Menu />
+        <Header />
         <RenderPopups />
         <Toaster />
         <Background />
