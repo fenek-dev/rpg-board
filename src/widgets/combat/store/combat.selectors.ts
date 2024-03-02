@@ -19,3 +19,11 @@ export const selectEntitiesByBelongs = createSelector(
     };
   }
 );
+
+export const selectCurrentEntity = createSelector(
+  (state: RootState) => state.combat,
+  ({ entities, queue, turn }) => {
+    const id = queue[turn % queue.length];
+    return { entity: entities[id], id };
+  }
+);

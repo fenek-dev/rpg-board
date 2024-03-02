@@ -17,7 +17,7 @@ export const calculateDamage = (attack: Attack, enemy: Entity, attacker: Entity)
 
   if (resistance < 0) enemyResMultiplier = 1 - resistance / 2;
   else if (resistance >= 0 && resistance < 0.75) enemyResMultiplier = 1 - resistance;
-  else if (resistance >= 0.75) enemyResMultiplier = 1 - (4 * resistance + 1);
+  else if (resistance >= 0.75) enemyResMultiplier = 1 / (4 * resistance + 1);
 
   // Reactions
   const reaction = 1;

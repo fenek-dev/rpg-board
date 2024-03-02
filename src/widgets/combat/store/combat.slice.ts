@@ -12,7 +12,9 @@ import { CombatEntity } from './combat.types';
 export interface CombatState {
   attacks: Record<string, Attack>;
   entities: Record<string, CombatEntity>;
+  queue: string[];
   started: boolean;
+  turn: number;
 }
 
 const initialState: CombatState = {
@@ -20,10 +22,12 @@ const initialState: CombatState = {
     attack: ATTACKS.BasicAttack,
   },
   entities: {
-    goblin: { ...ENEMIES.goblin, belongs: EntityBelongs.ENEMY },
     player: { ...ENEMIES.troll, belongs: EntityBelongs.FRIENDLY },
+    ws: { ...ENEMIES.goblin, belongs: EntityBelongs.ENEMY },
   },
+  queue: ['player', 'ws'],
   started: false,
+  turn: 0,
 };
 
 export const combatSlice = createSlice({
@@ -43,7 +47,7 @@ export const combatSlice = createSlice({
         state.attacks[attack.id] = attack;
       });
     },
-    castAttack: (state, action: PayloadAction<{ attack: string; attacker: string; enemy: string }>) => {
+    castAttack: (state, action: PayloadAction<{ attack: string; enemy: string }>) => {
       const attack = get(state.attacks, action.payload.attack);
 
       // set recharge
@@ -63,6 +67,13 @@ export const combatSlice = createSlice({
     },
     endCombat: (state) => {
       state.started = false;
+    },
+    formQueue: (state) => {
+      // TODO: Implement queue
+      state.queue = Object.keys(state.entities);
+    },
+    nextTurn: (state) => {
+      state.turn += 1;
     },
     startCombat: (state) => {
       state.started = true;
