@@ -11,12 +11,12 @@ export enum AttackTypes {
 
 export interface Attack {
   base: 'attack' | 'defense' | 'hp';
+  cooldown: number;
   damage_multiplier: number;
   energy_cost?: number;
   icon: string;
   id: string;
   name: string;
-  recharge_time: number;
   target: EntityBelongs;
   type: AttackTypes;
 }

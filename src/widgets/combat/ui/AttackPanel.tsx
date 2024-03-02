@@ -1,12 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { RootState } from '~/app/store';
 import { Attack } from '~/entities/extendable/attacks';
 import { Button } from '~/shared/components/ui/button';
 
+import { selectCurrentEntityAttacks, selectIsCurrentEntityFriendly } from '../store/combat.selectors';
+
 export const AttackPanel = () => {
-  const attacks = useSelector((state: RootState) => state.combat.attacks);
+  const attacks = useSelector(selectCurrentEntityAttacks);
+  const isFriendly = useSelector(selectIsCurrentEntityFriendly);
 
   const onDragStart = (attack: Attack, id: string) => (event: React.DragEvent<HTMLElement>) => {
     event.currentTarget.classList.add('opacity-60');
@@ -23,20 +25,24 @@ export const AttackPanel = () => {
 
   return (
     <div className="flex min-h-10 w-full flex-wrap gap-2 rounded-md border border-input bg-background px-4 py-2">
-      {Object.entries(attacks).map(([id, attack]) => (
-        <Button
-          className="text-xl"
-          draggable={true}
-          key={id}
-          onDragEnd={onDragEnd}
-          onDragStart={onDragStart(attack, id)}
-          onMouseDown={(e) => e.stopPropagation()}
-          size="slot"
-          variant="outline"
-        >
-          {attack.icon}
-        </Button>
-      ))}
+      {isFriendly ? (
+        Object.entries(attacks).map(([id, attack]) => (
+          <Button
+            className="text-xl"
+            draggable={true}
+            key={id}
+            onDragEnd={onDragEnd}
+            onDragStart={onDragStart(attack, id)}
+            onMouseDown={(e) => e.stopPropagation()}
+            size="slot"
+            variant="outline"
+          >
+            {attack.icon}
+          </Button>
+        ))
+      ) : (
+        <Button variant="ghost">It's not your turn now</Button>
+      )}
     </div>
   );
 };

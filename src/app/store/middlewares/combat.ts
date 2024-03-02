@@ -4,7 +4,7 @@ import { get } from 'lodash-es';
 import { Attack } from '~/entities/extendable/attacks';
 import { calculateDamage } from '~/shared/utils/damage';
 import { selectCurrentEntity } from '~/widgets/combat/store/combat.selectors';
-import { addAttacks, castAttack, dealDamageToEnemy, startCombat } from '~/widgets/combat/store/combat.slice';
+import { castAttack, dealDamageToEnemy, startCombat } from '~/widgets/combat/store/combat.slice';
 
 import { RootState } from '../store';
 
@@ -22,15 +22,15 @@ export const combatMiddleware: Middleware<unknown, RootState> = (storeApi) => (n
       }
     });
 
-    next(addAttacks(attacks));
+    // next(addAttacks(attacks));
   }
 
   if ('type' in action && action.type === castAttack.type) {
     const a = action as unknown as PayloadAction<{ attack: string; enemy: string }>;
 
-    const attack = get(storeApi.getState().combat.attacks, a.payload.attack);
-    const enemy = get(storeApi.getState().combat.entities, a.payload.enemy);
     const attacker = selectCurrentEntity(storeApi.getState());
+    const attack = get(attacker.entity.attacks, a.payload.attack);
+    const enemy = get(storeApi.getState().combat.entities, a.payload.enemy);
 
     const amount = calculateDamage(attack, enemy, attacker.entity);
     console.log(amount);

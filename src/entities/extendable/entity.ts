@@ -1,4 +1,4 @@
-import { AttackTypes } from './attacks';
+import { Attack, AttackTypes } from './attacks';
 
 export enum EntityBelongs {
   ENEMY = 'ENEMY',
@@ -22,6 +22,7 @@ export interface Stats {
 }
 
 export interface Entity {
+  attacks: Attack[];
   icon: string;
   id: string;
   name: string;

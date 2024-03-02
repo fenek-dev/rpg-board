@@ -2,6 +2,7 @@ import { asEntities } from '../extendable/entity';
 
 export const ENEMIES = asEntities({
   dragon: {
+    attacks: [],
     icon: '🐉',
     id: 'dragon',
     name: 'Dragon',
@@ -36,6 +37,7 @@ export const ENEMIES = asEntities({
     },
   },
   goblin: {
+    attacks: [],
     icon: '👺',
     id: 'goblin',
     name: 'Goblin',
@@ -70,6 +72,7 @@ export const ENEMIES = asEntities({
     },
   },
   orc: {
+    attacks: [],
     icon: '👹',
     id: 'orc',
     name: 'Orc',
@@ -104,6 +107,7 @@ export const ENEMIES = asEntities({
     },
   },
   troll: {
+    attacks: [],
     icon: '👿',
     id: 'troll',
     name: 'Troll',

@@ -4,13 +4,12 @@ import { get, set, shuffle, unset } from 'lodash-es';
 import { loadState, resetState } from '~/app/store/actions';
 import { ATTACKS } from '~/entities/combat/attacks';
 import { ENEMIES } from '~/entities/combat/enemies';
-import { Attack } from '~/entities/extendable/attacks';
 import { EntityBelongs } from '~/entities/extendable/entity';
 
 import { CombatEntity } from './combat.types';
 
 export interface CombatState {
-  attacks: Record<string, Attack>;
+  cooldown: Record<string, number>;
   entities: Record<string, CombatEntity>;
   queue: string[];
   started: boolean;
@@ -18,16 +17,19 @@ export interface CombatState {
 }
 
 const initialState: CombatState = {
-  attacks: {
-    attack: ATTACKS.BasicAttack,
-  },
+  cooldown: {},
   entities: {
-    player: { ...ENEMIES.troll, belongs: EntityBelongs.FRIENDLY },
-    sdf: { ...ENEMIES.dragon, belongs: EntityBelongs.ENEMY },
-    sgsd: { ...ENEMIES.orc, belongs: EntityBelongs.ENEMY },
+    player: { ...ENEMIES.troll, attacks: [ATTACKS.BasicAttack, ATTACKS.IceShard], belongs: EntityBelongs.FRIENDLY },
+    player2: {
+      ...ENEMIES.troll,
+      attacks: [ATTACKS.LightningBolt, ATTACKS.WaterBlast],
+      belongs: EntityBelongs.FRIENDLY,
+    },
+    // sdf: { ...ENEMIES.dragon, belongs: EntityBelongs.ENEMY },
+    // sgsd: { ...ENEMIES.orc, belongs: EntityBelongs.ENEMY },
     ws: { ...ENEMIES.goblin, belongs: EntityBelongs.ENEMY },
   },
-  queue: [],
+  queue: ['player', 'ws', 'player2'],
   started: false,
   turn: 0,
 };
@@ -44,17 +46,15 @@ export const combatSlice = createSlice({
   initialState,
   name: 'combat',
   reducers: {
-    addAttacks: (state, action: PayloadAction<Attack[]>) => {
-      action.payload.forEach((attack) => {
-        state.attacks[attack.id] = attack;
-      });
-    },
     castAttack: (state, action: PayloadAction<{ attack: string; enemy: string }>) => {
-      const attack = get(state.attacks, action.payload.attack);
+      const attacker_id = state.queue[state.turn % state.queue.length];
+      const attacker = get(state.entities, attacker_id);
+      const attack = get(attacker.attacks, action.payload.attack);
 
+      const path = `${attacker_id}/${action.payload.attack}`;
+
+      state.cooldown[path] = attack.cooldown;
       // set recharge
-
-      set(state.attacks, action.payload.attack, attack);
     },
     dealDamageToEnemy: (state, action: PayloadAction<{ amount: number; enemy: string }>) => {
       const enemy = get(state.entities, action.payload.enemy);
@@ -78,8 +78,8 @@ export const combatSlice = createSlice({
 
       const randomFriendlyIndex = Math.floor(Math.random() * friendlyEntityKeys.length);
       const friendlyEntity = friendlyEntityKeys[randomFriendlyIndex];
-
-      const enemyEntityKeysShuffled = shuffle(enemyEntityKeys);
+      const restFriendlies = friendlyEntityKeys.filter((_, i) => i !== randomFriendlyIndex);
+      const enemyEntityKeysShuffled = shuffle(enemyEntityKeys.concat(restFriendlies));
       const queue = [friendlyEntity, ...enemyEntityKeysShuffled];
 
       state.queue = queue;
@@ -93,6 +93,6 @@ export const combatSlice = createSlice({
   },
 });
 
-export const { addAttacks, castAttack, dealDamageToEnemy, endCombat, formQueue, startCombat } = combatSlice.actions;
+export const { castAttack, dealDamageToEnemy, endCombat, formQueue, nextTurn, startCombat } = combatSlice.actions;
 
 export default combatSlice.reducer;

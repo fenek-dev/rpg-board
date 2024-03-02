@@ -41,3 +41,16 @@ export const selectQueue = createSelector(
     return Object.fromEntries(queue.map((id) => [id, entities[id]]));
   }
 );
+
+export const selectCurrentEntityAttacks = createSelector(
+  (state: RootState) => state.combat,
+  ({ entities, queue, turn }) => {
+    const id = queue[turn % queue.length];
+    return entities[id].attacks;
+  }
+);
+
+export const selectIsCurrentEntityFriendly = createSelector(
+  selectCurrentEntity,
+  ({ entity }) => entity.belongs === EntityBelongs.FRIENDLY
+);
