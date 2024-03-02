@@ -49,6 +49,21 @@ export const selectCurrentEntityAttacks = createSelector(
     return entities[id].attacks;
   }
 );
+export const selectCurrentEntityAttacksWithCooldown = createSelector(
+  selectCurrentEntity,
+  (state: RootState) => state.combat.cooldown,
+  ({ entity, id }, cooldown) => {
+    const cooldown_attacks = Object.fromEntries(Object.entries(cooldown).filter(([key]) => key.startsWith(id + '/')));
+
+    const attacks = entity.attacks.map((attack, i) => {
+      const path = `${id}/${i}`;
+
+      return { attack, cooldown: cooldown_attacks[path] ?? 0 };
+    });
+
+    return attacks;
+  }
+);
 
 export const selectIsCurrentEntityFriendly = createSelector(
   selectCurrentEntity,

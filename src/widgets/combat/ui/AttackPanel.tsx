@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 import { Attack } from '~/entities/extendable/attacks';
 import { Button } from '~/shared/components/ui/button';
 
-import { selectCurrentEntityAttacks, selectIsCurrentEntityFriendly } from '../store/combat.selectors';
+import { selectCurrentEntityAttacksWithCooldown, selectIsCurrentEntityFriendly } from '../store/combat.selectors';
 
 export const AttackPanel = () => {
-  const attacks = useSelector(selectCurrentEntityAttacks);
+  const attacks = useSelector(selectCurrentEntityAttacksWithCooldown);
   const isFriendly = useSelector(selectIsCurrentEntityFriendly);
 
   const onDragStart = (attack: Attack, id: string) => (event: React.DragEvent<HTMLElement>) => {
@@ -26,9 +26,10 @@ export const AttackPanel = () => {
   return (
     <div className="flex min-h-10 w-full flex-wrap gap-2 rounded-md border border-input bg-background px-4 py-2">
       {isFriendly ? (
-        Object.entries(attacks).map(([id, attack]) => (
+        Object.entries(attacks).map(([id, { attack, cooldown }]) => (
           <Button
-            className="text-xl"
+            className="relative text-xl transition-all"
+            disabled={cooldown > 0}
             draggable={true}
             key={id}
             onDragEnd={onDragEnd}
@@ -37,6 +38,9 @@ export const AttackPanel = () => {
             size="slot"
             variant="outline"
           >
+            {cooldown > 0 && (
+              <span className="absolute right-0 top-0 rounded-full bg-red-500 px-1 text-xs text-white">{cooldown}</span>
+            )}
             {attack.icon}
           </Button>
         ))

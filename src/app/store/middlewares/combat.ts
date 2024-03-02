@@ -33,7 +33,6 @@ export const combatMiddleware: Middleware<unknown, RootState> = (storeApi) => (n
     const enemy = get(storeApi.getState().combat.entities, a.payload.enemy);
 
     const amount = calculateDamage(attack, enemy, attacker.entity);
-    console.log(amount);
 
     next(
       dealDamageToEnemy({

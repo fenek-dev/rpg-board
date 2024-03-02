@@ -86,6 +86,13 @@ export const combatSlice = createSlice({
     },
     nextTurn: (state) => {
       state.turn += 1;
+      const entity = state.queue[state.turn % state.queue.length];
+
+      Object.entries(state.cooldown).forEach(([key, value]) => {
+        if (key.startsWith(entity + '/')) {
+          state.cooldown[key] = value - 1;
+        }
+      });
     },
     startCombat: (state) => {
       state.started = true;
