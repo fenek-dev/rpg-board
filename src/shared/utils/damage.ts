@@ -34,5 +34,5 @@ export const calculateDamage = (attack: Attack, enemy: Entity, attacker: Entity)
 
   const damage = baseDamage * crit * defenseMultiplier * enemyResMultiplier * reaction;
 
-  return damage;
+  return Math.ceil(damage);
 };

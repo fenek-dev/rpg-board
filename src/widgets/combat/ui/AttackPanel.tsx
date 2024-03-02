@@ -22,7 +22,7 @@ export const AttackPanel = () => {
   };
 
   return (
-    <div className="fixed bottom-4 left-1/4 right-1/4 flex min-h-10 flex-wrap gap-2 rounded-md border border-input bg-background p-2">
+    <div className="flex min-h-10 w-full flex-wrap gap-2 rounded-md border border-input bg-background px-4 py-2">
       {Object.entries(attacks).map(([id, attack]) => (
         <Button
           className="text-xl"
