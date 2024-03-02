@@ -20,12 +20,12 @@ export const BASIC_POPUPS = asPopups({
     name: 'Inventory',
     w: 10,
   },
-  Map: {
-    container_id: 'Map',
-    h: 0,
-    name: 'Map',
-    w: 0,
-  },
+  // Map: {
+  //   container_id: 'Map',
+  //   h: 0,
+  //   name: 'Map',
+  //   w: 0,
+  // },
   MapDetail: {
     closable: true,
     container_id: 'MapDetail',

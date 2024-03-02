@@ -6,6 +6,7 @@ import equipmentSlice from '~/widgets/equipment/store/equipment.slice';
 import mapSlice from '~/widgets/map/store/map.slice';
 import playerSlice from '~/widgets/player/store/player.slice';
 import popupsSlice from '~/widgets/popups/store/popups.slice';
+import screenSlice from '~/widgets/screen/store/screen.slice';
 import settingsSlice from '~/widgets/settings/store/settings.slice';
 
 import { combatMiddleware } from './middlewares/combat';
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   map: mapSlice,
   player: playerSlice,
   popups: popupsSlice,
+  screen: screenSlice,
   settings: settingsSlice,
 });
 

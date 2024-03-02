@@ -62,7 +62,7 @@ export const Menu = () => {
           <GearIcon />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start">
+      <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={saveGame}>Save Game</DropdownMenuItem>
         <DropdownMenuItem onClick={loadGame}>Load Game</DropdownMenuItem>
         <DropdownMenuSeparator />
