@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectEntitiesByBelongs } from '../store/combat.selectors';
-import { EntityIcon } from './Entity';
+import { EntityIcon } from './Entity/Entity';
 
 export const CombatField = () => {
   const dispatch = useDispatch();

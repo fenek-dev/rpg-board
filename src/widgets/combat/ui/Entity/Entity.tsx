@@ -4,8 +4,9 @@ import { Attack } from '~/entities/extendable/attacks';
 import { EntityBelongs } from '~/entities/extendable/entity';
 import { Button } from '~/shared/components/ui/button';
 
-import { castAttack } from '../store/combat.slice';
-import { CombatEntity } from '../store/combat.types';
+import { castAttack } from '../../store/combat.slice';
+import { CombatEntity } from '../../store/combat.types';
+import { EntityBar } from './EntityBar';
 
 interface EntityProps {
   entity: CombatEntity;
@@ -33,14 +34,15 @@ export const EntityIcon = ({ entity, id }: EntityProps) => {
 
   return (
     <Button
-      className="text-5xl transition-transform"
+      className="relative text-5xl transition-transform"
       onDragOver={onDragOver}
       onDrop={onDrop}
       onMouseDown={(e) => e.stopPropagation()}
       size="entity"
-      variant={entity.belongs === EntityBelongs.FRIENDLY ? 'default' : 'destructive'}
+      variant={entity.belongs === EntityBelongs.FRIENDLY ? 'outline' : 'destructive'}
     >
       {entity.icon}
+      <EntityBar max={entity.hp} value={1} />
     </Button>
   );
 };
