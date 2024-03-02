@@ -1,4 +1,4 @@
-import { ChevronDownIcon, ChevronUpIcon, Cross1Icon } from '@radix-ui/react-icons';
+import { Cross1Icon } from '@radix-ui/react-icons';
 import { useDispatch } from 'react-redux';
 
 import { Button } from '~/shared/components/ui/button';
@@ -14,7 +14,7 @@ interface PopupMenuProps {
   popup: PopupData;
 }
 
-export const PopupMenu = ({ className, id, onClose, popup }: PopupMenuProps) => {
+export const PopupMenu = ({ className, id, onClose }: PopupMenuProps) => {
   const dispatch = useDispatch();
 
   const onCloseHandler = () => {

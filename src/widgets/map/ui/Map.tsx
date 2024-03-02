@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
 import { Badge } from '~/shared/components/ui/badge';
-import { ScrollArea } from '~/shared/components/ui/scroll-area';
 
 import { generateTerrain, selectCell, travelTo } from '../store/map.slice';
 import { MapCell } from './MapCell';

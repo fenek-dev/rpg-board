@@ -1,3 +1,5 @@
+import { AttackTypes } from './attacks';
+
 export enum EntityBelongs {
   ENEMY = 'ENEMY',
   FRIENDLY = 'FRIENDLY',
@@ -8,15 +10,15 @@ export interface Stats {
   crit_chance: number;
   crit_dmg: number;
   defense: number;
-  elemental_dmg_bonus: number;
+  elemental_dmg_bonuses: Record<AttackTypes, number>;
   energy: number;
   energy_regen: number;
   healing_bonus: number;
   hp: number;
   max_energy: number;
   max_hp: number;
-  physical_dmg_bonus: number;
   reaction_bonus: number;
+  resistances: Record<AttackTypes, number>;
 }
 
 export interface Entity {

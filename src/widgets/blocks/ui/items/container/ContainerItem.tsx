@@ -23,10 +23,8 @@ export const ContainerItem = React.memo(
     const handleOpenContainer = (e: React.MouseEvent<HTMLButtonElement>) => {
       dispatch(
         addPopup({
-          closable: container.popup.closable,
           container_id: container.id,
           h: container.popup.h,
-          isCollapsed: false,
           name: container.name,
           w: container.popup.w,
           x: e.clientX,

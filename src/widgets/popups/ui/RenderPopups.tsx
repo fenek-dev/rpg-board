@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
-import { CombatPopup } from '~/widgets/combat/ui/CombatScreen';
 import { EquipmentPopup } from '~/widgets/equipment/ui/EquipmentPopup';
 import { Status } from '~/widgets/player/ui/Status';
 

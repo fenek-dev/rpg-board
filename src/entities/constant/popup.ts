@@ -11,7 +11,6 @@ export const BASIC_POPUPS = asPopups({
     container_id: 'Equipment',
     h: 3,
     name: 'Player',
-    static: true,
     w: 3,
   },
   Inventory: {
@@ -27,7 +26,6 @@ export const BASIC_POPUPS = asPopups({
   //   w: 0,
   // },
   MapDetail: {
-    closable: true,
     container_id: 'MapDetail',
     h: 0,
     name: 'Details',
@@ -43,7 +41,6 @@ export const BASIC_POPUPS = asPopups({
     container_id: 'Status',
     h: 1,
     name: 'Status',
-    static: true,
     w: 10,
   },
 });
