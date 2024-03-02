@@ -27,3 +27,17 @@ export const selectCurrentEntity = createSelector(
     return { entity: entities[id], id };
   }
 );
+
+export const selectCurrentEntityId = createSelector(
+  (state: RootState) => state.combat,
+  ({ queue, turn }) => {
+    return queue[turn % queue.length];
+  }
+);
+
+export const selectQueue = createSelector(
+  (state: RootState) => state.combat,
+  ({ entities, queue }) => {
+    return Object.fromEntries(queue.map((id) => [id, entities[id]]));
+  }
+);

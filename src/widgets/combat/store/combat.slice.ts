@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { get, set } from 'lodash-es';
+import { get, set, shuffle, unset } from 'lodash-es';
 
 import { loadState, resetState } from '~/app/store/actions';
 import { ATTACKS } from '~/entities/combat/attacks';
@@ -23,9 +23,11 @@ const initialState: CombatState = {
   },
   entities: {
     player: { ...ENEMIES.troll, belongs: EntityBelongs.FRIENDLY },
+    sdf: { ...ENEMIES.dragon, belongs: EntityBelongs.ENEMY },
+    sgsd: { ...ENEMIES.orc, belongs: EntityBelongs.ENEMY },
     ws: { ...ENEMIES.goblin, belongs: EntityBelongs.ENEMY },
   },
-  queue: ['player', 'ws'],
+  queue: [],
   started: false,
   turn: 0,
 };
@@ -60,7 +62,8 @@ export const combatSlice = createSlice({
       enemy.stats.hp -= action.payload.amount;
 
       if (enemy.stats.hp <= 0) {
-        delete state.entities[action.payload.enemy];
+        unset(state.entities, action.payload.enemy);
+        state.queue = state.queue.filter((id) => id !== action.payload.enemy);
       } else {
         set(state.entities, action.payload.enemy, enemy);
       }
@@ -69,8 +72,17 @@ export const combatSlice = createSlice({
       state.started = false;
     },
     formQueue: (state) => {
-      // TODO: Implement queue
-      state.queue = Object.keys(state.entities);
+      const entityKeys = Object.keys(state.entities);
+      const friendlyEntityKeys = entityKeys.filter((key) => state.entities[key].belongs === EntityBelongs.FRIENDLY);
+      const enemyEntityKeys = entityKeys.filter((key) => state.entities[key].belongs === EntityBelongs.ENEMY);
+
+      const randomFriendlyIndex = Math.floor(Math.random() * friendlyEntityKeys.length);
+      const friendlyEntity = friendlyEntityKeys[randomFriendlyIndex];
+
+      const enemyEntityKeysShuffled = shuffle(enemyEntityKeys);
+      const queue = [friendlyEntity, ...enemyEntityKeysShuffled];
+
+      state.queue = queue;
     },
     nextTurn: (state) => {
       state.turn += 1;
@@ -81,6 +93,6 @@ export const combatSlice = createSlice({
   },
 });
 
-export const { addAttacks, castAttack, dealDamageToEnemy, endCombat, startCombat } = combatSlice.actions;
+export const { addAttacks, castAttack, dealDamageToEnemy, endCombat, formQueue, startCombat } = combatSlice.actions;
 
 export default combatSlice.reducer;

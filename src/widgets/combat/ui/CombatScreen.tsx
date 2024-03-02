@@ -1,5 +1,5 @@
 import { CombatField } from './CombatField';
-import { CombatFooter } from './Footer/CombatFooter';
+import { CombatFooter } from './Parts/CombatFooter';
 
 export const CombatScreen = () => {
   return (
