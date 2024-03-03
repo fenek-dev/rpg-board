@@ -1,5 +1,5 @@
 import debounce from 'lodash-es/debounce';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Equipment } from '~/entities/extendable/equipment';
 import { Badge } from '~/shared/components/ui/badge';
@@ -12,37 +12,15 @@ interface DetailsProps {
   item: Block<Equipment>;
 }
 
-export const EquipmentDetails = ({ children, id, item }: React.PropsWithChildren<DetailsProps>) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const isLeft = React.useRef(false);
-
-  const debouncedSetIsOpen = debounce((value: boolean) => {
-    if (!isLeft.current) {
-      setIsOpen(value);
-    }
-  }, 700);
-
-  const handleMouseEnter = () => {
-    debouncedSetIsOpen(true);
-    isLeft.current = false;
-  };
-
-  const handleMouseLeave = () => {
-    setIsOpen(false);
-    isLeft.current = true;
-  };
+export const EquipmentDetails = ({ children, item }: React.PropsWithChildren<DetailsProps>) => {
+  const [isDragging, setIsDragging] = useState(false);
 
   return (
-    <HoverCard open={isOpen}>
-      <HoverCardTrigger
-        asChild
-        onDragStart={handleMouseLeave}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+    <HoverCard>
+      <HoverCardTrigger asChild onDragEnd={() => setIsDragging(false)} onDragStart={() => setIsDragging(true)}>
         {children}
       </HoverCardTrigger>
-      {isOpen && (
+      {!isDragging && (
         <HoverCardContent align="start" className="z-50 min-w-40 max-w-80" side="right">
           <div className="space-y-2">
             <h4 className="text-lg font-semibold">{item.name}</h4>

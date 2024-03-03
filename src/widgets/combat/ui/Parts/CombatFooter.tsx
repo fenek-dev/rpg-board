@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Button } from '~/shared/components/ui/button';
 
 import { nextTurn } from '../../store/combat.slice';
-import { AttackPanel } from '../AttackPanel';
+import { AttackPanel } from '../Attack/AttackPanel';
 
 export const CombatFooter = () => {
   const dispatch = useDispatch();

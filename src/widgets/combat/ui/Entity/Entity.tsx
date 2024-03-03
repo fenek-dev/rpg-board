@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { Attack } from '~/entities/extendable/attacks';
+// import { Attack } from '~/entities/extendable/attacks';
 import { EntityBelongs } from '~/entities/extendable/entity';
 import { Button } from '~/shared/components/ui/button';
 
@@ -20,7 +20,7 @@ export const EntityIcon = ({ entity, id }: EntityProps) => {
 
   const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
     if (window.attack?.target === entity.belongs) {
-      const attack = JSON.parse(e.dataTransfer.getData('attack')) as Attack;
+      // const attack = JSON.parse(e.dataTransfer.getData('attack')) as Attack;
       const attack_id = e.dataTransfer.getData('attack_id');
       dispatch(castAttack({ attack: attack_id, enemy: id }));
     }

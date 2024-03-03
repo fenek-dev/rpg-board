@@ -42,10 +42,10 @@ export const SideMenu = () => {
   return (
     <div className="fixed left-2 top-20 flex flex-col gap-2 rounded-md border border-input bg-background p-2">
       <Button onClick={openInventory} size="icon" title="Open inventory" variant="outline">
-        <BackpackIcon />
+        🎒
       </Button>
       <Button onClick={openStatus} size="icon" variant="outline">
-        <PersonIcon />
+        👥
       </Button>
       <Button onClick={openEquipment} size="icon" variant="outline">
         🗡️

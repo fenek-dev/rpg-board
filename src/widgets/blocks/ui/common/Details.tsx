@@ -1,5 +1,5 @@
 import debounce from 'lodash-es/debounce';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Badge } from '~/shared/components/ui/badge';
@@ -13,38 +13,15 @@ interface DetailsProps {
 }
 
 export const Details = ({ block, children, id }: React.PropsWithChildren<DetailsProps>) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const isLeft = React.useRef(false);
-
+  const [isDragging, setIsDragging] = useState(false);
   const insideCost = useSelector(selectCostInContainer(id, block.type === 'container'));
 
-  const debouncedSetIsOpen = debounce((value: boolean) => {
-    if (!isLeft.current) {
-      setIsOpen(value);
-    }
-  }, 700);
-
-  const handleMouseEnter = () => {
-    debouncedSetIsOpen(true);
-    isLeft.current = false;
-  };
-
-  const handleMouseLeave = () => {
-    setIsOpen(false);
-    isLeft.current = true;
-  };
-
   return (
-    <HoverCard open={isOpen}>
-      <HoverCardTrigger
-        asChild
-        onDragStart={handleMouseLeave}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+    <HoverCard>
+      <HoverCardTrigger asChild onDragEnd={() => setIsDragging(false)} onDragStart={() => setIsDragging(true)}>
         {children}
       </HoverCardTrigger>
-      {isOpen && (
+      {!isDragging && (
         <HoverCardContent align="start" className="z-50 min-w-40 max-w-80" side="right">
           <div className="space-y-2">
             <h4 className="text-lg font-semibold">{block.name}</h4>
@@ -63,7 +40,7 @@ export const Details = ({ block, children, id }: React.PropsWithChildren<Details
                 <Separator />
                 <h4 className="text-base text-muted-foreground">On use:</h4>
                 {block.effects.map((eff) => (
-                  <h5 className="text-sm font-bold text-green-600/50">
+                  <h5 className="text-sm font-bold text-green-600/50" key={eff.id}>
                     {eff.icon} {eff.name} ({eff.amount})
                   </h5>
                 ))}

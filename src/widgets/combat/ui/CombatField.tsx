@@ -1,11 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { selectEntitiesByBelongs } from '../store/combat.selectors';
 import { EntityIcon } from './Entity/Entity';
 import { Queue } from './Parts/Queue';
 
 export const CombatField = () => {
-  const dispatch = useDispatch();
   const { enemies, friendly } = useSelector(selectEntitiesByBelongs);
 
   return (
