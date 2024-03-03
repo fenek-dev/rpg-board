@@ -60,3 +60,13 @@ export const selectIsCurrentEntityFriendly = createSelector(
   selectCurrentEntity,
   ({ entity }) => entity.belongs === EntityBelongs.FRIENDLY
 );
+
+export const selectCombatStatus = createSelector(
+  (state: RootState) => state.combat,
+  ({ entities }) => {
+    if (Object.values(entities).filter((entity) => entity.belongs === EntityBelongs.ENEMY).length === 0) return 'win';
+    else if (Object.values(entities).filter((entity) => entity.belongs === EntityBelongs.FRIENDLY).length === 0)
+      return 'lost';
+    else return 'in_process';
+  }
+);

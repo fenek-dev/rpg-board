@@ -23,12 +23,12 @@ const initialState: CombatState = {
   cooldown: {},
   current: '',
   entities: {
-    dragon: {
-      ...ENEMIES.dragon,
-      actions_left: ENEMIES.dragon.stats.action_amount,
-      attacks: [ATTACKS.Fireball, ATTACKS.LightningBolt],
-      belongs: EntityBelongs.ENEMY,
-    },
+    // dragon: {
+    //   ...ENEMIES.dragon,
+    //   actions_left: ENEMIES.dragon.stats.action_amount,
+    //   attacks: [ATTACKS.Fireball, ATTACKS.LightningBolt],
+    //   belongs: EntityBelongs.ENEMY,
+    // },
     troll: {
       ...ENEMIES.troll,
       actions_left: ENEMIES.troll.stats.action_amount,

@@ -12,45 +12,48 @@ import { PopupMenu } from './PopupMenu';
 
 export interface DraggablePopupProps {
   id: string;
+  unskippable?: boolean;
 }
 
-export const DraggablePopup = React.memo(({ children, id }: React.PropsWithChildren<DraggablePopupProps>) => {
-  const nodeRef = React.useRef(null);
-  const gridSize = useSelector((state: RootState) => state.settings.gridSize);
-  const popup = useSelector(selectPopupById(id));
-  const dispatch = useDispatch();
+export const DraggablePopup = React.memo(
+  ({ children, id, unskippable }: React.PropsWithChildren<DraggablePopupProps>) => {
+    const nodeRef = React.useRef(null);
+    const gridSize = useSelector((state: RootState) => state.settings.gridSize);
+    const popup = useSelector(selectPopupById(id));
+    const dispatch = useDispatch();
 
-  const handleStop = useCallback<DraggableEventHandler>(
-    (_e, { x, y }) => {
-      dispatch(
-        changePopupPosition({
-          id,
-          x,
-          y,
-        })
-      );
-    },
-    [dispatch, id]
-  );
+    const handleStop = useCallback<DraggableEventHandler>(
+      (_e, { x, y }) => {
+        dispatch(
+          changePopupPosition({
+            id,
+            x,
+            y,
+          })
+        );
+      },
+      [dispatch, id]
+    );
 
-  return (
-    <Draggable nodeRef={nodeRef} onStop={handleStop} position={popup}>
-      <Card className="fixed z-10 flex cursor-move flex-col items-center" id={id} ref={nodeRef}>
-        <PopupMenu className="absolute -right-1 top-0 translate-x-full" id={id} popup={popup} />
+    return (
+      <Draggable nodeRef={nodeRef} onStop={handleStop} position={popup}>
+        <Card className="fixed z-10 flex cursor-move flex-col items-center" id={id} ref={nodeRef}>
+          {!unskippable && <PopupMenu className="absolute -right-1 top-0 translate-x-full" id={id} popup={popup} />}
 
-        <CardHeader
-          className="flex w-full select-none flex-row items-center justify-between gap-1"
-          style={popupHeaderStyle(gridSize)}
-        >
-          <CardTitle className="block">{popup.name}</CardTitle>
-        </CardHeader>
-        <Content gridSize={gridSize} height={popup.h} width={popup.w}>
-          {children}
-        </Content>
-      </Card>
-    </Draggable>
-  );
-});
+          <CardHeader
+            className="flex w-full select-none flex-row items-center justify-between gap-1"
+            style={popupHeaderStyle(gridSize)}
+          >
+            <CardTitle className="block">{popup.name}</CardTitle>
+          </CardHeader>
+          <Content gridSize={gridSize} height={popup.h} width={popup.w}>
+            {children}
+          </Content>
+        </Card>
+      </Draggable>
+    );
+  }
+);
 
 interface ContentProps {
   gridSize: number;

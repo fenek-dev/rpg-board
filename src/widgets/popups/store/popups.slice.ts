@@ -28,6 +28,8 @@ export const popupsSlice = createSlice({
   name: 'popups',
   reducers: {
     addPopup: (state, action: PayloadAction<PopupData>) => {
+      console.log('addPopup', action.payload);
+
       const payload = action.payload;
       set(state.popups, payload.container_id, payload);
     },

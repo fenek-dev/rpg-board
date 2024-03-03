@@ -6,6 +6,7 @@ import { EquipmentPopup } from '~/widgets/equipment/ui/EquipmentPopup';
 import { Status } from '~/widgets/player/ui/Status';
 
 import { PopupWithGrid } from './containers/PopupWithGrid';
+import { Reward } from './specials/Reward';
 
 export const RenderPopups = () => {
   const popups = useSelector((state: RootState) => state.popups.popups);
@@ -19,6 +20,10 @@ export const RenderPopups = () => {
 
         if (id === BASIC_POPUPS.Equipment.container_id) {
           return <EquipmentPopup key={id} />;
+        }
+
+        if (id === BASIC_POPUPS.Reward.container_id) {
+          return <Reward id={id} key={id} />;
         }
 
         return <PopupWithGrid id={id} key={id} />;
