@@ -1,7 +1,11 @@
 import { Attack } from '~/entities/extendable/attacks';
 import { Entity } from '~/entities/extendable/entity';
 
-export const calculateDamage = (attack: Attack, enemy: Entity, attacker: Entity) => {
+interface Options {
+  disable_crit: boolean;
+}
+
+export const calculateDamage = (attack: Attack, enemy: Entity, attacker: Entity, options?: Options) => {
   const charLevel = 1;
   const enemyLevel = 1;
 
@@ -27,7 +31,7 @@ export const calculateDamage = (attack: Attack, enemy: Entity, attacker: Entity)
   const isCrit = Math.random() < attacker.stats.crit_chance / 100;
   let crit = 1;
 
-  if (isCrit) crit = 1 + attacker.stats.crit_dmg / 100;
+  if (isCrit && !options?.disable_crit) crit = 1 + attacker.stats.crit_dmg / 100;
 
   // Defense
   const defenseMultiplier = (charLevel + 100) / (enemyLevel + 100 + charLevel + 100);

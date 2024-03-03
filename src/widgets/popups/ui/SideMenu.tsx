@@ -1,4 +1,3 @@
-import { BackpackIcon, PersonIcon } from '@radix-ui/react-icons';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 

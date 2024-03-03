@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button, ButtonProps } from '~/shared/components/ui/button';
 
 import { CombatAttack } from '../../store/combat.types';

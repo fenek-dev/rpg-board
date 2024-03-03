@@ -1,4 +1,3 @@
-import debounce from 'lodash-es/debounce';
 import React, { useState } from 'react';
 
 import { Equipment } from '~/entities/extendable/equipment';
@@ -39,7 +38,7 @@ export const EquipmentDetails = ({ children, item }: React.PropsWithChildren<Det
                 <Separator />
                 <h4 className="text-base text-muted-foreground">Attacks</h4>
                 {item.attacks.map((attack) => (
-                  <h5 className="text-sm font-bold">
+                  <h5 className="text-sm font-bold" key={attack.id}>
                     {attack.icon} {attack.name} ({attack.damage_multiplier} {attack.type})
                   </h5>
                 ))}

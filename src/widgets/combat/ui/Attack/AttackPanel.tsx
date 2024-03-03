@@ -28,7 +28,13 @@ export const AttackPanel = () => {
     <div className="flex min-h-10 w-full flex-wrap gap-2 rounded-md border border-input bg-background px-4 py-2">
       {isFriendly ? (
         Object.entries(attacks).map(([id, { attack, cooldown }]) => (
-          <AttackSlot attack={attack} cooldown={cooldown} onDragEnd={onDragEnd} onDragStart={onDragStart(attack, id)} />
+          <AttackSlot
+            attack={attack}
+            cooldown={cooldown}
+            key={id}
+            onDragEnd={onDragEnd}
+            onDragStart={onDragStart(attack, id)}
+          />
         ))
       ) : (
         <Button variant="ghost">It's not your turn now</Button>

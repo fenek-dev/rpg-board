@@ -10,7 +10,7 @@ export const ENEMIES = asEntities({
       attack: 5,
       crit_chance: 5,
       crit_dmg: 50,
-      defense: 5,
+      defense: 50,
       elemental_dmg_bonuses: {
         fire: 0,
         ice: 0,
@@ -30,7 +30,7 @@ export const ENEMIES = asEntities({
         fire: 0,
         ice: 0,
         lightning: 0,
-        physical: 0,
+        physical: 0.25,
         water: 0,
         wind: 0,
       },

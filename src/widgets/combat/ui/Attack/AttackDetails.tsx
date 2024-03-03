@@ -1,15 +1,11 @@
-import debounce from 'lodash-es/debounce';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Attack } from '~/entities/extendable/attacks';
 import { EMPTY_ENTITY } from '~/entities/extendable/entity';
-import { Equipment } from '~/entities/extendable/equipment';
-import { Badge } from '~/shared/components/ui/badge';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/shared/components/ui/hover-card';
 import { Separator } from '~/shared/components/ui/separator';
 import { calculateDamage } from '~/shared/utils/damage';
-import { Block } from '~/widgets/blocks/store';
 
 import { selectCurrentEntity } from '../../store/combat.selectors';
 
