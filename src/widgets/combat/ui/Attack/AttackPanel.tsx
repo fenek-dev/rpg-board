@@ -4,12 +4,18 @@ import { useSelector } from 'react-redux';
 import { Attack } from '~/entities/extendable/attacks';
 import { Button } from '~/shared/components/ui/button';
 
-import { selectCurrentEntityAttacksWithCooldown, selectIsCurrentEntityFriendly } from '../../store/combat.selectors';
+import {
+  selectCurrentEntity,
+  selectCurrentEntityAttacksWithCooldown,
+  selectIsCurrentEntityFriendly,
+} from '../../store/combat.selectors';
 import { AttackSlot } from './AttackSlot';
 
 export const AttackPanel = () => {
   const attacks = useSelector(selectCurrentEntityAttacksWithCooldown);
   const isFriendly = useSelector(selectIsCurrentEntityFriendly);
+
+  const { entity } = useSelector(selectCurrentEntity);
 
   const onDragStart = (attack: Attack, id: string) => (event: React.DragEvent<HTMLElement>) => {
     event.currentTarget.classList.add('opacity-60');
@@ -31,6 +37,7 @@ export const AttackPanel = () => {
           <AttackSlot
             attack={attack}
             cooldown={cooldown}
+            entity={entity}
             key={id}
             onDragEnd={onDragEnd}
             onDragStart={onDragStart(attack, id)}

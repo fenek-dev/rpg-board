@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import { Attack } from '~/entities/extendable/attacks';
-import { EMPTY_ENTITY } from '~/entities/extendable/entity';
+import { EMPTY_ENTITY, Entity } from '~/entities/extendable/entity';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/shared/components/ui/hover-card';
 import { Separator } from '~/shared/components/ui/separator';
 import { calculateDamage } from '~/shared/utils/damage';
 
-import { selectCurrentEntity } from '../../store/combat.selectors';
-
 interface DetailsProps {
   attack: Attack;
+  entity: Entity;
 }
 
-export const AttackDetails = ({ attack, children }: React.PropsWithChildren<DetailsProps>) => {
+export const AttackDetails = ({ attack, children, entity }: React.PropsWithChildren<DetailsProps>) => {
   const [isDragging, setIsDragging] = useState(false);
-  const { entity } = useSelector(selectCurrentEntity);
 
   const approxDmg = calculateDamage(attack, EMPTY_ENTITY, entity);
 

@@ -1,4 +1,5 @@
 import { Attack } from '~/entities/extendable/attacks';
+import { Entity } from '~/entities/extendable/entity';
 import { Button, ButtonProps } from '~/shared/components/ui/button';
 
 import { AttackDetails } from './AttackDetails';
@@ -6,11 +7,12 @@ import { AttackDetails } from './AttackDetails';
 interface AttackSlotProps extends ButtonProps {
   attack: Attack;
   cooldown: number;
+  entity: Entity;
 }
 
-export const AttackSlot = ({ attack, cooldown, ...props }: AttackSlotProps) => {
+export const AttackSlot = ({ attack, cooldown, entity, ...props }: AttackSlotProps) => {
   return (
-    <AttackDetails attack={attack}>
+    <AttackDetails attack={attack} entity={entity}>
       <Button
         className="relative text-xl transition-all"
         disabled={cooldown > 0}

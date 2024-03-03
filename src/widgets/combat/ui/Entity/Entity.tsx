@@ -10,6 +10,7 @@ import { selectCurrentEntity } from '../../store/combat.selectors';
 import { castAttack } from '../../store/combat.slice';
 import { CombatEntity } from '../../store/combat.types';
 import { EntityBar } from './EntityBar';
+import { EntityIntent } from './EntityIntent';
 
 interface EntityProps {
   entity: CombatEntity;
@@ -49,22 +50,25 @@ export const EntityIcon = ({ entity, id }: EntityProps) => {
   };
 
   return (
-    <Button
-      className="relative text-5xl transition-transform"
-      onDragLeave={onDragLeave}
-      onDragOver={onDragOver}
-      onDrop={onDrop}
-      onMouseDown={(e) => e.stopPropagation()}
-      size="entity"
-      variant={isFriendly ? 'outline' : 'destructive'}
-    >
-      {entity.icon}
+    <div className="relative flex flex-col">
+      <EntityIntent entity={entity} />
+      <Button
+        className="relative text-5xl transition-transform"
+        onDragLeave={onDragLeave}
+        onDragOver={onDragOver}
+        onDrop={onDrop}
+        onMouseDown={(e) => e.stopPropagation()}
+        size="entity"
+        variant={isFriendly ? 'outline' : 'destructive'}
+      >
+        {entity.icon}
+      </Button>
       <EntityBar
         color={isFriendly ? 'bg-lime-900' : 'bg-red-900'}
         dmg={dmg}
         max={entity.stats.max_hp}
         value={entity.stats.hp}
       />
-    </Button>
+    </div>
   );
 };
