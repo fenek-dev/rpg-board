@@ -14,7 +14,6 @@ import { AttackSlot } from './AttackSlot';
 export const AttackPanel = () => {
   const attacks = useSelector(selectCurrentEntityAttacksWithCooldown);
   const isFriendly = useSelector(selectIsCurrentEntityFriendly);
-
   const { entity } = useSelector(selectCurrentEntity);
 
   const onDragStart = (attack: Attack, id: string) => (event: React.DragEvent<HTMLElement>) => {

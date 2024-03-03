@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { get, range, set, shuffle, unset } from 'lodash-es';
+import { get, set, shuffle, unset } from 'lodash-es';
 
 import { loadState, resetState } from '~/app/store/actions';
 import { ATTACKS } from '~/entities/combat/attacks';
@@ -9,7 +9,7 @@ import { EntityBelongs } from '~/entities/extendable/entity';
 import { PlayerState } from '~/widgets/player/store';
 
 import { CombatEntity } from './combat.types';
-import { getNextAttack } from './combat.utils';
+import { getNextAttacks } from './combat.utils';
 
 export interface CombatState {
   cooldown: Record<string, number>;
@@ -55,7 +55,10 @@ export const combatSlice = createSlice({
     // TODO: Add more playable characters
     addPlayers: (state, action: PayloadAction<{ attacks: Attack[]; player: PlayerState }>) => {
       const { attacks, player } = action.payload;
-      if (attacks.length === 0) attacks.push(ATTACKS.Punch);
+      if (attacks.length === 0) {
+        attacks.push(ATTACKS.Punch);
+        attacks.push(ATTACKS.WindSlash);
+      }
       state.entities.player = {
         attacks,
         belongs: EntityBelongs.FRIENDLY,
@@ -70,16 +73,17 @@ export const combatSlice = createSlice({
     castAttack: (state, action: PayloadAction<{ attack: string; enemy: string }>) => {
       const attacker_id = state.queue[state.turn % state.queue.length];
       const attacker = get(state.entities, attacker_id);
-      const attack = get(attacker.attacks, action.payload.attack);
+      const attack = get(attacker.attacks, action.payload.attack) as Attack;
+
+      if (attack.action_cost > attacker.actions_left) return state;
+      attacker.actions_left -= attack.action_cost;
 
       const path = `${attacker_id}/${action.payload.attack}`;
 
       state.cooldown[path] = attack.cooldown;
 
       if (attacker.belongs === EntityBelongs.ENEMY) {
-        state.entities[attacker_id].nextAttacks = range(attacker.stats.action_amount).map(() =>
-          getNextAttack(attacker)
-        );
+        state.entities[attacker_id].nextAttacks = getNextAttacks(attacker);
       }
     },
     dealDamageToEnemy: (state, action: PayloadAction<{ amount: number; enemy: string }>) => {
@@ -123,7 +127,7 @@ export const combatSlice = createSlice({
       state.started = true;
       Object.entries(state.entities).forEach(([key, entity]) => {
         if (entity.belongs === EntityBelongs.ENEMY) {
-          state.entities[key].nextAttacks = range(entity.stats.action_amount).map(() => getNextAttack(entity));
+          state.entities[key].nextAttacks = getNextAttacks(entity);
         }
       });
     },

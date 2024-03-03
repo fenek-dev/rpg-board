@@ -73,7 +73,7 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.water,
   },
   WindSlash: {
-    action_cost: 1,
+    action_cost: 2,
     base: 'attack',
     cooldown: 3,
     damage_multiplier: 1,
