@@ -2,13 +2,14 @@ import { ArrowRightIcon } from '@radix-ui/react-icons';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { RootState } from '~/app/store';
 import { Button } from '~/shared/components/ui/button';
 
-import { selectCurrentEntityId, selectQueue } from '../../store/combat.selectors';
+import { selectQueue } from '../../store/combat.selectors';
 
 export const Queue = () => {
   const queue = useSelector(selectQueue);
-  const current_id = useSelector(selectCurrentEntityId);
+  const current_id = useSelector((state: RootState) => state.combat.current);
 
   return (
     <div className="absolute left-1/2 top-0 -translate-x-1/2">

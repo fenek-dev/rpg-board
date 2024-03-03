@@ -13,14 +13,15 @@ import { getNextAttacks } from './combat.utils';
 
 export interface CombatState {
   cooldown: Record<string, number>;
+  current: string;
   entities: Record<string, CombatEntity>;
   queue: string[];
   started: boolean;
-  turn: number;
 }
 
 const initialState: CombatState = {
   cooldown: {},
+  current: '',
   entities: {
     dragon: {
       ...ENEMIES.dragon,
@@ -37,7 +38,6 @@ const initialState: CombatState = {
   },
   queue: [],
   started: false,
-  turn: 0,
 };
 
 export const combatSlice = createSlice({
@@ -71,7 +71,7 @@ export const combatSlice = createSlice({
       combatSlice.caseReducers.formQueue(state);
     },
     castAttack: (state, action: PayloadAction<{ attack: string; enemy: string }>) => {
-      const attacker_id = state.queue[state.turn % state.queue.length];
+      const attacker_id = state.current;
       const attacker = get(state.entities, attacker_id);
       const attack = get(attacker.attacks, action.payload.attack) as Attack;
 
@@ -111,12 +111,14 @@ export const combatSlice = createSlice({
       const restFriendlies = friendlyEntityKeys.filter((_, i) => i !== randomFriendlyIndex);
       const enemyEntityKeysShuffled = shuffle(enemyEntityKeys.concat(restFriendlies));
       const queue = [friendlyEntity, ...enemyEntityKeysShuffled];
+      state.current = friendlyEntity;
 
       state.queue = queue;
     },
     nextTurn: (state) => {
-      state.turn += 1;
-      const id = state.queue[state.turn % state.queue.length];
+      const index = state.queue.indexOf(state.current);
+      const id = state.queue[index];
+
       const entity = state.entities[id];
       Object.entries(state.cooldown).forEach(([key, value]) => {
         if (key.startsWith(id + '/')) {
@@ -124,6 +126,8 @@ export const combatSlice = createSlice({
         }
       });
       entity.actions_left = entity.stats.action_amount;
+      const next = state.queue[(index + 1) % state.queue.length];
+      state.current = next;
     },
     startCombat: (state) => {
       state.started = true;

@@ -12,7 +12,7 @@ import { CombatFooter } from './Parts/CombatFooter';
 export const CombatScreen = () => {
   const dispatch = useDispatch();
 
-  const turn = useSelector((state: RootState) => state.combat.turn);
+  const current = useSelector((state: RootState) => state.combat.current);
   const { entity } = useSelector(selectCurrentEntity);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const CombatScreen = () => {
         );
       });
     }
-  }, [turn]);
+  }, [current]);
 
   return (
     <div className="h-full w-full p-14 pb-24">

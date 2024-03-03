@@ -22,16 +22,8 @@ export const selectEntitiesByBelongs = createSelector(
 
 export const selectCurrentEntity = createSelector(
   (state: RootState) => state.combat,
-  ({ entities, queue, turn }) => {
-    const id = queue[turn % queue.length];
-    return { entity: entities[id], id };
-  }
-);
-
-export const selectCurrentEntityId = createSelector(
-  (state: RootState) => state.combat,
-  ({ queue, turn }) => {
-    return queue[turn % queue.length];
+  ({ current, entities }) => {
+    return { entity: entities[current], id: current };
   }
 );
 
@@ -44,9 +36,8 @@ export const selectQueue = createSelector(
 
 export const selectCurrentEntityAttacks = createSelector(
   (state: RootState) => state.combat,
-  ({ entities, queue, turn }) => {
-    const id = queue[turn % queue.length];
-    return entities[id].attacks;
+  ({ current, entities }) => {
+    return entities[current].attacks;
   }
 );
 export const selectCurrentEntityAttacksWithCooldown = createSelector(
