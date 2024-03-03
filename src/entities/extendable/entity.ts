@@ -30,3 +30,39 @@ export interface Entity {
 }
 
 export const asEntities = <T>(et: { [K in keyof T]: Entity }) => et;
+
+export const EMPTY_ENTITY: Entity = {
+  attacks: [],
+  icon: '',
+  id: '',
+  name: '',
+  stats: {
+    attack: 0,
+    crit_chance: 0,
+    crit_dmg: 0,
+    defense: 0,
+    elemental_dmg_bonuses: {
+      fire: 0,
+      ice: 0,
+      lightning: 0,
+      physical: 0,
+      water: 0,
+      wind: 0,
+    },
+    energy: 0,
+    energy_regen: 0,
+    healing_bonus: 0,
+    hp: 0,
+    max_energy: 0,
+    max_hp: 0,
+    reaction_bonus: 0,
+    resistances: {
+      fire: 0,
+      ice: 0,
+      lightning: 0,
+      physical: 0,
+      water: 0,
+      wind: 0,
+    },
+  },
+};
