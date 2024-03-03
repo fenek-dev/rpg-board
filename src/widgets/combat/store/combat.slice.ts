@@ -64,7 +64,11 @@ export const combatSlice = createSlice({
       const path = `${attacker_id}/${action.payload.attack}`;
 
       state.cooldown[path] = attack.cooldown;
-      // set recharge
+
+      if (attacker.belongs === EntityBelongs.ENEMY) {
+        const attack = getNextAttack(attacker);
+        state.entities[attacker_id].nextAttack = attack;
+      }
     },
     dealDamageToEnemy: (state, action: PayloadAction<{ amount: number; enemy: string }>) => {
       const enemy = get(state.entities, action.payload.enemy);
