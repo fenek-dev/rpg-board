@@ -16,6 +16,7 @@ const initialState: PlayerState = {
   exp: 0,
   money: 10,
   stats: {
+    action_amount: 1,
     attack: 100,
     crit_chance: 5,
     crit_dmg: 150,

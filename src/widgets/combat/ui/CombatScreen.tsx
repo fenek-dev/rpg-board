@@ -17,15 +17,15 @@ export const CombatScreen = () => {
 
   useEffect(() => {
     if (entity.belongs !== EntityBelongs.FRIENDLY) {
-      if (entity.nextAttack) {
-        const attack_index = entity.attacks.findIndex((attack) => attack.id === entity.nextAttack!.id);
+      entity.nextAttacks?.forEach((next) => {
+        const attack_index = entity.attacks.findIndex((attack) => attack.id === next.id);
         dispatch(
           castAttack({
             attack: String(attack_index),
             enemy: 'player',
           })
         );
-      }
+      });
     }
   }, [turn]);
 

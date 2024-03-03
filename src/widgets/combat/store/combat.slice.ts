@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { get, set, shuffle, unset } from 'lodash-es';
+import { get, range, set, shuffle, unset } from 'lodash-es';
 
 import { loadState, resetState } from '~/app/store/actions';
 import { ATTACKS } from '~/entities/combat/attacks';
@@ -22,8 +22,18 @@ export interface CombatState {
 const initialState: CombatState = {
   cooldown: {},
   entities: {
-    dragon: { ...ENEMIES.dragon, attacks: [ATTACKS.Fireball, ATTACKS.LightningBolt], belongs: EntityBelongs.ENEMY },
-    troll: { ...ENEMIES.troll, attacks: [ATTACKS.Punch, ATTACKS.BasicAttack], belongs: EntityBelongs.ENEMY },
+    dragon: {
+      ...ENEMIES.dragon,
+      actions_left: ENEMIES.dragon.stats.action_amount,
+      attacks: [ATTACKS.Fireball, ATTACKS.LightningBolt],
+      belongs: EntityBelongs.ENEMY,
+    },
+    troll: {
+      ...ENEMIES.troll,
+      actions_left: ENEMIES.troll.stats.action_amount,
+      attacks: [ATTACKS.Punch, ATTACKS.BasicAttack],
+      belongs: EntityBelongs.ENEMY,
+    },
   },
   queue: [],
   started: false,
@@ -50,6 +60,7 @@ export const combatSlice = createSlice({
         attacks,
         belongs: EntityBelongs.FRIENDLY,
         ...player,
+        actions_left: player.stats.action_amount,
         icon: '🧙‍♂️',
         id: 'player',
         name: 'Player',
@@ -66,8 +77,9 @@ export const combatSlice = createSlice({
       state.cooldown[path] = attack.cooldown;
 
       if (attacker.belongs === EntityBelongs.ENEMY) {
-        const attack = getNextAttack(attacker);
-        state.entities[attacker_id].nextAttack = attack;
+        state.entities[attacker_id].nextAttacks = range(attacker.stats.action_amount).map(() =>
+          getNextAttack(attacker)
+        );
       }
     },
     dealDamageToEnemy: (state, action: PayloadAction<{ amount: number; enemy: string }>) => {
@@ -109,10 +121,9 @@ export const combatSlice = createSlice({
     },
     startCombat: (state) => {
       state.started = true;
-      Object.entries(state.entities).forEach(([key, value]) => {
-        if (value.belongs === EntityBelongs.ENEMY) {
-          const attack = getNextAttack(value);
-          state.entities[key].nextAttack = attack;
+      Object.entries(state.entities).forEach(([key, entity]) => {
+        if (entity.belongs === EntityBelongs.ENEMY) {
+          state.entities[key].nextAttacks = range(entity.stats.action_amount).map(() => getNextAttack(entity));
         }
       });
     },

@@ -6,6 +6,7 @@ export enum EntityBelongs {
 }
 
 export interface Stats {
+  action_amount: number;
   attack: number;
   crit_chance: number;
   crit_dmg: number;
@@ -37,6 +38,7 @@ export const EMPTY_ENTITY: Entity = {
   id: '',
   name: '',
   stats: {
+    action_amount: 0,
     attack: 0,
     crit_chance: 0,
     crit_dmg: 0,

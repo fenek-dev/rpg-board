@@ -7,6 +7,7 @@ export const ENEMIES = asEntities({
     id: 'dragon',
     name: 'Dragon',
     stats: {
+      action_amount: 2,
       attack: 5,
       crit_chance: 5,
       crit_dmg: 50,
@@ -42,6 +43,7 @@ export const ENEMIES = asEntities({
     id: 'goblin',
     name: 'Goblin',
     stats: {
+      action_amount: 1,
       attack: 10,
       crit_chance: 5,
       crit_dmg: 5,
@@ -77,6 +79,7 @@ export const ENEMIES = asEntities({
     id: 'orc',
     name: 'Orc',
     stats: {
+      action_amount: 1,
       attack: 5,
       crit_chance: 5,
       crit_dmg: 50,
@@ -112,6 +115,7 @@ export const ENEMIES = asEntities({
     id: 'troll',
     name: 'Troll',
     stats: {
+      action_amount: 1,
       attack: 50,
       crit_chance: 50,
       crit_dmg: 50,

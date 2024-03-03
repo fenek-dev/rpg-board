@@ -10,6 +10,7 @@ export enum AttackTypes {
 }
 
 export interface Attack {
+  action_cost: number;
   base: 'attack' | 'defense' | 'hp';
   cooldown: number;
   damage_multiplier: number;

@@ -3,6 +3,7 @@ import { EntityBelongs } from '../extendable/entity';
 
 export const ATTACKS = asAttacks({
   BasicAttack: {
+    action_cost: 1,
     base: 'attack',
     cooldown: 1,
     damage_multiplier: 1,
@@ -13,6 +14,7 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.physical,
   },
   Fireball: {
+    action_cost: 1,
     base: 'attack',
     cooldown: 3,
     damage_multiplier: 1,
@@ -24,6 +26,7 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.fire,
   },
   IceShard: {
+    action_cost: 1,
     base: 'attack',
     cooldown: 2,
     damage_multiplier: 1,
@@ -35,6 +38,7 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.ice,
   },
   LightningBolt: {
+    action_cost: 1,
     base: 'attack',
     cooldown: 4,
     damage_multiplier: 1,
@@ -46,6 +50,7 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.lightning,
   },
   Punch: {
+    action_cost: 1,
     base: 'attack',
     cooldown: 1,
     damage_multiplier: 0.5,
@@ -56,6 +61,7 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.physical,
   },
   WaterBlast: {
+    action_cost: 1,
     base: 'attack',
     cooldown: 2,
     damage_multiplier: 1,
@@ -67,6 +73,7 @@ export const ATTACKS = asAttacks({
     type: AttackTypes.water,
   },
   WindSlash: {
+    action_cost: 1,
     base: 'attack',
     cooldown: 3,
     damage_multiplier: 1,

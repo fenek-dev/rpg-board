@@ -1,6 +1,3 @@
-import React from 'react';
-
-import { Entity } from '~/entities/extendable/entity';
 import { Button } from '~/shared/components/ui/button';
 
 import { CombatEntity } from '../../store/combat.types';
@@ -11,12 +8,16 @@ interface EntityIntentProps {
 }
 
 export const EntityIntent = ({ entity }: EntityIntentProps) => {
-  if (entity.nextAttack === undefined) return null;
+  if (entity.nextAttacks === undefined) return null;
   return (
-    <AttackDetails attack={entity.nextAttack} entity={entity}>
-      <Button className="absolute -top-10 left-1/2 right-1/2 -translate-x-1/2" size="icon" variant="outline">
-        {entity.nextAttack.icon}
-      </Button>
-    </AttackDetails>
+    <div className="absolute -top-10 left-0 right-0 flex justify-center gap-2">
+      {entity.nextAttacks.map((attack, i) => (
+        <AttackDetails attack={attack} entity={entity} key={i}>
+          <Button size="icon" variant="outline">
+            {attack.icon}
+          </Button>
+        </AttackDetails>
+      ))}
+    </div>
   );
 };
