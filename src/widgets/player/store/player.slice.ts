@@ -6,8 +6,6 @@ import { toast } from 'sonner';
 import { loadState, resetState } from '~/app/store/actions';
 import { Stats } from '~/entities/extendable/entity';
 
-import { START_MAX_ENERGY, START_MAX_HP } from './player.enum';
-
 export interface PlayerState {
   exp: number;
   money: number;
@@ -33,9 +31,9 @@ const initialState: PlayerState = {
     energy: 6,
     energy_regen: 100,
     healing_bonus: 0,
-    hp: 6,
-    max_energy: START_MAX_ENERGY,
-    max_hp: START_MAX_HP,
+    hp: 100,
+    max_energy: 80,
+    max_hp: 100,
     reaction_bonus: 0,
     resistances: {
       fire: 0,

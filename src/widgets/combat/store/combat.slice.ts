@@ -9,6 +9,7 @@ import { EntityBelongs } from '~/entities/extendable/entity';
 import { PlayerState } from '~/widgets/player/store';
 
 import { CombatEntity } from './combat.types';
+import { getNextAttack } from './combat.utils';
 
 export interface CombatState {
   cooldown: Record<string, number>;
@@ -21,9 +22,8 @@ export interface CombatState {
 const initialState: CombatState = {
   cooldown: {},
   entities: {
-    sdf: { ...ENEMIES.dragon, belongs: EntityBelongs.ENEMY },
-    sgsd: { ...ENEMIES.orc, belongs: EntityBelongs.ENEMY },
-    ws: { ...ENEMIES.goblin, belongs: EntityBelongs.ENEMY },
+    dragon: { ...ENEMIES.dragon, attacks: [ATTACKS.Fireball, ATTACKS.LightningBolt], belongs: EntityBelongs.ENEMY },
+    troll: { ...ENEMIES.troll, attacks: [ATTACKS.Punch, ATTACKS.BasicAttack], belongs: EntityBelongs.ENEMY },
   },
   queue: [],
   started: false,
@@ -96,16 +96,21 @@ export const combatSlice = createSlice({
     },
     nextTurn: (state) => {
       state.turn += 1;
-      const entity = state.queue[state.turn % state.queue.length];
-
+      const id = state.queue[state.turn % state.queue.length];
       Object.entries(state.cooldown).forEach(([key, value]) => {
-        if (key.startsWith(entity + '/')) {
+        if (key.startsWith(id + '/')) {
           state.cooldown[key] = value - 1;
         }
       });
     },
     startCombat: (state) => {
       state.started = true;
+      Object.entries(state.entities).forEach(([key, value]) => {
+        if (value.belongs === EntityBelongs.ENEMY) {
+          const attack = getNextAttack(value);
+          state.entities[key].nextAttack = attack;
+        }
+      });
     },
   },
 });

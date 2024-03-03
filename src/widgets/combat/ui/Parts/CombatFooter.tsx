@@ -1,3 +1,4 @@
+import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Button } from '~/shared/components/ui/button';
@@ -5,7 +6,7 @@ import { Button } from '~/shared/components/ui/button';
 import { nextTurn } from '../../store/combat.slice';
 import { AttackPanel } from '../Attack/AttackPanel';
 
-export const CombatFooter = () => {
+export const CombatFooter = React.memo(() => {
   const dispatch = useDispatch();
   const onNextTurn = () => {
     dispatch(nextTurn());
@@ -21,4 +22,4 @@ export const CombatFooter = () => {
       </Button>
     </div>
   );
-};
+});

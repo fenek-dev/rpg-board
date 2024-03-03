@@ -1,10 +1,11 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectEntitiesByBelongs } from '../store/combat.selectors';
 import { EntityIcon } from './Entity/Entity';
 import { Queue } from './Parts/Queue';
 
-export const CombatField = () => {
+export const CombatField = React.memo(() => {
   const { enemies, friendly } = useSelector(selectEntitiesByBelongs);
 
   return (
@@ -22,4 +23,4 @@ export const CombatField = () => {
       </div>
     </div>
   );
-};
+});
