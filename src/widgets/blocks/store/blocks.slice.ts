@@ -76,6 +76,27 @@ export const blocksSlice = createSlice({
       block.equipped = true;
       set(state.blocks, action.payload, block);
     },
+    fitBlocksIntoContainer: (
+      state,
+      action: PayloadAction<{ blocks: Block[]; container_id: string; sizes: { h: number; w: number } }>
+    ) => {
+      const { blocks, container_id, sizes } = action.payload;
+      console.log(blocks);
+
+      blocks.forEach((block) => {
+        const containerBlocks = Object.values(state.blocks).filter((block) => block.belong === container_id);
+        const position = findFreePlace(containerBlocks, sizes, block);
+
+        if (position.length === 0) return;
+
+        block.x = position[0];
+        block.y = position[1];
+        block.belong = container_id;
+        console.log(block);
+
+        set(state.blocks, block.id, block);
+      });
+    },
     putBlockInsideContainer: (
       state,
       action: PayloadAction<{ block_id: string; container: Block<Container>; container_id: string }>
@@ -166,6 +187,7 @@ export const {
   changeBlockPosition,
   effectBlock,
   equipBlock,
+  fitBlocksIntoContainer,
   putBlockInsideContainer,
   putBlocksIntoOne,
   putBlocksTogether,

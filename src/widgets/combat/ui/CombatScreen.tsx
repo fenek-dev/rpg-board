@@ -2,12 +2,16 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
+import { FIRST_STAGE_LOOT } from '~/entities/combat/loot/first';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { EntityBelongs } from '~/entities/extendable/entity';
+import { fitBlocksIntoContainer } from '~/widgets/blocks/store';
+import { selectCurrentTerrain } from '~/widgets/map/store/map.selectors';
 import { addPopup } from '~/widgets/popups/store/popups.slice';
 
 import { selectCombatStatus, selectCurrentEntity } from '../store/combat.selectors';
 import { castAttack, endCombat } from '../store/combat.slice';
+import { generateLoot } from '../utils/loot';
 import { CombatField } from './CombatField';
 import { CombatFooter } from './Parts/CombatFooter';
 
@@ -15,6 +19,7 @@ export const CombatScreen = () => {
   const dispatch = useDispatch();
 
   const current = useSelector((state: RootState) => state.combat.current);
+  const terrain = useSelector(selectCurrentTerrain);
   const combat_status = useSelector(selectCombatStatus);
   const { entity } = useSelector(selectCurrentEntity);
 
@@ -33,7 +38,6 @@ export const CombatScreen = () => {
   }, [current]);
 
   useEffect(() => {
-    console.log(combat_status);
     if (combat_status === 'win') {
       dispatch(endCombat());
       dispatch(
@@ -41,6 +45,13 @@ export const CombatScreen = () => {
           ...BASIC_POPUPS.Reward,
           x: window.innerWidth / 2 - 100,
           y: window.innerHeight / 2 - 100,
+        })
+      );
+      dispatch(
+        fitBlocksIntoContainer({
+          blocks: generateLoot(FIRST_STAGE_LOOT, BASIC_POPUPS.Reward.container_id, terrain.seed),
+          container_id: BASIC_POPUPS.Reward.container_id,
+          sizes: BASIC_POPUPS.Reward,
         })
       );
     }

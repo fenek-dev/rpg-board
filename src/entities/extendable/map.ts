@@ -5,6 +5,7 @@ export interface Terrain {
   icon: string;
   id: string;
   name: string;
+  seed?: number;
   subicon?: string;
 }
 

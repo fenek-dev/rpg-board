@@ -22,7 +22,9 @@ export const getTerrainFromNoiseValue = (noiseValue: number, min_level: number, 
     }
   });
 
-  return terrain!;
+  const seed = Math.floor(noiseValue * Math.pow(2, 32));
+
+  return { ...terrain!, seed };
 };
 
 export const generateGraph = (seed: number, w: number, h: number, min_level: number, max_level: number) => {

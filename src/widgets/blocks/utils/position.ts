@@ -44,3 +44,34 @@ export const checkIntersect = (blocks: SerializedBlocks, newBlock: Block, block_
       newBlock.y + newBlock.h > block.y
   );
 };
+
+// export const fitBlocks = (blocksInside: Block[], popup: PopupSizes, newBlocks: Block[]) => {
+//   let position: number[] = [];
+
+//   const array: boolean[][] = new Array(popup.h).fill(false).map(() => new Array(popup.w).fill(false));
+
+//   blocksInside.forEach((blk) => {
+//     range(blk.y, blk.h + blk.y).forEach((y) => range(blk.x, blk.w + blk.x).forEach((x) => (array[y][x] = true)));
+//   });
+
+//   const blocks: Block[] = []
+
+//   array.forEach((row, y) => {
+//     if (position.length !== 0) return true;
+//     row.forEach((cell, x) => {
+//       if (!cell) {
+//         if (
+//           range(y, block.h + y).every((cy) =>
+//             range(x, block.w + x).every((cx) => cy < popup.h && cx < popup.w && !array?.[cy]?.[cx])
+//           )
+//         ) {
+//           position = [x, y];
+//           return true;
+//         }
+//       }
+//       return false;
+//     });
+//   });
+
+//   return position;
+// };

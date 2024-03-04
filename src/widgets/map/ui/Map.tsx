@@ -18,17 +18,21 @@ export const MapScreen = React.memo(() => {
     dispatch(generateTerrain(random(0, 100000)));
   };
 
-  const onTravel = useCallback((x: number, y: number) => {
-    dispatch(
-      travelTo({
-        x,
-        y,
-      })
-    );
-    dispatch(startCombat());
-    dispatch(changeCurrentScreen('combat'));
-    dispatch(selectCell({ x, y }));
-  }, []);
+  const onTravel = useCallback(
+    (x: number, y: number) => {
+      if (currentPosition[0] === x && currentPosition[1] === y) return;
+      dispatch(
+        travelTo({
+          x,
+          y,
+        })
+      );
+      dispatch(startCombat());
+      dispatch(changeCurrentScreen('combat'));
+      dispatch(selectCell({ x, y }));
+    },
+    [currentPosition[0], currentPosition[1]]
+  );
 
   return (
     <div className="w-full overflow-scroll py-10">
