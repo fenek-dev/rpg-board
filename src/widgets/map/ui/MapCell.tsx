@@ -43,7 +43,7 @@ export const MapCell = React.memo(
         role="gridcell"
         size="slot"
         style={{
-          transform: `translate(${Math.random() * 70}%, ${Math.random() * 70}%)`,
+          transform: `translate(${Math.random() * 100}%, ${Math.random() * 100}%)`,
         }}
         variant="outline"
       >

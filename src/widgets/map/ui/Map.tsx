@@ -21,21 +21,18 @@ export const MapScreen = React.memo(() => {
     dispatch(generateTerrain(random(0, 100000)));
   };
 
-  const onTravel = useCallback(
-    (x: number, y: number) => {
-      if (currentPosition[0] === x && currentPosition[1] === y) return;
-      dispatch(
-        travelTo({
-          x,
-          y,
-        })
-      );
-      dispatch(startCombat());
-      dispatch(changeCurrentScreen('combat'));
-      dispatch(selectCell({ x, y }));
-    },
-    [currentPosition[0], currentPosition[1]]
-  );
+  const onTravel = useCallback((x: number, y: number) => {
+    if (currentPosition[0] === x && currentPosition[1] === y) return;
+    dispatch(
+      travelTo({
+        x,
+        y,
+      })
+    );
+    dispatch(startCombat());
+    dispatch(changeCurrentScreen('combat'));
+    dispatch(selectCell({ x, y }));
+  }, currentPosition);
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-scroll py-10">

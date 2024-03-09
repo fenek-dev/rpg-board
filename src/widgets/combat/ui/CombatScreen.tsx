@@ -19,7 +19,7 @@ export const CombatScreen = () => {
   const dispatch = useDispatch();
 
   const current = useSelector((state: RootState) => state.combat.current);
-  const terrain = useSelector(selectCurrentTerrain);
+  const room = useSelector(selectCurrentTerrain);
   const combat_status = useSelector(selectCombatStatus);
   const { entity } = useSelector(selectCurrentEntity);
 
@@ -49,7 +49,7 @@ export const CombatScreen = () => {
       );
       dispatch(
         fitBlocksIntoContainer({
-          blocks: generateLoot(FIRST_STAGE_LOOT, BASIC_POPUPS.Reward.container_id, terrain.seed),
+          blocks: generateLoot(FIRST_STAGE_LOOT, BASIC_POPUPS.Reward.container_id, room.cell!.seed),
           container_id: BASIC_POPUPS.Reward.container_id,
           sizes: BASIC_POPUPS.Reward,
         })
