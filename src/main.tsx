@@ -7,11 +7,13 @@ import { store } from '~/app/store';
 import '~/app/styles/global.css';
 
 import { Router } from './app/routes/Router';
+import { Attack } from './entities/extendable/attacks';
 import { Block } from './widgets/blocks/store';
 declare global {
   interface Window {
-    dragId: string;
-    dragging: Block;
+    attack?: Attack;
+    dragId?: string;
+    dragging?: Block;
   }
 }
 

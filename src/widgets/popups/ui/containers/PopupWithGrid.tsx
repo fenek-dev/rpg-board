@@ -8,30 +8,37 @@ import { DraggablePopup } from '~/widgets/popups/ui/components/DraggablePopup';
 
 import { selectPopupById } from '../../store/popups.selector';
 
-export const PopupWithGrid = React.memo(({ children, id }: React.PropsWithChildren<{ id: string }>) => {
-  const popup = useSelector(selectPopupById(id));
+interface PopupWithGridProps {
+  id: string;
+  unskippable?: boolean;
+}
 
-  const dispatch = useDispatch();
+export const PopupWithGrid = React.memo(
+  ({ children, id, unskippable }: React.PropsWithChildren<PopupWithGridProps>) => {
+    const popup = useSelector(selectPopupById(id));
 
-  const onItemDrop = (x: number, y: number, _item: Block, id: string, belong: string) => {
-    dispatch(
-      changeBlockPosition({
-        belong,
-        id,
-        x,
-        y,
-      })
+    const dispatch = useDispatch();
+
+    const onItemDrop = (x: number, y: number, _item: Block, id: string, belong: string) => {
+      dispatch(
+        changeBlockPosition({
+          belong,
+          id,
+          x,
+          y,
+        })
+      );
+    };
+
+    return (
+      <DraggablePopup id={id} unskippable={unskippable}>
+        <GridLayout cols={popup.w} id={popup.container_id} onItemDrop={onItemDrop} rows={popup.h}>
+          <Render container_id={popup.container_id} />
+        </GridLayout>
+        {children}
+      </DraggablePopup>
     );
-  };
-
-  return (
-    <DraggablePopup id={id}>
-      <GridLayout cols={popup.w} id={popup.container_id} onItemDrop={onItemDrop} rows={popup.h}>
-        <Render container_id={popup.container_id} />
-      </GridLayout>
-      {children}
-    </DraggablePopup>
-  );
-});
+  }
+);
 
 PopupWithGrid.displayName = 'PopupWithGrid';

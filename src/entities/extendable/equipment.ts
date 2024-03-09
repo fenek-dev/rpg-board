@@ -1,6 +1,7 @@
 import { EquipmentState } from '~/widgets/equipment/store/equipment.slice';
 import { PlayerState } from '~/widgets/player/store';
 
+import { Attack } from './attacks';
 import { Item, ItemRarity } from './items';
 
 export const EQUIPMENT_LEVEL_PROGRESSION_RATES: Record<keyof typeof ItemRarity, number> = {
@@ -19,6 +20,7 @@ export interface EquipmentStat {
 }
 
 export interface Equipment extends Omit<Item, 'effects' | 'stackable' | 'type'> {
+  attacks?: Attack[];
   basicStats: EquipmentStat[];
   category: 'equipment';
   stats: EquipmentStat[];

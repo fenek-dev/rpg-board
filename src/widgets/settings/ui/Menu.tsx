@@ -1,3 +1,4 @@
+import { GearIcon } from '@radix-ui/react-icons';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -7,14 +8,14 @@ import { LINKS } from '~/app/routes/links';
 import { RootState, store } from '~/app/store';
 import { loadState } from '~/app/store/actions';
 import { AlertDialogTrigger } from '~/shared/components/ui/alert-dialog';
+import { Button } from '~/shared/components/ui/button';
 import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarTrigger,
-} from '~/shared/components/ui/menubar';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '~/shared/components/ui/dropdown-menu';
 
 export const Menu = () => {
   const dispatch = useDispatch();
@@ -55,37 +56,21 @@ export const Menu = () => {
   };
 
   return (
-    <Menubar className="fixed left-1/2 top-1 z-50 -translate-x-1/2">
-      <MenubarMenu>
-        <MenubarTrigger>Game</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>New Game</MenubarItem>
-          <AlertDialogTrigger asChild onClick={exitToMenu}>
-            <MenubarItem>Exit to menu</MenubarItem>
-          </AlertDialogTrigger>
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger>Interface</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>Reset all windows</MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem onClick={toggleFullscreen}>Toggle Fullscreen</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger>Preferences</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>Settings</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger>Save</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem onClick={saveGame}>Save game</MenubarItem>
-          <MenubarItem onClick={loadGame}>Load Save</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button size="icon" variant="outline">
+          <GearIcon />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={saveGame}>Save Game</DropdownMenuItem>
+        <DropdownMenuItem onClick={loadGame}>Load Game</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={toggleFullscreen}>Toggle Fullscreen</DropdownMenuItem>
+        <AlertDialogTrigger asChild onClick={exitToMenu}>
+          <DropdownMenuItem>Exit to menu</DropdownMenuItem>
+        </AlertDialogTrigger>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };

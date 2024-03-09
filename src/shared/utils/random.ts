@@ -8,3 +8,21 @@ export function mulberry32(a: number) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
+
+export const getItemByChance = <Item extends { chance: number }>(noise: number, items: Item[]) => {
+  const sum = items.reduce((p, t) => p + t.chance, 0);
+  const value = noise * sum;
+
+  let item: Item;
+  let prevSum = 0;
+  items.forEach((t) => {
+    if (t.chance + prevSum >= value && !item) {
+      item = t;
+      prevSum += t.chance;
+    } else {
+      prevSum += t.chance;
+    }
+  });
+
+  return item!;
+};

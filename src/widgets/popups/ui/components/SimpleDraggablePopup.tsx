@@ -34,14 +34,13 @@ export const SimpleDraggablePopup = React.memo(
 
     return (
       <Draggable nodeRef={nodeRef} onStop={handleStop} position={popup}>
-        <Card className="absolute z-10 flex cursor-move select-none flex-col items-center" id={id} ref={nodeRef}>
+        <Card className="fixed z-10 flex cursor-move select-none flex-col items-center" id={id} ref={nodeRef}>
           <CardHeader className="flex w-full flex-row items-center justify-between gap-1">
             <CardTitle className="block">{popup.name}</CardTitle>
           </CardHeader>
-          {!popup.static && (
-            <PopupMenu className="absolute -right-1 top-0 translate-x-full" id={id} onClose={onClose} popup={popup} />
-          )}
-          {!popup.isCollapsed && <CardContent>{children}</CardContent>}
+          <PopupMenu className="absolute -right-1 top-0 translate-x-full" id={id} onClose={onClose} popup={popup} />
+
+          <CardContent>{children}</CardContent>
         </Card>
       </Draggable>
     );

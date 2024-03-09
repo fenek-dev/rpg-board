@@ -1,3 +1,5 @@
+import { ATTACKS } from '~/entities/combat/attacks';
+
 import { asEquipments } from '../../extendable/equipment';
 
 export const MELEE = asEquipments({
@@ -77,6 +79,7 @@ export const MELEE = asEquipments({
     w: 1,
   },
   WoodenSword: {
+    attacks: [ATTACKS.BasicAttack],
     basicStats: [{ amount: 1, name: 'attack', type: 'flat' }],
     category: 'equipment',
     cost: 1,

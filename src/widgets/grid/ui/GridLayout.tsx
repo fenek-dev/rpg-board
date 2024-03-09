@@ -27,6 +27,8 @@ export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: 
     const droppedElement = event.dataTransfer.getData('block');
     const element_id = event.dataTransfer.getData('id');
 
+    if (!droppedElement) return;
+
     const { x, y } = adjustPosition(event, gridSize, cols, rows);
 
     const block = JSON.parse(droppedElement) as Block;
@@ -40,7 +42,7 @@ export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     const { x, y } = adjustPosition(event, gridSize, cols, rows);
 
-    if (window.dragging?.w + x > cols || window.dragging?.h + y > rows) return handleDragLeave();
+    if (!window.dragging || window.dragging?.w + x > cols || window.dragging?.h + y > rows) return handleDragLeave();
 
     overlay.current!.style.transform = `translate(${x * gridSize}px, ${y * gridSize}px)`;
     overlay.current!.classList.add('grid-placeholder');
@@ -68,7 +70,7 @@ export const GridLayout = ({ children, className, cols, id, onItemDrop, rows }: 
     >
       <div className="-z-10" ref={overlay} />
       {children}
-      <Grid size={gridSize} />
+      <Grid />
     </div>
   );
 };

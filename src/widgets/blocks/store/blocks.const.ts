@@ -4,14 +4,6 @@ import { ITEMS } from '~/entities/items';
 import { SerializedBlocks } from './blocks.types';
 
 export const BASIC_UI_BLOCKS: SerializedBlocks = {
-  [ITEMS.BowOfTime.id]: {
-    ...ITEMS.BowOfTime,
-    amount: 1,
-    belong: BASIC_POPUPS.Inventory.name,
-    exp: 0,
-    x: 7,
-    y: 5,
-  },
   [ITEMS.Foodbag.id]: {
     ...ITEMS.Foodbag,
     amount: 1,
@@ -27,14 +19,6 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
     exp: 0,
     x: 0,
     y: 1,
-  },
-  [ITEMS.IceSword.id]: {
-    ...ITEMS.IceSword,
-    amount: 1,
-    belong: BASIC_POPUPS.Inventory.name,
-    exp: 0,
-    x: 4,
-    y: 5,
   },
   [ITEMS.Loaf.id]: {
     ...ITEMS.Loaf,
@@ -54,8 +38,8 @@ export const BASIC_UI_BLOCKS: SerializedBlocks = {
     y: 1,
   },
 
-  [ITEMS.SwordOfTime.id]: {
-    ...ITEMS.SwordOfTime,
+  [ITEMS.WoodenSword.id]: {
+    ...ITEMS.WoodenSword,
     amount: 1,
     belong: BASIC_POPUPS.Inventory.name,
     exp: 0,

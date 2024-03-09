@@ -4,46 +4,46 @@ import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'sonner';
 
 import { loadState, resetState } from '~/app/store/actions';
-
-import { START_MAX_ENERGY, START_MAX_HP } from './player.enum';
+import { Stats } from '~/entities/extendable/entity';
 
 export interface PlayerState {
   exp: number;
   money: number;
-  stats: {
-    attack: number;
-    crit_chance: number;
-    crit_dmg: number;
-    defense: number;
-    elemental_dmg_bonus: number;
-    energy: number;
-    energy_regen: number;
-    healing_bonus: number;
-    hp: number;
-    max_energy: number;
-    max_hp: number;
-    physical_dmg_bonus: number;
-    reaction_bonus: number;
-  };
+  stats: Stats;
 }
 
 const initialState: PlayerState = {
   exp: 0,
   money: 10,
   stats: {
+    action_amount: 1,
     attack: 100,
     crit_chance: 5,
     crit_dmg: 150,
     defense: 100,
-    elemental_dmg_bonus: 0,
+    elemental_dmg_bonuses: {
+      fire: 0,
+      ice: 0,
+      lightning: 0,
+      physical: 0,
+      water: 0,
+      wind: 0,
+    },
     energy: 6,
     energy_regen: 100,
     healing_bonus: 0,
-    hp: 6,
-    max_energy: START_MAX_ENERGY,
-    max_hp: START_MAX_HP,
-    physical_dmg_bonus: 0,
+    hp: 100,
+    max_energy: 80,
+    max_hp: 100,
     reaction_bonus: 0,
+    resistances: {
+      fire: 0,
+      ice: 0,
+      lightning: 0,
+      physical: 0,
+      water: 0,
+      wind: 0,
+    },
   },
 };
 

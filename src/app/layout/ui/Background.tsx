@@ -10,7 +10,7 @@ export const Background = () => {
         x="0"
         y="0"
       >
-        <circle cx="10" cy="10" fill="hsl(var(--muted))" id="pattern-circle" r="1.625"></circle>
+        <circle cx="10" cy="10" fill="hsl(var(--muted))" id="pattern-circle" r="1.2"></circle>
       </pattern>
 
       <rect fill="url(#pattern-circles)" height="100%" id="rect" width="100%" x="0" y="0"></rect>

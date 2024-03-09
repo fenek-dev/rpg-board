@@ -11,7 +11,6 @@ export const CONTAINERS = asContainers({
     id: 'Foodbag',
     name: 'Foodbag',
     popup: {
-      closable: true,
       h: 3,
       w: 3,
     },

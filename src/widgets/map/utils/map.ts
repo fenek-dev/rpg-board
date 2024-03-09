@@ -4,10 +4,8 @@ import { Terrain } from '~/entities/extendable/map';
 import { TERRAIN_CELLS } from '~/entities/map/terrain';
 import { mulberry32 } from '~/shared/utils/random';
 
-export const getTerrainFromNoiseValue = (noiseValue: number, min_level: number, max_level: number) => {
-  const cells = Object.values(TERRAIN_CELLS).filter(
-    (t) => t.dangerLevel === 0 || (t.dangerLevel >= min_level && t.dangerLevel <= max_level)
-  );
+export const getTerrainFromNoiseValue = (noiseValue: number) => {
+  const cells = Object.values(TERRAIN_CELLS);
   const sum = cells.reduce((p, t) => p + t.chance, 0);
   const value = noiseValue * sum;
 
@@ -22,27 +20,57 @@ export const getTerrainFromNoiseValue = (noiseValue: number, min_level: number, 
     }
   });
 
-  return terrain!;
+  const seed = Math.floor(noiseValue * Math.pow(2, 32));
+
+  return { ...terrain!, seed };
 };
 
-export const generateGraph = (seed: number, w: number, h: number, min_level: number, max_level: number) => {
+export interface Room {
+  cell?: Terrain;
+  next: number[];
+}
+
+export const generateMap = (seed: number, w: number, h: number) => {
   const prng = mulberry32(seed);
 
-  const graph: Terrain[][] = [];
+  const table = range(h).map(() => range(w).map(() => ({ next: [] })) as Room[]);
 
-  range(h).forEach(() => {
-    const chance = prng();
-    const width = Math.max(2, range(1, w + 1)[Math.floor(chance * w)]);
-    const row: Terrain[] = [];
-    range(width).forEach(() => {
-      const item = getTerrainFromNoiseValue(prng(), min_level, max_level);
-      row.push(item);
+  const rng = Math.floor(prng() * (w - 3)) + 3;
+
+  range(rng).forEach(() => {
+    let currentRoomIndex = Math.floor(prng() * w);
+
+    range(h).forEach((layer) => {
+      let nextRoomIndex = Math.floor(prng() * 3) - 1 + currentRoomIndex;
+
+      if (nextRoomIndex < 0) nextRoomIndex = 0;
+      if (nextRoomIndex >= w) nextRoomIndex = w - 1;
+
+      if (table[layer][currentRoomIndex].next.includes(nextRoomIndex)) {
+        currentRoomIndex = nextRoomIndex;
+        return;
+      }
+      table[layer][currentRoomIndex].next.push(nextRoomIndex);
+      table[layer][currentRoomIndex].cell = getTerrainFromNoiseValue(prng());
+      currentRoomIndex = nextRoomIndex;
     });
-    graph.push(row);
   });
 
-  graph.unshift([TERRAIN_CELLS.Start]);
-  graph.push([TERRAIN_CELLS.Field]);
+  const firstFloorValidRooms = table[0]
+    .map((room, index) => room.next.length > 0 && index)
+    .filter((i) => i !== false) as number[];
+  const start = new Array(w).fill({ next: [] }) as Room[];
+  start[Math.floor(start.length / 2)] = { cell: TERRAIN_CELLS.Start, next: firstFloorValidRooms };
+  table.unshift(start);
 
-  return graph;
+  const end = new Array(w).fill({ next: [] }) as Room[];
+  end[Math.floor(end.length / 2)] = { cell: TERRAIN_CELLS.Boss, next: [] };
+  table.push(end);
+  table[h].forEach((room) => {
+    if (room.next.length > 0) room.next = [Math.floor(end.length / 2)];
+  });
+
+  const modifiedTable = table.map((layer) => layer.map((room) => ({ ...room, next: Array.from(room.next) })));
+
+  return modifiedTable;
 };

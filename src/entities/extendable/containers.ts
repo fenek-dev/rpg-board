@@ -1,10 +1,10 @@
 import { Item, ItemCategory } from './items';
-import { PopupOptions, PopupSizes } from './popups';
+import { PopupSizes } from './popups';
 
 export interface Container extends Omit<Item, 'effects' | 'stackable' | 'type'> {
   accept: 'all' | keyof typeof ItemCategory;
   category: 'container';
-  popup: PopupSizes & PopupOptions;
+  popup: PopupSizes;
   type: 'container';
 }
 

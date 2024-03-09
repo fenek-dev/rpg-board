@@ -1,12 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import blocksSlice from '~/widgets/blocks/store/blocks.slice';
+import combatSlice from '~/widgets/combat/store/combat.slice';
 import equipmentSlice from '~/widgets/equipment/store/equipment.slice';
 import mapSlice from '~/widgets/map/store/map.slice';
 import playerSlice from '~/widgets/player/store/player.slice';
 import popupsSlice from '~/widgets/popups/store/popups.slice';
+import screenSlice from '~/widgets/screen/store/screen.slice';
 import settingsSlice from '~/widgets/settings/store/settings.slice';
 
+import { combatMiddleware } from './middlewares/combat';
 import { deathMiddleware } from './middlewares/death';
 import { effectsMiddleware } from './middlewares/effect';
 import { equipmentMiddleware } from './middlewares/equipment';
@@ -14,10 +17,12 @@ import { shopMiddleware } from './middlewares/shop';
 
 const rootReducer = combineReducers({
   blocks: blocksSlice,
+  combat: combatSlice,
   equipment: equipmentSlice,
   map: mapSlice,
   player: playerSlice,
   popups: popupsSlice,
+  screen: screenSlice,
   settings: settingsSlice,
 });
 
@@ -27,7 +32,13 @@ const preloadedState = save ? JSON.parse(save) : undefined;
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(effectsMiddleware, deathMiddleware, shopMiddleware, equipmentMiddleware),
+    getDefaultMiddleware().concat(
+      effectsMiddleware,
+      deathMiddleware,
+      shopMiddleware,
+      equipmentMiddleware,
+      combatMiddleware
+    ),
   preloadedState,
   reducer: rootReducer,
 });

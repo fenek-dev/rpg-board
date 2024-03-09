@@ -27,4 +27,29 @@ const Progress = React.forwardRef<
 ));
 Progress.displayName = ProgressPrimitive.Root.displayName;
 
-export { Progress };
+interface ProgressDisplayProps extends ProgressProps {
+  progressDelta?: number;
+}
+
+const ProgressDisplay = React.forwardRef<
+  React.ElementRef<typeof ProgressPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & ProgressDisplayProps
+>(({ children, className, indicatorClassName, max, progressDelta, value, ...props }, ref) => {
+  return (
+    <ProgressPrimitive.Root
+      className={cn('relative h-2 w-full overflow-hidden rounded-full bg-primary/20', className)}
+      max={max}
+      ref={ref}
+      value={value}
+      {...props}
+    >
+      {children}
+      <ProgressPrimitive.Indicator
+        className={cn('z-10 h-full w-full flex-1 bg-primary transition-all', indicatorClassName)}
+        style={{ transform: `translateX(-${100 - (((value! - (progressDelta || 0)) / max!) * 100 || 0)}%)` }}
+      />
+    </ProgressPrimitive.Root>
+  );
+});
+
+export { Progress, ProgressDisplay };
