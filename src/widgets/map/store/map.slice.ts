@@ -1,15 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { loadState, resetState } from '~/app/store/actions';
-import { Terrain } from '~/entities/extendable/map';
 
-import { generateGraph } from '../utils/map';
-
-const STAGE_RANGE = 3;
+import { Room, generateMap } from '../utils/map';
 
 export interface MapState {
   currentPosition: [number, number];
-  graph: Terrain[][];
+  graph: Room[][];
   height: number;
   seed: number;
   selectedCell: [number, number];
@@ -18,13 +15,13 @@ export interface MapState {
 }
 
 const initialState: MapState = {
-  currentPosition: [0, 0],
-  graph: generateGraph(0, 6, 15, 1, 1 + STAGE_RANGE),
+  currentPosition: [0, 3],
+  graph: generateMap(0, 7, 15),
   height: 15,
   seed: 0,
-  selectedCell: [0, 0],
+  selectedCell: [0, 3],
   stage: 1,
-  width: 6,
+  width: 7,
 };
 
 export const mapSlice = createSlice({
@@ -41,12 +38,13 @@ export const mapSlice = createSlice({
   reducers: {
     generateTerrain: (state, action: PayloadAction<number>) => {
       state.seed = action.payload;
-      state.graph = generateGraph(action.payload, state.width, state.height, state.stage, state.stage + STAGE_RANGE);
+      state.graph = generateMap(action.payload, state.width, state.height);
+      state.currentPosition = [0, Math.floor(state.width / 2)];
     },
     nextStage: (state) => {
       state.stage += 1;
       state.seed += 1;
-      state.graph = generateGraph(state.seed, state.width, state.height, state.stage, state.stage + STAGE_RANGE);
+      state.graph = generateMap(state.seed, state.width, state.height);
     },
     selectCell: (state, action: PayloadAction<{ x: number; y: number }>) => {
       const { x, y } = action.payload;

@@ -35,37 +35,34 @@ export const MapScreen = React.memo(() => {
   );
 
   return (
-    <div className="w-full overflow-scroll py-10">
+    <div className="flex w-full flex-col items-center justify-center overflow-scroll py-10">
       <div className="flex gap-2">
         <Badge onClick={updateMap} variant="outline">
           Seed: {seed}
         </Badge>
       </div>
 
-      <div className="relative flex flex-col-reverse gap-4">
+      <div className="grid- relative inline-grid grid-cols-7 items-center justify-center gap-12">
         {graph.map((row, i) => {
           const disabled = Math.abs(i - currentPosition[0]) > 1 || currentPosition[0] >= i;
-          return (
-            <div className="flex justify-around gap-2" key={i}>
-              {row.map((cell, j) => {
-                const isSelected = selectedCell[0] === i && selectedCell[1] === j;
-                const isCurrentPosition = currentPosition[0] === i && currentPosition[1] === j;
-                return (
-                  <MapCell
-                    disabled={disabled && !isCurrentPosition}
-                    icon={cell.icon}
-                    isCurrentPosition={isCurrentPosition}
-                    isSelected={isSelected}
-                    key={`${i}-${j}`}
-                    onClick={onTravel}
-                    subicon={cell.subicon}
-                    x={i}
-                    y={j}
-                  />
-                );
-              })}
-            </div>
-          );
+          return row.map((room, j) => {
+            if (!room.cell) return <div />;
+            const isSelected = selectedCell[0] === i && selectedCell[1] === j;
+            const isCurrentPosition = currentPosition[0] === i && currentPosition[1] === j;
+            return (
+              <MapCell
+                disabled={disabled && !isCurrentPosition}
+                icon={room.cell.icon}
+                isCurrentPosition={isCurrentPosition}
+                isSelected={isSelected}
+                key={`${i}-${j}`}
+                onClick={onTravel}
+                subicon={room.cell.subicon}
+                x={i}
+                y={j}
+              />
+            );
+          });
         })}
       </div>
     </div>

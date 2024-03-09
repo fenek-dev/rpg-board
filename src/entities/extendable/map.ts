@@ -1,6 +1,7 @@
 export interface Terrain {
   chance: number;
   icon: string;
+  id: string;
   seed?: number;
   subicon?: string;
 }
