@@ -40,7 +40,7 @@ export const EntityIcon = ({ entity, id }: EntityProps) => {
       e.stopPropagation();
       const attack = window.attack;
       if (!dmg) {
-        setDmg(calculateDamage(attack, entity, attacker));
+        setDmg(calculateDamage(attack, entity, attacker, { disable_crit: true }));
       }
     }
   };
