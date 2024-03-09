@@ -10,6 +10,7 @@ interface MapCellProps {
   icon: string;
   isCurrentPosition: boolean;
   isSelected: boolean;
+  next?: string;
   onClick?: (x: number, y: number, e: React.MouseEvent<HTMLButtonElement>) => void;
   onDoubleClick?: (x: number, y: number) => void;
   subicon?: string;
@@ -18,7 +19,7 @@ interface MapCellProps {
 }
 
 export const MapCell = React.memo(
-  ({ disabled, icon, isCurrentPosition, isSelected, onClick, onDoubleClick, subicon, x, y }: MapCellProps) => {
+  ({ disabled, icon, isCurrentPosition, isSelected, next, onClick, onDoubleClick, subicon, x, y }: MapCellProps) => {
     const inCombat = useSelector((state: RootState) => state.combat.started);
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,9 +36,11 @@ export const MapCell = React.memo(
           'border-primary': isSelected,
           ping: !isCurrentPosition && !disabled,
         })}
+        data-grid={next}
         disabled={disabled || inCombat}
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}
+        role="gridcell"
         size="slot"
         variant="outline"
       >

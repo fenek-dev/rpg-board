@@ -62,7 +62,7 @@ export const generateMap = (seed: number, w: number, h: number) => {
   end[Math.floor(end.length / 2)] = { cell: TERRAIN_CELLS.Boss, next: [] };
   table.push(end);
   table[h].forEach((room) => {
-    if (room.next.length > 0) room.next = [0];
+    if (room.next.length > 0) room.next = [Math.floor(end.length / 2)];
   });
 
   const modifiedTable = table.map((layer) => layer.map((room) => ({ ...room, next: Array.from(room.next) })));

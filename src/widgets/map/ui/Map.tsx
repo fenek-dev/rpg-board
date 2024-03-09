@@ -7,12 +7,15 @@ import { Badge } from '~/shared/components/ui/badge';
 import { startCombat } from '~/widgets/combat/store/combat.slice';
 import { changeCurrentScreen } from '~/widgets/screen/store/screen.slice';
 
+import { useMapPaths } from '../hooks/useMapPaths';
 import { generateTerrain, selectCell, travelTo } from '../store/map.slice';
 import { MapCell } from './MapCell';
 
 export const MapScreen = React.memo(() => {
   const dispatch = useDispatch();
-  const { currentPosition, graph, seed, selectedCell } = useSelector((state: RootState) => state.map);
+  const { currentPosition, graph, seed, selectedCell, width } = useSelector((state: RootState) => state.map);
+
+  const { gridRef, svgRef } = useMapPaths(width, seed);
 
   const updateMap = () => {
     dispatch(generateTerrain(random(0, 100000)));
@@ -35,18 +38,25 @@ export const MapScreen = React.memo(() => {
   );
 
   return (
-    <div className="flex w-full flex-col items-center justify-center overflow-scroll py-10">
+    <div className="relative my-10 flex w-full flex-col items-center justify-center overflow-scroll">
       <div className="flex gap-2">
         <Badge onClick={updateMap} variant="outline">
           Seed: {seed}
         </Badge>
       </div>
 
-      <div className="grid- relative inline-grid grid-cols-7 items-center justify-center gap-12">
+      <div className="grid- relative inline-grid grid-cols-7 items-center justify-center gap-12" ref={gridRef}>
+        <svg className="absolute -z-50" height="100%" ref={svgRef} width="100%">
+          <defs>
+            <marker id="head" markerHeight="4" markerWidth="3" orient="auto" refX="0.1" refY="2">
+              <path d="M0,0 V4 L2,2 Z" fill="black" />
+            </marker>
+          </defs>
+        </svg>
         {graph.map((row, i) => {
           const disabled = Math.abs(i - currentPosition[0]) > 1 || currentPosition[0] >= i;
           return row.map((room, j) => {
-            if (!room.cell) return <div />;
+            if (!room.cell) return <div role="gridcell" />;
             const isSelected = selectedCell[0] === i && selectedCell[1] === j;
             const isCurrentPosition = currentPosition[0] === i && currentPosition[1] === j;
             return (
@@ -56,6 +66,7 @@ export const MapScreen = React.memo(() => {
                 isCurrentPosition={isCurrentPosition}
                 isSelected={isSelected}
                 key={`${i}-${j}`}
+                next={room.next.join(',')}
                 onClick={onTravel}
                 subicon={room.cell.subicon}
                 x={i}
