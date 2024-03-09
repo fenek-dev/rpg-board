@@ -14,10 +14,17 @@ export const FIRST_STAGE_ENEMIES: StageEnemy[] = [
 export const FIRST_STAGE_ELITES: StageEnemy[] = [
   {
     chance: 20,
-    keys: ['dragon'],
+    keys: ['orc'],
   },
   {
     chance: 10,
     keys: ['troll'],
+  },
+];
+
+export const FIRST_STAGE_BOSSES: StageEnemy[] = [
+  {
+    chance: 100,
+    keys: ['dragon'],
   },
 ];
