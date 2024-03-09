@@ -1,10 +1,6 @@
 export interface Terrain {
   chance: number;
-  dangerLevel: number;
-  description: string;
   icon: string;
-  id: string;
-  name: string;
   seed?: number;
   subicon?: string;
 }
