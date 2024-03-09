@@ -11,9 +11,9 @@ import { Attack } from './entities/extendable/attacks';
 import { Block } from './widgets/blocks/store';
 declare global {
   interface Window {
-    attack: Attack;
-    dragId: string;
-    dragging: Block;
+    attack?: Attack;
+    dragId?: string;
+    dragging?: Block;
   }
 }
 

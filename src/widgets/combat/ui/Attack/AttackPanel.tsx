@@ -27,6 +27,7 @@ export const AttackPanel = () => {
 
   const onDragEnd = (event: React.DragEvent<HTMLElement>) => {
     event.currentTarget.classList.remove('opacity-60');
+    window.attack = undefined;
   };
 
   return (

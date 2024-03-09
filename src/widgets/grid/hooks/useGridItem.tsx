@@ -22,6 +22,8 @@ export const useGridItem = (block: Block, id: string) => {
   const onDragEnd = (event: React.DragEvent<HTMLElement>) => {
     isDragging.current = false;
     event.currentTarget.classList.remove('opacity-60');
+    window.dragging = undefined;
+    window.dragId = undefined;
   };
 
   const style: React.CSSProperties = useMemo(
