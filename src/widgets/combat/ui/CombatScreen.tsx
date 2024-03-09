@@ -68,3 +68,5 @@ export const CombatScreen = () => {
     </div>
   );
 };
+
+export default CombatScreen;

@@ -88,3 +88,5 @@ export const MapScreen = React.memo(() => {
     </div>
   );
 });
+
+export default MapScreen;
