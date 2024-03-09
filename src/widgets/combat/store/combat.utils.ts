@@ -3,8 +3,7 @@ import { random, range } from 'lodash-es';
 import { ENEMIES } from '~/entities/combat/enemies';
 import { EntityBelongs } from '~/entities/extendable/entity';
 import { Stages } from '~/entities/extendable/map';
-import { StageEnemy } from '~/entities/extendable/stage';
-import { STAGES } from '~/entities/stage/stages';
+import { getEnemiesByType } from '~/entities/stage/stages';
 import { getItemByChance, mulberry32 } from '~/shared/utils/random';
 
 import { CombatEntity, CombatTypes } from './combat.types';
@@ -17,19 +16,8 @@ export const getNextAttacks = (entity: CombatEntity) => {
 
 export const getEnemiesByStageAndType = (stageName: Stages, type: CombatTypes, seed: number) => {
   const prng = mulberry32(seed);
-  const stage = STAGES[stageName];
 
-  let enemies: StageEnemy[] = [];
-
-  if (type === 'boss') {
-    enemies = stage.enemies;
-  }
-  if (type === 'elite') {
-    enemies = stage.elite;
-  }
-  if (type === 'combat') {
-    enemies = stage.enemies;
-  }
+  const enemies = getEnemiesByType(stageName, type);
 
   const keys = getItemByChance(prng(), enemies).keys;
 

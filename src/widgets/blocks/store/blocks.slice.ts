@@ -78,23 +78,22 @@ export const blocksSlice = createSlice({
     },
     fitBlocksIntoContainer: (
       state,
-      action: PayloadAction<{ blocks: Block[]; container_id: string; sizes: { h: number; w: number } }>
+      action: PayloadAction<{ blocks: Record<string, Block>; container_id: string; sizes: { h: number; w: number } }>
     ) => {
       const { blocks, container_id, sizes } = action.payload;
 
-      blocks.forEach((b) => {
+      Object.entries(blocks).forEach(([id, b]) => {
         const containerBlocks = Object.values(state.blocks).filter((block) => block.belong === container_id);
         const position = findFreePlace(containerBlocks, sizes, b);
 
         if (position.length === 0) return;
-
         const block = cloneDeep(b);
 
         block.x = position[0];
         block.y = position[1];
         block.belong = container_id;
 
-        set(state.blocks, block.id, block);
+        set(state.blocks, id, block);
       });
     },
     putBlockInsideContainer: (

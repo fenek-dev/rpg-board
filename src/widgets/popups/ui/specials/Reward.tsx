@@ -24,7 +24,7 @@ export const Reward = ({ id }: RewardProps) => {
   const onPutAllInInventory = () => {
     dispatch(
       fitBlocksIntoContainer({
-        blocks: Object.values(blocks),
+        blocks: blocks,
         container_id: BASIC_POPUPS.Inventory.container_id,
         sizes: BASIC_POPUPS.Inventory,
       })
