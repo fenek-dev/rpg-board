@@ -81,7 +81,6 @@ export const blocksSlice = createSlice({
       action: PayloadAction<{ blocks: Block[]; container_id: string; sizes: { h: number; w: number } }>
     ) => {
       const { blocks, container_id, sizes } = action.payload;
-      console.log(blocks);
 
       blocks.forEach((block) => {
         const containerBlocks = Object.values(state.blocks).filter((block) => block.belong === container_id);
@@ -92,7 +91,6 @@ export const blocksSlice = createSlice({
         block.x = position[0];
         block.y = position[1];
         block.belong = container_id;
-        console.log(block);
 
         set(state.blocks, block.id, block);
       });

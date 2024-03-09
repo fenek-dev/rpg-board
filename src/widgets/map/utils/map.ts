@@ -35,7 +35,9 @@ export const generateMap = (seed: number, w: number, h: number) => {
 
   const table = range(h).map(() => range(w).map(() => ({ next: [] })) as Room[]);
 
-  range(w - 1).forEach(() => {
+  const rng = Math.floor(prng() * (w - 3)) + 3;
+
+  range(rng).forEach(() => {
     let currentRoomIndex = Math.floor(prng() * w);
 
     range(h).forEach((layer) => {
@@ -44,7 +46,10 @@ export const generateMap = (seed: number, w: number, h: number) => {
       if (nextRoomIndex < 0) nextRoomIndex = 0;
       if (nextRoomIndex >= w) nextRoomIndex = w - 1;
 
-      if (table[layer][currentRoomIndex].next.includes(nextRoomIndex)) return;
+      if (table[layer][currentRoomIndex].next.includes(nextRoomIndex)) {
+        currentRoomIndex = nextRoomIndex;
+        return;
+      }
       table[layer][currentRoomIndex].next.push(nextRoomIndex);
       table[layer][currentRoomIndex].cell = getTerrainFromNoiseValue(prng());
       currentRoomIndex = nextRoomIndex;

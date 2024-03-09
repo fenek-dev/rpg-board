@@ -41,9 +41,8 @@ export const useMapPaths = (w: number, seed: number) => {
                 path.setAttribute('x2', String(nextRoomRect.x + nextRoomRect.width / 2 - gridRect.x));
                 path.setAttribute('y2', String(nextRoomRect.y + nextRoomRect.height / 2 - gridRect.y));
                 path.setAttribute('stroke', 'hsl(var(--input))');
-                path.setAttribute('stroke-dasharray', '5,5');
-                path.setAttribute('marker-end', 'url(#head)');
-                path.setAttribute('stroke-width', '2');
+                path.setAttribute('stroke-dasharray', '10,10');
+                path.setAttribute('stroke-width', '4');
                 svg.appendChild(path);
               }
             });

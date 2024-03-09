@@ -42,6 +42,9 @@ export const MapCell = React.memo(
         onDoubleClick={handleDoubleClick}
         role="gridcell"
         size="slot"
+        style={{
+          transform: `translate(${Math.random() * 70}%, ${Math.random() * 70}%)`,
+        }}
         variant="outline"
       >
         {subicon && <span className="absolute right-1 top-1 text-xs leading-none">{subicon}</span>}
