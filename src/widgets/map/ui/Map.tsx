@@ -3,6 +3,8 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
+import { TERRAIN_CELLS } from '~/entities/map/terrain';
+import { getCombatTypeFromTerrain } from '~/entities/stage/stages';
 import { Badge } from '~/shared/components/ui/badge';
 import { startCombat } from '~/widgets/combat/store/combat.slice';
 import { changeCurrentScreen } from '~/widgets/screen/store/screen.slice';
@@ -21,18 +23,24 @@ export const MapScreen = React.memo(() => {
     dispatch(generateTerrain(random(0, 100000)));
   };
 
-  const onTravel = useCallback((x: number, y: number) => {
-    if (currentPosition[0] === x && currentPosition[1] === y) return;
-    dispatch(
-      travelTo({
-        x,
-        y,
-      })
-    );
-    dispatch(startCombat({ seed: graph[x][y].cell!.seed!, stage }));
-    dispatch(changeCurrentScreen('combat'));
-    dispatch(selectCell({ x, y }));
-  }, currentPosition);
+  const onTravel = useCallback(
+    (x: number, y: number) => {
+      if (currentPosition[0] === x && currentPosition[1] === y) return;
+      const item = graph[x][y];
+      dispatch(
+        travelTo({
+          x,
+          y,
+        })
+      );
+      if ([TERRAIN_CELLS.Boss.id, TERRAIN_CELLS.Elite.id, TERRAIN_CELLS.Fight.id].includes(item.cell!.id!)) {
+        dispatch(startCombat({ seed: item.cell!.seed!, stage, type: getCombatTypeFromTerrain(item.cell!) }));
+        dispatch(changeCurrentScreen('combat'));
+      }
+      dispatch(selectCell({ x, y }));
+    },
+    [currentPosition[0], currentPosition[1], seed]
+  );
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-scroll py-10">

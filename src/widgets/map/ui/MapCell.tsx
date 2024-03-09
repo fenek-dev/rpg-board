@@ -37,9 +37,6 @@ export const MapCell = React.memo(
         onClick={handleClick}
         role="gridcell"
         size="slot"
-        style={{
-          transform: `translate(${Math.random() * 100}%, ${Math.random() * 100}%)`,
-        }}
         variant="outline"
       >
         {subicon && <span className="absolute right-1 top-1 text-xs leading-none">{subicon}</span>}

@@ -2,12 +2,28 @@ import { random } from 'lodash-es';
 
 import { Item } from '~/entities/extendable/items';
 import { Loot } from '~/entities/extendable/loot';
+import { Stages } from '~/entities/extendable/map';
 import { ITEMS } from '~/entities/items';
+import { STAGES } from '~/entities/stage/stages';
 import { mulberry32 } from '~/shared/utils/random';
 import { Block } from '~/widgets/blocks/store';
 
-export const generateLoot = (loot: Loot[], belongs: string, seed?: number): Block[] => {
+import { CombatTypes } from '../store/combat.types';
+
+export const generateLoot = (stage: Stages, belongs: string, type: CombatTypes, seed?: number): Block[] => {
   const prng = mulberry32(seed || random(0, Math.pow(2, 32)));
+  let loot: Loot[] = [];
+
+  if (type === 'boss') {
+    loot = STAGES[stage].loot;
+  }
+  if (type === 'elite') {
+    loot = STAGES[stage].elite_loot;
+  }
+  if (type === 'combat') {
+    loot = STAGES[stage].loot;
+  }
+
   const sum = loot.reduce((p, t) => p + t.chance, 0);
 
   return loot

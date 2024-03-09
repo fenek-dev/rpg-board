@@ -7,3 +7,5 @@ export interface CombatEntity extends Entity {
   belongs: EntityBelongs;
   nextAttacks?: Attack[];
 }
+
+export type CombatTypes = 'boss' | 'combat' | 'elite';

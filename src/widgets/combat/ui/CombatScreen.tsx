@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '~/app/store';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { EntityBelongs } from '~/entities/extendable/entity';
-import { FIRST_STAGE } from '~/entities/stage/first';
 import { fitBlocksIntoContainer } from '~/widgets/blocks/store';
 import { selectCurrentTerrain } from '~/widgets/map/store/map.selectors';
 import { addPopup } from '~/widgets/popups/store/popups.slice';
@@ -19,6 +18,8 @@ export const CombatScreen = () => {
   const dispatch = useDispatch();
 
   const current = useSelector((state: RootState) => state.combat.current);
+  const type = useSelector((state: RootState) => state.combat.type);
+  const stage = useSelector((state: RootState) => state.map.stage);
   const room = useSelector(selectCurrentTerrain);
   const combat_status = useSelector(selectCombatStatus);
   const { entity } = useSelector(selectCurrentEntity);
@@ -49,7 +50,7 @@ export const CombatScreen = () => {
       );
       dispatch(
         fitBlocksIntoContainer({
-          blocks: generateLoot(FIRST_STAGE.loot, BASIC_POPUPS.Reward.container_id, room.cell!.seed),
+          blocks: generateLoot(stage, BASIC_POPUPS.Reward.container_id, type, room.cell!.seed),
           container_id: BASIC_POPUPS.Reward.container_id,
           sizes: BASIC_POPUPS.Reward,
         })

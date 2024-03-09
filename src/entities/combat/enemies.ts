@@ -1,8 +1,9 @@
 import { asEntities } from '../extendable/entity';
+import { ATTACKS } from './attacks';
 
 export const ENEMIES = asEntities({
   dragon: {
-    attacks: [],
+    attacks: [ATTACKS.Punch, ATTACKS.BasicAttack],
     icon: '🐉',
     id: 'dragon',
     name: 'Dragon',
@@ -38,7 +39,7 @@ export const ENEMIES = asEntities({
     },
   },
   goblin: {
-    attacks: [],
+    attacks: [ATTACKS.Punch, ATTACKS.BasicAttack],
     icon: '👺',
     id: 'goblin',
     name: 'Goblin',
@@ -59,9 +60,9 @@ export const ENEMIES = asEntities({
       energy: 10,
       energy_regen: 1,
       healing_bonus: 0,
-      hp: 500,
+      hp: 20,
       max_energy: 10,
-      max_hp: 500,
+      max_hp: 20,
       reaction_bonus: 0,
       resistances: {
         fire: 0,
@@ -74,7 +75,7 @@ export const ENEMIES = asEntities({
     },
   },
   orc: {
-    attacks: [],
+    attacks: [ATTACKS.Punch, ATTACKS.BasicAttack],
     icon: '👹',
     id: 'orc',
     name: 'Orc',
@@ -110,7 +111,7 @@ export const ENEMIES = asEntities({
     },
   },
   troll: {
-    attacks: [],
+    attacks: [ATTACKS.Punch, ATTACKS.BasicAttack],
     icon: '👿',
     id: 'troll',
     name: 'Troll',

@@ -3,14 +3,13 @@ import { get, set, shuffle, unset } from 'lodash-es';
 
 import { loadState, resetState } from '~/app/store/actions';
 import { ATTACKS } from '~/entities/combat/attacks';
-import { ENEMIES } from '~/entities/combat/enemies';
 import { Attack } from '~/entities/extendable/attacks';
 import { EntityBelongs } from '~/entities/extendable/entity';
 import { Stages } from '~/entities/extendable/map';
 import { PlayerState } from '~/widgets/player/store';
 
-import { CombatEntity } from './combat.types';
-import { getNextAttacks } from './combat.utils';
+import { CombatEntity, CombatTypes } from './combat.types';
+import { getEnemiesByStageAndType, getNextAttacks } from './combat.utils';
 
 export interface CombatState {
   cooldown: Record<string, number>;
@@ -18,27 +17,16 @@ export interface CombatState {
   entities: Record<string, CombatEntity>;
   queue: string[];
   started: boolean;
+  type: CombatTypes;
 }
 
 const initialState: CombatState = {
   cooldown: {},
   current: '',
-  entities: {
-    // dragon: {
-    //   ...ENEMIES.dragon,
-    //   actions_left: ENEMIES.dragon.stats.action_amount,
-    //   attacks: [ATTACKS.Fireball, ATTACKS.LightningBolt],
-    //   belongs: EntityBelongs.ENEMY,
-    // },
-    troll: {
-      ...ENEMIES.troll,
-      actions_left: ENEMIES.troll.stats.action_amount,
-      attacks: [ATTACKS.Punch, ATTACKS.BasicAttack],
-      belongs: EntityBelongs.ENEMY,
-    },
-  },
+  entities: {},
   queue: [],
   started: false,
+  type: 'combat',
 };
 
 export const combatSlice = createSlice({
@@ -69,7 +57,6 @@ export const combatSlice = createSlice({
         id: 'player',
         name: 'Player',
       };
-      combatSlice.caseReducers.formQueue(state);
     },
     castAttack: (state, action: PayloadAction<{ attack: string; enemy: string }>) => {
       const attacker_id = state.current;
@@ -130,13 +117,22 @@ export const combatSlice = createSlice({
       const next = state.queue[(index + 1) % state.queue.length];
       state.current = next;
     },
-    startCombat: (state, action: PayloadAction<{ seed: number; stage: Stages }>) => {
+    startCombat: (state, action: PayloadAction<{ seed: number; stage: Stages; type: CombatTypes }>) => {
       state.started = true;
+      state.cooldown = {};
+      state.type = action.payload.type;
+      getEnemiesByStageAndType(action.payload.stage, action.payload.type, action.payload.seed).forEach((enemy) => {
+        const id = crypto.randomUUID();
+        state.entities[id] = enemy;
+      });
+
       Object.entries(state.entities).forEach(([key, entity]) => {
         if (entity.belongs === EntityBelongs.ENEMY) {
           state.entities[key].nextAttacks = getNextAttacks(entity);
         }
       });
+
+      combatSlice.caseReducers.formQueue(state);
     },
   },
 });
