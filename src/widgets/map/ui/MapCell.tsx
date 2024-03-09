@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
 import { Button } from '~/shared/components/ui/button';
 import { cn } from '~/shared/utils';
+import { mulberry32 } from '~/shared/utils/random';
 
 interface MapCellProps {
   disabled: boolean;
@@ -26,6 +27,8 @@ export const MapCell = React.memo(
       },
       [onClick, x, y]
     );
+
+    const prng = useMemo(() => mulberry32(parseInt(`${x}${y}`))(), [x, y]);
     return (
       <Button
         className={cn('relative text-2xl', {
@@ -37,6 +40,9 @@ export const MapCell = React.memo(
         onClick={handleClick}
         role="gridcell"
         size="slot"
+        style={{
+          transform: `translate(${prng * 75}%, ${prng * 75}%)`,
+        }}
         variant="outline"
       >
         {subicon && <span className="absolute right-1 top-1 text-xs leading-none">{subicon}</span>}
