@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '~/app/store';
-import { FIRST_STAGE_LOOT } from '~/entities/combat/loot/first';
 import BASIC_POPUPS from '~/entities/constant/popup';
 import { EntityBelongs } from '~/entities/extendable/entity';
+import { FIRST_STAGE } from '~/entities/stage/first';
 import { fitBlocksIntoContainer } from '~/widgets/blocks/store';
 import { selectCurrentTerrain } from '~/widgets/map/store/map.selectors';
 import { addPopup } from '~/widgets/popups/store/popups.slice';
@@ -49,7 +49,7 @@ export const CombatScreen = () => {
       );
       dispatch(
         fitBlocksIntoContainer({
-          blocks: generateLoot(FIRST_STAGE_LOOT, BASIC_POPUPS.Reward.container_id, room.cell!.seed),
+          blocks: generateLoot(FIRST_STAGE.loot, BASIC_POPUPS.Reward.container_id, room.cell!.seed),
           container_id: BASIC_POPUPS.Reward.container_id,
           sizes: BASIC_POPUPS.Reward,
         })

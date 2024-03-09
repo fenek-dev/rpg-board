@@ -13,7 +13,7 @@ import { MapCell } from './MapCell';
 
 export const MapScreen = React.memo(() => {
   const dispatch = useDispatch();
-  const { currentPosition, graph, seed, selectedCell, width } = useSelector((state: RootState) => state.map);
+  const { currentPosition, graph, seed, selectedCell, stage, width } = useSelector((state: RootState) => state.map);
 
   const { gridRef, svgRef } = useMapPaths(width, seed);
 
@@ -29,7 +29,7 @@ export const MapScreen = React.memo(() => {
         y,
       })
     );
-    dispatch(startCombat());
+    dispatch(startCombat({ seed: graph[x][y].cell!.seed!, stage }));
     dispatch(changeCurrentScreen('combat'));
     dispatch(selectCell({ x, y }));
   }, currentPosition);

@@ -6,6 +6,7 @@ import { ATTACKS } from '~/entities/combat/attacks';
 import { ENEMIES } from '~/entities/combat/enemies';
 import { Attack } from '~/entities/extendable/attacks';
 import { EntityBelongs } from '~/entities/extendable/entity';
+import { Stages } from '~/entities/extendable/map';
 import { PlayerState } from '~/widgets/player/store';
 
 import { CombatEntity } from './combat.types';
@@ -129,7 +130,7 @@ export const combatSlice = createSlice({
       const next = state.queue[(index + 1) % state.queue.length];
       state.current = next;
     },
-    startCombat: (state) => {
+    startCombat: (state, action: PayloadAction<{ seed: number; stage: Stages }>) => {
       state.started = true;
       Object.entries(state.entities).forEach(([key, entity]) => {
         if (entity.belongs === EntityBelongs.ENEMY) {

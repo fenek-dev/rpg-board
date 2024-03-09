@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { loadState, resetState } from '~/app/store/actions';
+import { Stages } from '~/entities/extendable/map';
 
 import { Room, generateMap } from '../utils/map';
 
@@ -10,7 +11,7 @@ export interface MapState {
   height: number;
   seed: number;
   selectedCell: [number, number];
-  stage: number;
+  stage: Stages;
   width: number;
 }
 
@@ -20,7 +21,7 @@ const initialState: MapState = {
   height: 15,
   seed: 0,
   selectedCell: [0, 3],
-  stage: 1,
+  stage: Stages.FIRST,
   width: 7,
 };
 
@@ -41,8 +42,8 @@ export const mapSlice = createSlice({
       state.graph = generateMap(action.payload, state.width, state.height);
       state.currentPosition = [0, Math.floor(state.width / 2)];
     },
-    nextStage: (state) => {
-      state.stage += 1;
+    nextStage: (state, action: PayloadAction<Stages>) => {
+      state.stage = action.payload;
       state.seed += 1;
       state.graph = generateMap(state.seed, state.width, state.height);
     },
